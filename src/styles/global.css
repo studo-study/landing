@@ -22,6 +22,9 @@
     --font-google-sans: "Google Sans", sans-serif;
     --font-georgia: "georgia", sans-serif;
     --font-roboto: "Roboto Mono", monospace;
+    --text-10xl: 10rem;
+    --text-15xl: 15rem;
+    --text-full: 50vw;
 }
 
 html {

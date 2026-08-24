@@ -1,4 +1,5 @@
 ---
+import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
 import '../styles/global.css';
 
@@ -13,7 +14,7 @@ interface Props {
 const {
     title,
     description = "Studo - study smarter, not harder!",
-    image = "/pfp.jpg",
+    image = "/logo.svg",
     schema,
     noindex = false,
 } = Astro.props;
@@ -23,17 +24,59 @@ const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
 const ogImage = new URL(image, Astro.site ?? Astro.url).href;
 const siteUrl = (Astro.site ?? Astro.url).origin;
+const robots = noindex ? "noindex, nofollow" : "index, follow";
 
-
+// default structured data: Organization + WebSite (with sitelinks search box)
+const defaultSchema = [
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: siteName,
+        url: siteUrl,
+        logo: new URL("/favicons/favicon-96x96.png", siteUrl).href,
+        sameAs: [
+            "https://linkedin.com/company/studo",
+            "https://github.com/studo-study",
+        ],
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: siteName,
+        url: siteUrl,
+    },
+];
+const jsonLd = schema ?? defaultSchema;
 ---
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="generator" content={Astro.generator}>
 
         <title>{fullTitle}</title>
         <meta name="description" content={description}/>
+        <meta name="robots" content={robots}/>
         <link rel="canonical" href={canonical}/>
+        <meta name="theme-color" content="#34d399"/>
+
+        {/* Open Graph */}
+        <meta property="og:type" content="website"/>
+        <meta property="og:site_name" content={siteName}/>
+        <meta property="og:locale" content="en"/>
+        <meta property="og:title" content={fullTitle}/>
+        <meta property="og:description" content={description}/>
+        <meta property="og:url" content={canonical}/>
+        <meta property="og:image" content={ogImage}/>
+        <meta property="og:image:alt" content={`${siteName} — ${title}`}/>
+
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:title" content={fullTitle}/>
+        <meta name="twitter:description" content={description}/>
+        <meta name="twitter:image" content={ogImage}/>
+
+        <link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/>
 
         <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96" />
         <link rel="icon" type="image/svg+xml" href="/favicons/favicon.svg" />
@@ -41,14 +84,14 @@ const siteUrl = (Astro.site ?? Astro.url).origin;
         <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-title" content="Studo" />
         <link rel="manifest" href="/favicons/site.webmanifest" />
-        <link rel="stylesheet" href="/src/styles/global.css" />
-        {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     </head>
-    <body class="min-w-screen min-h-screen flex scroll-hidden">
+    <body class="min-w-screen min-h-screen flex flex-col scroll-hidden">
         <Header/>
         <div class="relative page-content min-w-0 flex-1 min-h-0 flex flex-col items-center justify-center scroll-hidden">
             <slot/>
         </div>
+        <Footer/>
         <script>
             import Lenis from 'lenis';
 
