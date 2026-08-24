@@ -1,0 +1,24 @@
+---
+import Equal from "@lucide/astro/icons/equal";
+import LogoIcon from "../icons/Logo.tsx";
+---
+<div class="z-999 w-screen h-fit absolute">
+    <div class="w-screen h-fit min-h-15 max-h-50 relative p-5 flex flex-row items-center justify-between">
+        <button class="px-5 py-2 rounded-full hover:bg-neutral-100 transition-colors duration-300 border border-neutral-200 cursor-pointer">
+            <Equal/>
+        </button>
+        <a href="/#top"
+           class="absolute h-fit left-1/2 -translate-x-1/2 text-emerald-400 hover:text-emerald-600 transition-colors duration-500">
+            <LogoIcon client:load size={40}/>
+        </a>
+        <nav class="flex-row gap-3 items-center hidden">
+            <a href="" class="filled-button">
+                Login
+            </a>
+            <a href="" class="default-button">
+                Register
+            </a>
+        </nav>
+
+    </div>
+</div>
