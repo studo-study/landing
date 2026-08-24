@@ -1,7 +1,7 @@
 ---
 import ArrowRight from "@lucide/astro/icons/arrow-right";
 import HeroCard from "./HeroCard.astro";
-import {Diamond, Minus} from "@lucide/astro/icons/index";
+import {Triangle} from "@lucide/astro/icons/index";
 
 const cards = [
     {
@@ -102,7 +102,10 @@ const cards = [
 
 
     </div>
-    <Minus class="absolute bottom-5 left-1/2 -translate-1/2 opacity-75"/>
+    <span class="absolute bottom-5 left-1/2 -translate-1/2  flex flex-row gap-2 items-center text-xs font-medium">
+        <Triangle class="opacity-75 fill-black outline-none rotate-180 stroke-none" size={8}/>
+        learn more
+    </span>
 
 </div>
 <div class="fixed top-0 right-0 h-screen w-40 bg-linear-90 from-transparent to-white z-100 pointer-events-none"/>
