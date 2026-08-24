@@ -78,7 +78,6 @@ html.lenis body {
 }
 
 @keyframes hero-orbit {
-    /* top: lichte tilt */
     0% {
         transform:
                 translate(-50%, -50%)
@@ -86,7 +85,6 @@ html.lenis body {
                 translateY(calc(-1 * var(--hero-radius, 220px)))
                 rotate(var(--hero-tilt, 12deg));
     }
-    /* rechts (verborgen), overgang */
     25% {
         transform:
                 translate(-50%, -50%)
@@ -94,7 +92,6 @@ html.lenis body {
                 translateY(calc(-1 * var(--hero-radius, 220px)))
                 rotate(-90deg);
     }
-    /* onder: omgekeerde tilt */
     50% {
         transform:
                 translate(-50%, -50%)
@@ -102,7 +99,6 @@ html.lenis body {
                 translateY(calc(-1 * var(--hero-radius, 220px)))
                 rotate(calc(-180deg - var(--hero-tilt, 12deg)));
     }
-    /* links = centraal in pagina: recht */
     75% {
         transform:
                 translate(-50%, -50%)
@@ -110,7 +106,6 @@ html.lenis body {
                 translateY(calc(-1 * var(--hero-radius, 220px)))
                 rotate(-270deg);
     }
-    /* terug naar top */
     100% {
         transform:
                 translate(-50%, -50%)
@@ -130,9 +125,6 @@ html, .scroll-hidden {
     display: none;
 }
 
-/* --scroll-p (0..1) wordt via JS gezet op basis van scrollpositie */
-
-/* hero verkleint + fade uit tijdens naar beneden scrollen */
 .hero-scene {
     transform-origin: center 35%;
     opacity: calc(1 - var(--scroll-p, 0));
@@ -140,7 +132,6 @@ html, .scroll-hidden {
     will-change: opacity, transform;
 }
 
-/* header CTA's faden in als hero bijna uit beeld is (na 60%) */
 .header-cta {
     opacity: clamp(0, (var(--scroll-p, 0) - 0.6) * 3, 1);
     will-change: opacity;
