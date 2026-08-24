@@ -1,6 +1,7 @@
 ---
 import Footer from '../components/layout/Footer.astro';
 import Header from '../components/layout/Header.astro';
+import { ClientRouter } from 'astro:transitions';
 import '../styles/global.css';
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
     image?: string;
     schema?: object;
     noindex?: boolean;
+    /** header CTA (Login/Register) fades in op scroll i.p.v. altijd zichtbaar */
+    fadeHeaderCta?: boolean;
 }
 
 const {
@@ -17,6 +20,7 @@ const {
     image = "/logo.svg",
     schema,
     noindex = false,
+    fadeHeaderCta = false,
 } = Astro.props;
 
 const siteName = "Studo";
@@ -26,7 +30,7 @@ const ogImage = new URL(image, Astro.site ?? Astro.url).href;
 const siteUrl = (Astro.site ?? Astro.url).origin;
 const robots = noindex ? "noindex, nofollow" : "index, follow";
 
-// default structured data: Organization + WebSite (with sitelinks search box)
+
 const defaultSchema = [
     {
         "@context": "https://schema.org",
@@ -85,10 +89,11 @@ const jsonLd = schema ?? defaultSchema;
         <meta name="apple-mobile-web-app-title" content="Studo" />
         <link rel="manifest" href="/favicons/site.webmanifest" />
         <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+        <ClientRouter />
     </head>
     <body class="min-w-screen min-h-screen flex flex-col scroll-hidden">
-        <Header/>
-        <div class="relative page-content min-w-0 flex-1 min-h-0 flex flex-col items-center justify-center scroll-hidden">
+        <Header hidden={fadeHeaderCta}/>
+        <div class="relative page-content min-w-0 flex-1 min-h-0 flex flex-col items-center justify-center scroll-hidden" transition:animate="fade">
             <slot/>
         </div>
         <Footer/>
@@ -107,6 +112,12 @@ const jsonLd = schema ?? defaultSchema;
             }
             lenis.on('scroll', ({ scroll }: { scroll: number }) => setProgress(scroll));
             setProgress(window.scrollY);
+
+            // reset scroll + progress na een view-transition
+            document.addEventListener('astro:after-swap', () => {
+                lenis.scrollTo(0, { immediate: true });
+                setProgress(0);
+            });
 
             function raf(time: number) {
                 lenis.raf(time);

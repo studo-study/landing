@@ -212,21 +212,31 @@ let linkIndex = 0;
 </style>
 
 <script>
-    const menu = document.getElementById("nav-menu");
-    const toggle = menu?.querySelector<HTMLButtonElement>(".nav-toggle");
+    // bind toggle op elke (view-transition) navigatie — element is telkens nieuw
+    function initNav() {
+        const menu = document.getElementById("nav-menu");
+        const toggle = menu?.querySelector<HTMLButtonElement>(".nav-toggle");
+        if (!toggle || toggle.dataset.bound) return; // guard dubbel-bind (persist)
+        toggle.dataset.bound = "1";
+        toggle.addEventListener("click", () => {
+            const open = menu!.dataset.open === "true";
+            menu!.dataset.open = String(!open);
+            toggle.setAttribute("aria-expanded", String(!open));
+        });
+    }
+    document.addEventListener("astro:page-load", initNav);
 
-    toggle?.addEventListener("click", () => {
-        const open = menu!.dataset.open === "true";
-        menu!.dataset.open = String(!open);
-        toggle.setAttribute("aria-expanded", String(!open));
-    });
-
-    // close when clicking outside
-    document.addEventListener("click", (e) => {
-        if (!menu || menu.dataset.open !== "true") return;
-        if (!menu.contains(e.target as Node)) {
-            menu.dataset.open = "false";
-            toggle?.setAttribute("aria-expanded", "false");
-        }
-    });
+    // outside-click: één keer, re-queryt menu telkens
+    if (!(window as any).__navOutside) {
+        (window as any).__navOutside = true;
+        document.addEventListener("click", (e) => {
+            const menu = document.getElementById("nav-menu");
+            const toggle = menu?.querySelector<HTMLButtonElement>(".nav-toggle");
+            if (!menu || menu.dataset.open !== "true") return;
+            if (!menu.contains(e.target as Node)) {
+                menu.dataset.open = "false";
+                toggle?.setAttribute("aria-expanded", "false");
+            }
+        });
+    }
 </script>

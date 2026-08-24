@@ -1,8 +1,13 @@
 ---
 import LogoIcon from "../icons/Logo.astro";
 import NavigationMenu from "./NavigationMenu.astro";
+interface Props {
+    hidden?: boolean;
+}
+
+const {hidden = false} = Astro.props;
 ---
-<header class="fixed z-999 w-screen h-fit">
+<header class="z-999 fixed w-screen h-fit">
     <div class="w-screen h-fit min-h-15 max-h-50 relative p-5 flex flex-row items-center justify-end">
         <NavigationMenu />
         <a href="/#top"
@@ -11,11 +16,11 @@ import NavigationMenu from "./NavigationMenu.astro";
             <LogoIcon size={40}/>
             <span class="whitespace-nowrap overflow-hidden max-w-0 opacity-0 -translate-x-4 group-hover:max-w-40 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">Studo</span>
         </a>
-        <nav class="header-cta flex flex-row gap-3 items-center">
-            <a href="" class="filled-button">
+        <nav class:list={["flex flex-row gap-3 items-center", { "header-cta": hidden }]}>
+            <a href="https://www.spaces.studo.study/login" class="filled-button">
                 Login
             </a>
-            <a href="" class="default-button">
+            <a href="https://www.spaces.studo.study/register" class="default-button">
                 Register
             </a>
         </nav>
