@@ -1,0 +1,24 @@
+---
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import RootLayout from "../layouts/RootLayout.astro";
+
+
+---
+<RootLayout title="Page not found">
+    <div class="w-screen h-screen flex items-center justify-center relative overflow-hidden">
+        <h3 class="absolute opacity-3 text-full min-w-fit font-semibold">
+            404
+        </h3>
+        <div class="absolute z-20 flex flex-col items-center justify-center gap-5 text-7xl">
+            <h1 class="font-medium">Page Not Found</h1>
+            <div class="flex flex-col gap-3 text-center mb-5 text-neutral-700">
+                <p class="text-xl">This page may have moved, or the path never existed.</p>
+                <p class="text-xl">Let’s get you back somewhere familiar.</p>
+            </div>
+            <div class="flex flex-row gap-5">
+                <a href="/" class="filled-button text-lg">back to home</a>
+                <a href="/contact" class="default-button text-lg">get in touch <ArrowRight/></a>
+            </div>
+        </div>
+    </div>
+</RootLayout>
