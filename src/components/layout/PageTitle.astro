@@ -1,0 +1,18 @@
+---
+interface Props {
+    title: string;
+    description: string;
+    label: string;
+}
+
+const {
+    title,
+    description,
+    label
+} = Astro.props;
+---
+
+
+<h3 class="max-w-fit text-xs text-neutral-500 uppercase tracking-wider mb-3">{label}</h3>
+<h1 class="text-5xl font-medium mb-5">{title}</h1>
+<h2 class="text-lg text-neutral-500 mb-10">{description}</h2>
