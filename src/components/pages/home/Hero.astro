@@ -1,0 +1,104 @@
+---
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import HeroCard from "./HeroCard.astro";
+
+const cards = [
+    {
+        href: "/tools/point",
+        title: "Point",
+        image: "/images/hero-pin.svg",
+        color: "from-violet-500 to-purple-400",
+        position: "rotate-27 -top-20 right-4",
+    },
+    {
+        href: "/tools/learn",
+        title: "Learn",
+        image: "/images/learn.svg",
+        color: "from-emerald-500 to-emerald-400",
+        position: "-rotate-10 top-20 right-36",
+    },
+    {
+        href: "/tools/speedy",
+        title: "Speedy",
+        image: "/images/speedy.svg",
+        color: "from-amber-500 to-orange-400",
+        position: "-rotate-24 top-1/2 -translate-y-1/2 right-48",
+    },
+    {
+        href: "/tools/flashcards",
+        title: "Flashcards",
+        image: "/images/flashcards.svg",
+        color: "from-blue-500 to-blue-400",
+        position: "-rotate-8 bottom-20 right-36",
+    },
+    {
+        href: "/tools/identify",
+        title: "Identify",
+        image: "/images/point.svg",
+        color: "from-rose-500 to-red-400",
+        position: "rotate-14 -bottom-20 right-4",
+    },
+    {
+        href: "/tools/point",
+        title: "Point",
+        image: "/images/hero-pin.svg",
+        color: "from-violet-500 to-purple-400",
+        position: "rotate-27 -top-20 right-4",
+    },
+    {
+        href: "/tools/learn",
+        title: "Learn",
+        image: "/images/learn.svg",
+        color: "from-emerald-500 to-emerald-400",
+        position: "-rotate-10 top-20 right-36",
+    },
+    {
+        href: "/tools/speedy",
+        title: "Speedy",
+        image: "/images/speedy.svg",
+        color: "from-amber-500 to-orange-400",
+        position: "-rotate-24 top-1/2 -translate-y-1/2 right-48",
+    },
+    {
+        href: "/tools/flashcards",
+        title: "Flashcards",
+        image: "/images/flashcards.svg",
+        color: "from-blue-500 to-blue-400",
+        position: "-rotate-8 bottom-20 right-36",
+    },
+    {
+        href: "/tools/identify",
+        title: "Identify",
+        image: "/images/point.svg",
+        color: "from-rose-500 to-red-400",
+        position: "rotate-14 -bottom-20 right-4",
+    },
+
+
+]
+---
+
+<div class="hero-scene w-screen h-screen relative z-0 flex items-center justify-center">
+    <div class="max-w-250 w-full flex flex-col gap-3 justify-center">
+        <h1 class="font-medium text-7xl">One space</h1>
+        <h2 class="text-5xl text-emerald-400">for everything you study</h2>
+        <p class="my-5"> From lecture slides to exam-ready.</p>
+        <div class="flex flex-row gap-3 items-center mt-5">
+            <button class="filled-button">start for free</button>
+            <button class="default-button">sign in
+                <ArrowRight size={15}/>
+            </button>
+        </div>
+    </div>
+    <div class="h-full w-40 bg-linear-90 from-transparent to-white z-100 right-0 absolute "/>
+    <div class="hero-carousel">
+        {
+            cards.map((card, i) => (
+                    <HeroCard title={card.title} href={card.href} image={card.image} color={card.color} index={i} total={cards.length}/>
+            ))
+        }
+
+
+    </div>
+
+</div>

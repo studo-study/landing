@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url("https://use.typekit.net/fus0igp.css");
+@import "tailwindcss";
+
+.google-sans {
+    font-family: "Google Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-variation-settings: "GRAD" 0;
+}
+
+
+.roboto-mono {
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+@theme {
+    --font-google-sans: "Google Sans", sans-serif;
+    --font-georgia: "georgia", sans-serif;
+    --font-roboto: "Roboto Mono", monospace;
+}
+
+html {
+    font-family: "Google Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+/* Lenis smooth scroll base */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.default-button, .filled-button {
+    @apply px-5 py-2 rounded-full transition-colors duration-300 cursor-pointer flex flex-row items-center gap-1;
+}
+
+.default-button {
+    @apply hover:bg-neutral-100 border border-neutral-200;
+}
+
+.filled-button {
+    @apply  bg-emerald-400 text-white hover:bg-emerald-500 border border-emerald-400 hover:border-emerald-500;
+}
+
+.hero-carousel {
+    --hero-radius: 550px;
+    --hero-duration: 100s;
+    --hero-tilt: 12deg;
+    position: absolute;
+    top: 40%;
+    right: 0;
+    width: 0;
+    height: 0;
+    z-index: 10;
+}
+
+.hero-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    animation: hero-orbit var(--hero-duration, 40s) linear infinite;
+    animation-delay: calc(var(--i) / var(--total) * var(--hero-duration, 40s) * -1);
+}
+
+@keyframes hero-orbit {
+    /* top: lichte tilt */
+    0% {
+        transform:
+                translate(-50%, -50%)
+                rotate(0deg)
+                translateY(calc(-1 * var(--hero-radius, 220px)))
+                rotate(var(--hero-tilt, 12deg));
+    }
+    /* rechts (verborgen), overgang */
+    25% {
+        transform:
+                translate(-50%, -50%)
+                rotate(90deg)
+                translateY(calc(-1 * var(--hero-radius, 220px)))
+                rotate(-90deg);
+    }
+    /* onder: omgekeerde tilt */
+    50% {
+        transform:
+                translate(-50%, -50%)
+                rotate(180deg)
+                translateY(calc(-1 * var(--hero-radius, 220px)))
+                rotate(calc(-180deg - var(--hero-tilt, 12deg)));
+    }
+    /* links = centraal in pagina: recht */
+    75% {
+        transform:
+                translate(-50%, -50%)
+                rotate(270deg)
+                translateY(calc(-1 * var(--hero-radius, 220px)))
+                rotate(-270deg);
+    }
+    /* terug naar top */
+    100% {
+        transform:
+                translate(-50%, -50%)
+                rotate(360deg)
+                translateY(calc(-1 * var(--hero-radius, 220px)))
+                rotate(calc(-360deg + var(--hero-tilt, 12deg)));
+    }
+}
+
+html, .scroll-hidden {
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+/* hero verkleint + fade uit tijdens naar beneden scrollen */
+.hero-scene {
+    transform-origin: center 35%;
+}
+
+@supports (animation-timeline: scroll()) {
+    .hero-scene {
+        animation: hero-exit linear forwards;
+        animation-timeline: view();
+        animation-range: exit 0% exit 100%;
+    }
+}
+
+@keyframes hero-exit {
+    to {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+}
+
+
