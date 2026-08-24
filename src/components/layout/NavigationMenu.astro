@@ -1,0 +1,232 @@
+---
+const PAGES: Array<{ title?: string; href?: string; type?: string }> = [
+    { title: "courses", href: "/courses" },
+    { title: "studymodes", href: "/studymodes" },
+    { title: "groups", href: "/courses" },
+    { title: "select", href: "/select" },
+    { type: "divide" },
+    { title: "about", href: "/about" },
+    { title: "privacy", href: "/privacy" },
+    { title: "terms of service", href: "/terms-of-service" },
+];
+
+let linkIndex = 0;
+---
+
+<div id="nav-menu" data-open="false" class="nav-menu">
+    <button
+        type="button"
+        class="nav-toggle default-button"
+        aria-expanded="false"
+        aria-controls="nav-panel"
+    >
+        <span class="nav-bars">
+            <span class="bar bar-top"></span>
+            <span class="bar bar-bottom"></span>
+        </span>
+        <span class="menu-label">menu</span>
+    </button>
+
+    <div id="nav-panel" class="nav-panel">
+        <div class="nav-panel-clip">
+            <div class="nav-list">
+                <label class="stagger-item info-label" style={`--i:0`}>info</label>
+                {
+                    PAGES.map((page) => {
+                        if (page.type === "divide") {
+                            return <hr class="nav-divider" />;
+                        }
+                        linkIndex += 1;
+                        return (
+                            <a
+                                href={page.href}
+                                class="stagger-item nav-link"
+                                style={`--i:${linkIndex}`}
+                            >
+                                {page.title}
+                            </a>
+                        );
+                    })
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ---- container ---- */
+    .nav-menu {
+        position: absolute;
+        left: 1.25rem;
+        top: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: fit-content;
+        max-width: fit-content;
+        padding: 0.5rem;
+        border: 1px solid transparent;
+        border-radius: 2rem;
+        transition:
+            border-color 0.5s ease,
+            box-shadow 0.5s ease;
+    }
+    .nav-menu[data-open="true"] {
+        cursor: pointer;
+        border-color: var(--color-neutral-200, #e5e5e5);
+        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    }
+
+    /* ---- toggle button ---- */
+    .nav-toggle {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        width: 100%;
+        min-width: fit-content;
+        cursor: pointer;
+    }
+
+    /* ---- hamburger -> X ---- */
+    .nav-bars {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        width: 1rem;
+        height: 1rem;
+    }
+    .bar {
+        width: 1rem;
+        height: 0.125rem;
+        border-radius: 9999px;
+        background: #000;
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .nav-menu[data-open="true"] .bar-top {
+        transform: translateY(0.1875rem) rotate(45deg);
+    }
+    .nav-menu[data-open="true"] .bar-bottom {
+        transform: translateY(-0.1875rem) rotate(-45deg);
+    }
+
+    /* ---- "menu" label reveal ---- */
+    .menu-label {
+        overflow: hidden;
+        max-width: 0;
+        white-space: nowrap;
+        letter-spacing: 0.1em;
+        opacity: 0;
+        transform: translateX(-1rem);
+        transition:
+            max-width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+            opacity 0.45s ease,
+            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .nav-menu[data-open="true"] .menu-label {
+        max-width: 10rem;
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    /* ---- panel: grid-rows 0fr -> 1fr = smooth auto-height ---- */
+    /* max-width 0 -> target lets the container widen instead of snapping */
+    .nav-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        max-width: 0;
+        overflow: hidden;
+        transition:
+            grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+            max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .nav-menu[data-open="true"] .nav-panel {
+        grid-template-rows: 1fr;
+        max-width: 16rem;
+    }
+    .nav-panel-clip {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    /* ---- list ---- */
+    .nav-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.75rem;
+    }
+    .info-label {
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        color: var(--color-neutral-500, #737373);
+    }
+    .nav-divider {
+        width: 100%;
+        height: 1px;
+        margin: 0.75rem 0;
+        border: none;
+        border-radius: 9999px;
+        background: var(--color-neutral-300, #d4d4d4);
+    }
+    .nav-link {
+        font-size: 1.125rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+    .nav-link:hover {
+        color: var(--color-neutral-600, #525252);
+    }
+
+    /* ---- staggered items ---- */
+    .stagger-item {
+        white-space: nowrap;
+        opacity: 0;
+        transform: translateY(-0.5rem);
+        transition:
+            opacity 0.4s ease,
+            transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        /* closing: fade fast, top-down */
+        transition-delay: calc(var(--i) * 15ms);
+    }
+    .nav-menu[data-open="true"] .stagger-item {
+        opacity: 1;
+        transform: translateY(0);
+        /* opening: cascade after panel starts expanding */
+        transition-delay: calc(120ms + var(--i) * 40ms);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .nav-menu *,
+        .nav-panel {
+            transition-duration: 0.01ms !important;
+            transition-delay: 0ms !important;
+        }
+    }
+</style>
+
+<script>
+    const menu = document.getElementById("nav-menu");
+    const toggle = menu?.querySelector<HTMLButtonElement>(".nav-toggle");
+
+    toggle?.addEventListener("click", () => {
+        const open = menu!.dataset.open === "true";
+        menu!.dataset.open = String(!open);
+        toggle.setAttribute("aria-expanded", String(!open));
+    });
+
+    // close when clicking outside
+    document.addEventListener("click", (e) => {
+        if (!menu || menu.dataset.open !== "true") return;
+        if (!menu.contains(e.target as Node)) {
+            menu.dataset.open = "false";
+            toggle?.setAttribute("aria-expanded", "false");
+        }
+    });
+</script>
