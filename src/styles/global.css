@@ -26,6 +26,22 @@
 
 html {
     font-family: "Google Sans", sans-serif;
+    overflow-x: hidden;
+}
+
+/* Lenis smooth scroll base */
+html.lenis,
+html.lenis body {
+    height: auto;
+}
+.lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+    overflow: hidden;
 }
 
 .default-button, .filled-button {
@@ -101,6 +117,36 @@ html {
                 rotate(360deg)
                 translateY(calc(-1 * var(--hero-radius, 220px)))
                 rotate(calc(-360deg + var(--hero-tilt, 12deg)));
+    }
+}
+
+html, .scroll-hidden {
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scroll-hidden::-webkit-scrollbar {
+    display: none;
+}
+
+/* hero verkleint + fade uit tijdens naar beneden scrollen */
+.hero-scene {
+    transform-origin: center 35%;
+}
+
+@supports (animation-timeline: scroll()) {
+    .hero-scene {
+        animation: hero-exit linear forwards;
+        animation-timeline: view();
+        animation-range: exit 0% exit 100%;
+    }
+}
+
+@keyframes hero-exit {
+    to {
+        opacity: 0;
+        transform: scale(0.85);
     }
 }
 

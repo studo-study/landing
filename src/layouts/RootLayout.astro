@@ -44,10 +44,24 @@ const siteUrl = (Astro.site ?? Astro.url).origin;
         <link rel="stylesheet" href="/src/styles/global.css" />
         {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}
     </head>
-    <body class="min-w-screen min-h-screen flex overflow-hidden overflow-y-auto">
+    <body class="min-w-screen min-h-screen flex scroll-hidden">
         <Header/>
-        <div class="relative page-content min-w-0 flex-1 min-h-0 flex items-center justify-center scroll-hidden">
+        <div class="relative page-content min-w-0 flex-1 min-h-0 flex flex-col items-center justify-center scroll-hidden">
             <slot/>
         </div>
+        <script>
+            import Lenis from 'lenis';
+
+            const lenis = new Lenis({
+                lerp: 0.08,
+                smoothWheel: true,
+            });
+
+            function raf(time: number) {
+                lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
+            requestAnimationFrame(raf);
+        </script>
     </body>
 </html>
