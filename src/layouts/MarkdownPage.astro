@@ -1,0 +1,32 @@
+---
+import RootLayout from "./RootLayout.astro";
+import PageTitle from "../components/layout/PageTitle.astro";
+
+interface Frontmatter {
+    title: string;
+    label: string;
+    description: string;
+    noindex?: boolean;
+}
+
+const { frontmatter } = Astro.props as { frontmatter: Frontmatter };
+---
+<RootLayout
+    title={frontmatter.title}
+    description={frontmatter.description}
+    noindex={frontmatter.noindex ?? false}
+>
+    <div class="w-screen min-h-screen flex justify-center">
+        <div class="max-w-250 w-full py-40 px-10">
+            <PageTitle
+                title={frontmatter.title}
+                label={frontmatter.label}
+                description={frontmatter.description}
+            />
+            <hr class="border-neutral-200 my-5" />
+            <article class="prose">
+                <slot />
+            </article>
+        </div>
+    </div>
+</RootLayout>
