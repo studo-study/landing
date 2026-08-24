@@ -8,10 +8,12 @@ import LogoIcon from "../icons/Logo.tsx";
             <Equal/>
         </button>
         <a href="/#top"
-           class="absolute h-fit left-1/2 -translate-x-1/2 text-emerald-400 hover:text-emerald-600 transition-colors duration-500">
+           class="absolute h-fit left-1/2 -translate-x-1/2 flex flex-row items-center gap-2 w-fit transition-all
+           font-georgia text-3xl group text-emerald-400 duration-1000">
             <LogoIcon client:load size={40}/>
+            <span class="whitespace-nowrap overflow-hidden max-w-0 opacity-0 -translate-x-4 group-hover:max-w-40 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">Studo</span>
         </a>
-        <nav class="flex-row gap-3 items-center hidden">
+        <nav class="header-cta flex flex-row gap-3 items-center">
             <a href="" class="filled-button">
                 Login
             </a>

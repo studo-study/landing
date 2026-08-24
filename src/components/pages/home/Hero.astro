@@ -1,6 +1,7 @@
 ---
 import ArrowRight from "@lucide/astro/icons/arrow-right";
 import HeroCard from "./HeroCard.astro";
+import {Diamond, Minus} from "@lucide/astro/icons/index";
 
 const cards = [
     {
@@ -78,7 +79,8 @@ const cards = [
 ]
 ---
 
-<div class="hero-scene w-screen h-screen relative z-0 flex items-center justify-center">
+<div id="top"
+     class="hero-scene w-screen h-screen relative z-0 flex items-center justify-center">
     <div class="max-w-250 w-full flex flex-col gap-3 justify-center">
         <h1 class="font-medium text-7xl">One space</h1>
         <h2 class="text-5xl text-emerald-400">for everything you study</h2>
@@ -90,15 +92,17 @@ const cards = [
             </button>
         </div>
     </div>
-    <div class="h-full w-40 bg-linear-90 from-transparent to-white z-100 right-0 absolute "/>
     <div class="hero-carousel">
         {
             cards.map((card, i) => (
-                    <HeroCard title={card.title} href={card.href} image={card.image} color={card.color} index={i} total={cards.length}/>
+                    <HeroCard title={card.title} href={card.href} image={card.image} color={card.color} index={i}
+                              total={cards.length}/>
             ))
         }
 
 
     </div>
+    <Minus class="absolute bottom-5 left-1/2 -translate-1/2 opacity-75"/>
 
 </div>
+<div class="fixed top-0 right-0 h-screen w-40 bg-linear-90 from-transparent to-white z-100 pointer-events-none"/>

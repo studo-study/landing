@@ -57,6 +57,14 @@ const siteUrl = (Astro.site ?? Astro.url).origin;
                 smoothWheel: true,
             });
 
+            const root = document.documentElement;
+            function setProgress(scroll: number) {
+                const p = Math.min(1, Math.max(0, scroll / window.innerHeight));
+                root.style.setProperty('--scroll-p', String(p));
+            }
+            lenis.on('scroll', ({ scroll }: { scroll: number }) => setProgress(scroll));
+            setProgress(window.scrollY);
+
             function raf(time: number) {
                 lenis.raf(time);
                 requestAnimationFrame(raf);

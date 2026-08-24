@@ -130,24 +130,20 @@ html, .scroll-hidden {
     display: none;
 }
 
+/* --scroll-p (0..1) wordt via JS gezet op basis van scrollpositie */
+
 /* hero verkleint + fade uit tijdens naar beneden scrollen */
 .hero-scene {
     transform-origin: center 35%;
+    opacity: calc(1 - var(--scroll-p, 0));
+    transform: scale(calc(1 - 0.15 * var(--scroll-p, 0)));
+    will-change: opacity, transform;
 }
 
-@supports (animation-timeline: scroll()) {
-    .hero-scene {
-        animation: hero-exit linear forwards;
-        animation-timeline: view();
-        animation-range: exit 0% exit 100%;
-    }
-}
-
-@keyframes hero-exit {
-    to {
-        opacity: 0;
-        transform: scale(0.85);
-    }
+/* header CTA's faden in als hero bijna uit beeld is (na 60%) */
+.header-cta {
+    opacity: clamp(0, (var(--scroll-p, 0) - 0.6) * 3, 1);
+    will-change: opacity;
 }
 
 
