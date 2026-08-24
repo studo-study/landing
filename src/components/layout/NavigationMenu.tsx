@@ -10,7 +10,7 @@ const NavigationMenu = () => {
 
     return (
         <div
-            className={` ${isOpen && "cursor-pointer border shadow-2xl"} border-neutral-200 p-2 rounded-full flex flex-col justify-center w-fit max-w-fit transition-all duration-800`}
+            className={` ${isOpen && "cursor-pointer border shadow-2xl"} absolute left-5 top-5 border-neutral-200 p-2 rounded-4xl flex flex-col justify-center w-fit max-w-fit transition-all duration-800`}
         >
             <button
                 type="button"
@@ -25,9 +25,9 @@ const NavigationMenu = () => {
                 <span
                     className={`whitespace-nowrap overflow-hidden max-w-0 opacity-0 -translate-x-4 ${isOpen && "max-w-40 opacity-100 translate-x-0"} transition-all duration-500`}>menu</span>
             </button>
-            {isOpen && (<div>
+            {isOpen && (<div className={"p-3"}>
                 <div>
-
+                    <span className={`whitespace-nowrap overflow-hidden max-w-0 -translate-x-4 transition-all duration-500 opacity-0 ${isOpen && "max-w-40 opacity-100 translate-x-0"} `}>Pages</span>
                 </div>
             </div>)}
         </div>
