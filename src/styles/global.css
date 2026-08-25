@@ -388,3 +388,10 @@ html, .scroll-hidden {
         animation: none !important;
     }
 }
+
+.animation-box > div {
+    --p: 0;
+    scale: calc(0.15 + 0.85 * var(--p));
+    translate: calc(-30% * (1 - var(--p))) 0;
+    will-change: transform;
+}
