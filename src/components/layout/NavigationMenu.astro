@@ -16,7 +16,7 @@ let linkIndex = 0;
 <div id="nav-menu" data-open="false" class="nav-menu">
     <button
         type="button"
-        class="nav-toggle default-button"
+        class="nav-toggle default-button bg-white"
         aria-expanded="false"
         aria-controls="nav-panel"
     >
@@ -27,7 +27,7 @@ let linkIndex = 0;
         <span class="menu-label">menu</span>
     </button>
 
-    <div id="nav-panel" class="nav-panel">
+    <div id="nav-panel" class="nav-panel ">
         <div class="nav-panel-clip">
             <div class="nav-list">
                 <label class="stagger-item info-label" style={`--i:0`}>info</label>
@@ -67,12 +67,15 @@ let linkIndex = 0;
         padding: 0.5rem;
         border: 1px solid transparent;
         border-radius: 2rem;
+        background-color: transparent;
         transition:
+            background-color 0.5s ease,
             border-color 0.5s ease,
             box-shadow 0.5s ease;
     }
     .nav-menu[data-open="true"] {
         cursor: pointer;
+        background-color: white;
         border-color: var(--color-neutral-200, #e5e5e5);
         box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
     }
@@ -141,6 +144,7 @@ let linkIndex = 0;
         max-width: 0;
         overflow: hidden;
         transition:
+
             grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1),
             max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
     }

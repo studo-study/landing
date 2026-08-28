@@ -1,0 +1,41 @@
+---
+const content = [
+    {
+        "number": "01",
+        "title": "Understands your course, not just your files",
+        "description": "Studo doesn't just store your PDFs. It reads them, detects chapters and sections and turns your own material into a Core it actually understands."
+    },
+    {
+        "number": "02",
+        "title": "Every tool runs on the same Core",
+        "description": "Flashcards, task suggestions and gaps in your studying all draw from the same Core. Update your course once and everything connected to it updates with it."
+    },
+    {
+        "number": "03",
+        "title": "You stay in control",
+        "description": "Nothing gets generated without your approval. Studo suggests flashcards, tasks and summaries based on your Core. You decide what makes it into your set."
+    }
+]
+---
+<div class="w-screen h-fit flex flex-col items-center justify-center">
+    <div class="w-full max-w-300 h-fit flex flex-col gap-10 mb-10">
+        <h2 class="text-5xl font-medium">Your course, <br>turned into a Core</h2>
+        <h3 class="text-neutral-500 text-lg max-w-150">Upload your course once. Studo reads it, structures it and builds
+            a Core that every study tool draws from.</h3>
+    </div>
+    <div class="w-screen flex flex-col border-t border-neutral-200">
+        {content.map(item => (
+                <div class="h-45 group cursor-pointer w-full flex items-center justify-center border-b border-neutral-200">
+                    <div class=" flex max-w-300 min-w-0 min-h-0 flex-1 flex-row items-center justify-between">
+                        <div class="group-hover:translate-x-2 transition-transform duration-300 flex flex-row gap-6 items-center font-medium">
+                            <span class="text-base text-neutral-400">{item.number}</span>
+                            <span class="text-3xl">{item.title}</span>
+                        </div>
+                        <p class="text-sm text-neutral-400 max-w-70 w-full">{item.description}</p>
+                    </div>
+                </div>
+        ))}
+
+
+    </div>
+</div>

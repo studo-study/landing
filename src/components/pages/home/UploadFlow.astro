@@ -1,0 +1,27 @@
+---
+
+---
+<div class="z-999 min-w-screen h-screen flex flex-col items-center justify-center">
+    <div class="scroll-expand w-full h-full bg-neutral-900"></div>
+</div>
+
+<script>
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.scroll-expand'));
+
+    const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+
+    const update = () => {
+        const vh = window.innerHeight;
+        for (const el of els) {
+            const r = el.getBoundingClientRect();
+            const center = r.top + r.height / 2;
+            const span = vh / 2 + r.height / 2;
+            const p = clamp01(1 - (center - vh / 2) / span);
+            el.style.setProperty('--p', String(p));
+        }
+    };
+
+    document.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+</script>
