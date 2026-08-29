@@ -1,13 +1,11 @@
 ---
-import StudoUi from "./animations/StudoUi.astro";
 import AnimationCanvas from "./animations/AnimationCanvas.astro";
+import CourseHome from "./animations/pages/CourseHome.astro";
 import Home from "./animations/pages/Home.astro";
 
-
-
 const stages = [
-    {key: "upload", label: "Upload", title: "Drop in your course"},
-    {key: "process", label: "Process", title: "Studo reads and structures it"},
+    {key: "upload", label: "Upload", title: "Drop in your course", component: Home},
+    {key: "process", label: "Process", title: "Studo reads and structures it", component: CourseHome},
     {key: "flow", label: "Track", title: "It lands in your Flow"},
     {key: "generate", label: "Generate", title: "Turn a chapter into a set"},
     {key: "study", label: "Study", title: "Learn it, the way that fits"},
@@ -18,16 +16,18 @@ const stages = [
     <div class="demo-viewport flex flex-1 items-center justify-center w-screen h-screen">
         <div class="w-full max-w-300 min-h-270 px-6 flex flex-col items-center gap-6 text-center">
             <div class="relative min-h-0 min-w-0 h-full w-full flex-1 rounded-4xl border border-neutral-200 flex items-center justify-center text-neutral-300 bg-neutral-100">
-                {stages.map((stage, i) => (
+                {stages.map((stage, i) => {
+                    const Anim = stage.component;
+                    return (
                         <div class:list={["demo-stage", {"is-active": i === 0}]} data-stage-index={i}>
                             <div class="w-full h-full flex items-center justify-center">
                                 <AnimationCanvas>
-                                    <Home/>
+                                    {Anim ? <Anim/> : <span>{stage.key} animation</span>}
                                 </AnimationCanvas>
-
                             </div>
                         </div>
-                ))}
+                    );
+                })}
                 <svg class="demo-border w-full h-full" preserveAspectRatio="none" aria-hidden="true">
                     <rect x="0" y="0" width="100%" height="100%" rx="30"/>
                 </svg>

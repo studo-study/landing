@@ -15,7 +15,7 @@ import {
 } from "@lucide/astro/icons/index";
 ---
 
-<div class="w-200 h-130 rounded-xl border border-neutral-200 bg-white shadow-lg flex flex-col items-center">
+<div class="relative overflow-hidden w-200 h-130 rounded-xl border border-neutral-200 bg-white shadow-lg flex flex-col items-center">
     <div class="min-w-0 flex-1 w-full max-h-10 flex items-center flex-row px-2 justify-between">
         <div class="flex flex-row gap-2 items-center">
             <div class="rounded-full border border-neutral-200 h-5 w-5 bg-neutral-50 flex items-center justify-center">
@@ -28,7 +28,7 @@ import {
                 <span class="text-[8px]">search...</span>
                 <Search size="10"/>
             </div>
-            <div class="rounded-full border border-neutral-200 bg-blue-500 text-white h-5 w-5 flex items-center justify-center">
+            <div data-anim-target="plus" class="rounded-full border border-neutral-200 bg-blue-500 text-white h-5 w-5 flex items-center justify-center">
                 <Plus size="12"/>
             </div>
 

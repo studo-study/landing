@@ -1,0 +1,131 @@
+---
+import {BookOpen, LoaderCircle, Sparkles} from "@lucide/astro/icons/index";
+import PdfFile from "./PdfFile.astro";
+---
+
+<div class="coursehome-anim w-full h-full flex flex-col p-2">
+    <PdfFile/>
+    <div class="flex flex-row item-center gap-1">
+        <div class="h-8 w-8 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center">
+            <BookOpen size="14"/>
+        </div>
+        <div class="flex flex-col">
+            <span class="font-semibold text-[12px] text-neutral-500">Microbiology</span>
+            <span class="font-semibold text-[8px] text-neutral-400">add description...</span>
+        </div>
+    </div>
+
+    <div
+        data-anim="dropzone"
+        data-anim-target="dropzone"
+        class="relative flex min-w-0 min-h-0 flex-1 justify-center items-center mt-2 rounded-lg border-2 border-transparent transition-colors duration-200"
+    >
+        <div data-anim="empty" class="flex flex-col gap-1 items-center">
+            <img src="/animation_assets/empty_box.png" class="saturate-0 w-15" alt="box"/>
+            <span class="font-semibold text-[11px] text-neutral-400">No documents yet</span>
+            <div class="w-fit px-2.5 py-1 rounded-full bg-blue-500 gap-1 flex flex-row items-center font-medium text-white text-[8px]">
+                <Sparkles size="8" class="outline-none fill-white"/>
+                Upload your resources
+            </div>
+        </div>
+        <div data-anim="doc-overview" style="opacity: 0;" class="absolute left-1/2 -translate-x-1/2 inset-0 p-1 h-full max-w-1/2 w-full grid grid-cols-4 content-start">
+            <div class="max-h-30 w-full border border-neutral-200 p-1 flex flex-col gap-1 rounded-lg shadow-lg">
+                <img src="/animation_assets/pdf_thumbnail.png" alt="pdf" class="w-full rounded-lg border border-neutral-200 overflow-hidden"/>
+                <span class="truncate text-[11px] flex flex-row gap-1 items-center text-neutral-400"><LoaderCircle size="8" class="animate-spin"/> bio.pdf</span>
+            </div>
+        </div>
+
+        <div
+            data-anim="processing"
+            style="opacity: 0; transform: translate(-50%, 8px);"
+            class="absolute bottom-0 left-1/2 text-neutral-400 text-[8px] p-1 w-fit flex items-center h-8 rounded-full bg-white border border-neutral-200 shadow-lg divide-neutral-200 divide-x"
+        >
+            <div class="h-full px-2 items-center flex gap-1"><LoaderCircle size="10" class="animate-spin"/>microbiology.pdf</div>
+            <div class="pl-2 flex items-center">
+                <div class="w-fit px-2.5 py-1 rounded-full gap-1 flex flex-row items-center font-medium border border-neutral-200 text-[8px]">
+                    Stop processing
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    import {driveStage, clamp01, lerp, phase} from "../stage";
+
+    // Timeline windows (stage progress 0 -> 1)
+    const T = {
+        grab:    [0.06, 0.12],  // cursor closes on the file
+        drag:    [0.12, 0.48],  // drag file into the dropzone
+        drop:    [0.50, 0.60],  // file fades / shrinks away
+        process: [0.62, 0.88],  // processing bar slides in
+    } as const;
+
+    type Pt = {x: number; y: number};
+
+    driveStage(".coursehome-anim", (p, root) => {
+        const canvas = root.closest<HTMLElement>(".anim-canvas");
+        if (!canvas) return;
+
+        const cursor = canvas.querySelector<HTMLElement>("[data-cursor]");
+        const file = root.querySelector<HTMLElement>('[data-anim="file"]');
+        const dropzone = root.querySelector<HTMLElement>('[data-anim="dropzone"]');
+        const empty = root.querySelector<HTMLElement>('[data-anim="empty"]');
+        const docOverview = root.querySelector<HTMLElement>('[data-anim="doc-overview"]');
+        const processing = root.querySelector<HTMLElement>('[data-anim="processing"]');
+
+        const crect = canvas.getBoundingClientRect();
+        const centerOf = (el: Element | null): Pt => {
+            if (!el) return {x: crect.width / 2, y: crect.height / 2};
+            const r = el.getBoundingClientRect();
+            return {x: r.left + r.width / 2 - crect.left, y: r.top + r.height / 2 - crect.top};
+        };
+
+        // file start (canvas coords) — matches the inline 68%/66% start in PdfFile
+        const start: Pt = {x: crect.width * 0.68, y: crect.height * 0.66};
+        const target = centerOf(dropzone);
+
+        const grab = phase(p, ...T.grab);
+        const drag = phase(p, ...T.drag);
+        const drop = phase(p, ...T.drop);
+        const process = phase(p, ...T.process);
+
+        // ---- cursor + file move together during the drag ----
+        const pos: Pt = {x: lerp(start.x, target.x, drag), y: lerp(start.y, target.y, drag)};
+
+        if (cursor) {
+            cursor.style.left = `${pos.x}px`;
+            cursor.style.top = `${pos.y}px`;
+            cursor.style.scale = grab > 0 && drop < 1 ? "0.85" : "1"; // "holding"
+        }
+
+        if (file) {
+            // convert the canvas point into the file's own offset-parent coords
+            const fp = (file.offsetParent as HTMLElement | null)?.getBoundingClientRect();
+            if (fp) {
+                file.style.left = `${pos.x + crect.left - fp.left}px`;
+                file.style.top = `${pos.y + crect.top - fp.top}px`;
+            }
+            file.style.opacity = String(1 - drop);
+            file.style.transform = `scale(${lerp(1, 0.6, drop)})`;
+        }
+
+        // ---- dropzone highlights while the file hovers over it ----
+        const hovering = drag > 0.55 && drop < 1;
+        if (dropzone) {
+            dropzone.classList.toggle("border-blue-500", hovering);
+            dropzone.classList.toggle("bg-blue-500/5", hovering);
+            dropzone.classList.toggle("border-transparent", !hovering);
+        }
+
+        // empty state fades out and the doc grid fades in as the file drops
+        if (empty) empty.style.opacity = String(clamp01(1 - drop));
+        if (docOverview) docOverview.style.opacity = String(drop);
+
+        // ---- processing bar slides up ----
+        if (processing) {
+            processing.style.opacity = String(process);
+            processing.style.transform = `translate(-50%, ${lerp(8, 0, process)}px)`;
+        }
+    });
+</script>

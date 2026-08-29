@@ -414,6 +414,13 @@ html, .scroll-hidden {
     scale: 1;
     pointer-events: auto;
 }
+/* animation cursor: left/top scrubbed by JS, tip at top-left of the image */
+.anim-cursor {
+    transform-origin: top left;
+    transition: scale 0.12s ease;
+    will-change: left, top;
+}
+
 /* inner progress border: strokes the canvas perimeter as --p goes 0 -> 1 */
 .demo-border {
     position: absolute;
