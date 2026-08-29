@@ -81,36 +81,18 @@ const PAGES = [
     }
 ]
 ---
-
-<<<<<<< Updated upstream
-<footer class="relative border-t border-neutral-200 w-full min-h-100 items-center justify-center z-200 flex flex-col p-10 pt-20">
-    <div class="flex-1 min-h-0 min-w-0 w-full flex-row max-w-3/4 flex justify-between ">
-        <div class="flex flex-col max-w-fit w-fit">
-            <h2 class="text-5xl font-georgia font-medium flex gap-3 flex-row"> <Logo size={45}/> Studo</h2>
-            <p class="opacity-50 w-full text-justify [text-align-last:justify]">Your study workspace</p>
-        </div>
-        <div class="h-full w-fit flex flex-row gap-15 justify-end">
-            {PAGES.map(option => (
-                    <div class="flex flex-col gap-2 text-sm text-neutral-400">
-                        <h3 class="font-medium text-black">{option.title}</h3>
-                        {option.options.map((item) => (
-                                <a href={item.href} class="hover:underline">{item.title}</a>
-                        ))}
-                    </div>
-            ))}
-=======
 <footer class="relative w-full min-h-100 items-center justify-center z-200 flex flex-col p-10">
-    <div class="max-w-300 w-full h-full bg-neutral-100/50 flex-1 flex flex-col items-center justify-center p-10 border border-neutral-200 rounded-4xl ">
+    <div class="max-w-300 w-full h-full bg-neutral-100/50 flex-1 pt-15 flex flex-col items-center justify-center p-10 border border-neutral-200 rounded-4xl ">
         <div class="flex-1 min-h-0 min-w-0 w-full flex-row flex justify-between ">
-           <div class="flex-1 min-w-0 min-h0 p-5">
-               <a href="/" class="flex flex-col max-w-fit w-fit flex-1">
-                   <h2 class="text-5xl font-georgia font-medium flex gap-3 flex-row">
-                       <Logo size={45}/>
-                       Studo
-                   </h2>
-                   <p class="opacity-50 w-full text-justify [text-align-last:justify]">Your study workspace</p>
-               </a>
-           </div>
+            <div class="flex-1 min-w-0 min-h0">
+                <a href="/" class="flex flex-col max-w-fit w-fit flex-1">
+                    <h2 class="text-5xl font-georgia font-medium flex gap-3 flex-row">
+                        <Logo size={45}/>
+                        Studo
+                    </h2>
+                    <p class="opacity-50 w-full text-justify [text-align-last:justify]">Your study workspace</p>
+                </a>
+            </div>
             <div class="h-full w-fit flex flex-row gap-15 justify-end">
                 {PAGES.map(option => (
                         <div class="flex flex-col gap-2 text-sm text-neutral-400">
@@ -120,20 +102,12 @@ const PAGES = [
                             ))}
                         </div>
                 ))}
->>>>>>> Stashed changes
-
             </div>
         </div>
-        <div class="w-full max-w-400 h-fit flex flex-row justify-between items-center text-xs opacity-50">
+        <div class="w-full h-fit flex flex-row justify-between items-center text-xs opacity-50">
             <span>© {year} Charles Degraeuwe</span>
             <span>source: <a href="https://charlesdegraeuwe.com" class="underline">charles degraeuwe</a></span>
         </div>
     </div>
-<<<<<<< Updated upstream
-    <div class="w-full max-w-3/4 h-fit flex flex-row justify-between items-center text-xs opacity-50">
-        <span>© {year} Stel Group</span>
-        <span>source: <a href="https://charlesdegraeuwe.com" class="underline">charles degraeuwe</a></span>
-    </div>
-=======
->>>>>>> Stashed changes
+
 </footer>

@@ -1,0 +1,77 @@
+---
+// Scroll-scrubbed product demo. Frame + scroll driver only; each stage's
+// inner content is a placeholder to fill in later. Add/remove stages by
+// editing this array, the height and step count follow automatically.
+const stages = [
+    {key: "upload", label: "Upload", title: "Drop in your course"},
+    {key: "process", label: "Process", title: "Studo reads and structures it"},
+    {key: "flow", label: "Track", title: "It lands in your Flow"},
+    {key: "generate", label: "Generate", title: "Turn a chapter into a set"},
+    {key: "study", label: "Study", title: "Learn it, the way that fits"},
+];
+---
+
+<section class="demo-scroll" style={`height: ${stages.length * 100}vh`}>
+    <div class="demo-viewport flex items-center justify-center">
+        {stages.map((stage, i) => (
+            <div class:list={["demo-stage", {"is-active": i === 0}]} data-stage-index={i}>
+                {/* placeholder frame — replace with the real animation per stage */}
+                <div class="w-full h-full flex items-center justify-center">
+                    <div class="w-full max-w-300 px-6 flex flex-col items-center gap-6 text-center">
+                        <span class="text-sm font-medium text-emerald-500 uppercase tracking-wide">{stage.label}</span>
+                        <h2 class="text-5xl font-medium">{stage.title}</h2>
+                        <div class="w-full aspect-video rounded-3xl border border-neutral-200 bg-neutral-50 flex items-center justify-center text-neutral-300">
+                            {stage.key} animation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ))}
+
+        <div class="demo-steps">
+            {stages.map((_, i) => (
+                <div class:list={["demo-step", {"is-active": i === 0}]} data-step-index={i}>
+                    <span></span>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
+
+<script>
+    const section = document.querySelector<HTMLElement>('.demo-scroll');
+    const stages = Array.from(document.querySelectorAll<HTMLElement>('.demo-stage'));
+    const steps = Array.from(document.querySelectorAll<HTMLElement>('.demo-step'));
+
+    if (section && stages.length) {
+        const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+
+        const update = () => {
+            const rect = section.getBoundingClientRect();
+            const scrollable = section.offsetHeight - window.innerHeight;
+            // 0 when the section top hits the viewport top, 1 at its bottom
+            const p = scrollable > 0 ? clamp01(-rect.top / scrollable) : 0;
+
+            const count = stages.length;
+            const index = Math.min(count - 1, Math.floor(p * count));
+            const stageP = clamp01(p * count - index);
+
+            section.style.setProperty('--p', String(p));
+
+            stages.forEach((stage, i) => {
+                stage.classList.toggle('is-active', i === index);
+                stage.style.setProperty('--stage-p', i < index ? '1' : i === index ? String(stageP) : '0');
+            });
+
+            steps.forEach((step, i) => {
+                step.classList.toggle('is-done', i < index);
+                step.classList.toggle('is-active', i === index);
+                step.style.setProperty('--stage-p', i === index ? String(stageP) : '0');
+            });
+        };
+
+        document.addEventListener('scroll', update, {passive: true});
+        window.addEventListener('resize', update);
+        update();
+    }
+</script>

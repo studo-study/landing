@@ -205,9 +205,6 @@ html, .scroll-hidden {
 .release-body img {
     max-width: 100%;
     border-radius: 0.75rem;
-<<<<<<< Updated upstream
-}
-=======
 }
 
 /* markdown content pages (MarkdownPage.astro) */
@@ -392,6 +389,72 @@ html, .scroll-hidden {
 
 /* ---- Home / index ---------------------------------------------------- */
 
+/* Scroll-scrubbed demo. The outer .demo-scroll is tall; the inner
+   .demo-viewport is sticky and pinned for its whole height. JS sets:
+     --p         global scroll progress across all stages (0 -> 1)
+     --stage-p   progress within the currently active stage (0 -> 1)
+   and toggles .is-active on the current .demo-stage. Use those vars to
+   drive per-stage motion later. */
+.demo-scroll {
+    position: relative;
+}
+.demo-viewport {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+}
+.demo-stage {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    scale: 0.96;
+    pointer-events: none;
+    transition: opacity 0.5s ease, scale 0.5s ease;
+}
+.demo-stage.is-active {
+    opacity: 1;
+    scale: 1;
+    pointer-events: auto;
+}
+/* step indicator */
+.demo-steps {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    translate: -50% 0;
+    display: flex;
+    gap: 0.5rem;
+    z-index: 10;
+}
+.demo-step {
+    height: 0.4rem;
+    width: 2rem;
+    border-radius: 999px;
+    background: var(--color-neutral-200, #e5e5e5);
+    overflow: hidden;
+}
+.demo-step > span {
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    scale: 0 1;
+    background: var(--color-emerald-400, #34d399);
+}
+.demo-step.is-done > span {
+    scale: 1 1;
+}
+.demo-step.is-active > span {
+    scale: var(--stage-p, 0) 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .demo-stage {
+        transition: none;
+    }
+}
+
 /* FAQ accordion. Answer animates open via the 0fr -> 1fr grid-rows trick. */
 .faq-answer {
     display: grid;
@@ -486,4 +549,3 @@ html, .scroll-hidden {
         border-radius: 0;
     }
 }
->>>>>>> Stashed changes

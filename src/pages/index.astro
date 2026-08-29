@@ -1,22 +1,11 @@
 ---
-<<<<<<< Updated upstream
-import Hero from "../components/pages/home/Hero.astro";
-import RootLayout from "../layouts/RootLayout.astro";
-
-
----
-
-<RootLayout title="Your study workspace" fadeHeaderCta>
-    <Hero hidden={true} />
-    <div class="w-screen h-screen"></div>
-</RootLayout>
-=======
 import {ArrowRight} from "@lucide/astro/icons/index";
 import Hero from "../components/pages/home/Hero.astro";
 import RootLayout from "../layouts/RootLayout.astro";
 import Cta from "../components/pages/home/Cta.astro";
 import Faq from "../components/pages/home/Faq.astro";
 import Introduction from "../components/pages/home/Introduction.astro";
+import DemoFlow from "../components/pages/home/DemoFlow.astro";
 
 const introWords = ["Built", "by", "and", "for", "students"];
 ---
@@ -24,6 +13,9 @@ const introWords = ["Built", "by", "and", "for", "students"];
 <RootLayout title="Your study workspace" fadeHeaderCta>
     {/* hook */}
     <Hero hidden={true}/>
+
+    {/* scroll-scrubbed product demo */}
+    <DemoFlow/>
 
     {/* value: what the Core is */}
     <section class="w-full flex justify-center py-32 reveal-on-scroll">
@@ -85,4 +77,3 @@ const introWords = ["Built", "by", "and", "for", "students"];
         reveals.forEach((el) => io.observe(el));
     }
 </script>
->>>>>>> Stashed changes
