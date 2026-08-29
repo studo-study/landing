@@ -1,4 +1,10 @@
 ---
+import StudoUi from "./animations/StudoUi.astro";
+import AnimationCanvas from "./animations/AnimationCanvas.astro";
+import Home from "./animations/pages/Home.astro";
+
+
+
 const stages = [
     {key: "upload", label: "Upload", title: "Drop in your course"},
     {key: "process", label: "Process", title: "Studo reads and structures it"},
@@ -15,7 +21,10 @@ const stages = [
                 {stages.map((stage, i) => (
                         <div class:list={["demo-stage", {"is-active": i === 0}]} data-stage-index={i}>
                             <div class="w-full h-full flex items-center justify-center">
-                                {stage.key} animation
+                                <AnimationCanvas>
+                                    <Home/>
+                                </AnimationCanvas>
+
                             </div>
                         </div>
                 ))}

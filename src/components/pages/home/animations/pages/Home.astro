@@ -1,0 +1,73 @@
+---
+import { Book, BookOpen, Check, Eye, GalleryVerticalEnd, Layers, RotateCcw, Timer, Undo } from "@lucide/astro/icons/index";
+
+
+---
+
+<div class="min-w-0 flex-1 flex w-full h-full items-center justify-center">
+    <div class="max-w-1/2 h-full w-full py-5 flex flex-col">
+        <span class="font-georgia font-medium text-neutral-400 text-xs w-full text-start">Welcome back!</span>
+        <span class="text-[8px] w-full text-start mb-2">Ready to study?</span>
+        <div class="grid grid-cols-4 gap-1 mb-4">
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Layers size="10" class="text-amber-500"/>
+                2 sets studied
+            </div>
+
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Eye size="10" class="text-purple-500"/>
+                247 cards viewed
+            </div>
+
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Check size="10" class="text-blue-500"/>
+                128 cards learned
+            </div>
+
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Timer size="10" class="text-emerald-500"/>
+                421 min studied
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col gap-1 h-fit mb-4">
+            <div class="flex flex-row w-full text-[8px] font-medium gap-1 items-center text-neutral-400">
+                <RotateCcw size="10"/>
+                Jump back in
+            </div>
+            <div class="flex flex-row gap-2">
+                <div class="min-h-20 max-h-20 border border-neutral-200 w-full h-full rounded-xl bg-neutral-50 shadow-sm p-4 py-3 flex flex-row">
+                    <div>
+                        <span class="flex flex-row gap-1 font-medium text-[8px] text-neutral-400 items-center">
+                             <GalleryVerticalEnd size="10"/>
+                            Data Science
+                        </span>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="min-h-20 max-h-20 border border-neutral-200 w-full max-w-1/4 h-full rounded-xl"></div>
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col gap-1 h-fit mb-4">
+            <div class="flex flex-row w-full text-[8px] font-medium gap-1 items-center text-neutral-400">
+                <BookOpen size="10"/>
+                Your courses
+            </div>
+            <div class="flex flex-row gap-2">
+                <div class="min-h-20 max-h-20 border border-neutral-200 w-full h-full rounded-xl"></div>
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col gap-1 h-fit mb-4">
+            <div class="flex flex-row w-full text-[8px] font-medium gap-1 items-center text-neutral-400">
+                <GalleryVerticalEnd size="10"/>
+                Your sets
+            </div>
+            <div class="flex flex-row gap-2">
+                <div class="min-h-20 max-h-20 border border-neutral-200 w-full h-full rounded-xl"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,16 @@
+---
+import StudoUi from "./StudoUi.astro";
+
+---
+
+<div class="min-w-0 min-h-0 h-full w-full flex-1 relative flex justify-center items-center">
+    <StudoUi>
+        <slot/>
+    </StudoUi>
+    <div class="absolute bottom-20 right-5">
+        <div class="relative h-10 w-20">
+            <img src="/animation_assets/mouse.png" class="h-5 absolute z-10 top-2/3 right-0" alt="mouse"/>
+            <img src="/animation_assets/pdf.png" class="h-23 w-fit absolute z-0 drop-shadow-lg bg-transparent" alt="pdf"/>
+        </div>
+    </div>
+</div>
