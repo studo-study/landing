@@ -297,14 +297,17 @@ html, .scroll-hidden {
 }
 
 .pricing-container > div:nth-child(2) {
-    @apply bg-neutral-900 text-white;
+    @apply bg-emerald-900 text-white;
 }
 
 .pricing-container > div:nth-child(2) > span,
 .pricing-container > div:nth-child(2) > p,
-.pricing-container > div:nth-child(2) .icon,
-.pricing-container > div:nth-child(2) > ul {
+.pricing-container > div:nth-child(2) .icon {
     @apply text-white;
+}
+
+.pricing-container > div:nth-child(2) > .lighter-text {
+    @apply text-white/75;
 }
 
 .pricing-container > div:nth-child(2) > button {
@@ -389,12 +392,6 @@ html, .scroll-hidden {
 
 /* ---- Home / index ---------------------------------------------------- */
 
-/* Scroll-scrubbed demo. The outer .demo-scroll is tall; the inner
-   .demo-viewport is sticky and pinned for its whole height. JS sets:
-     --p         global scroll progress across all stages (0 -> 1)
-     --stage-p   progress within the currently active stage (0 -> 1)
-   and toggles .is-active on the current .demo-stage. Use those vars to
-   drive per-stage motion later. */
 .demo-scroll {
     position: relative;
 }
@@ -417,36 +414,21 @@ html, .scroll-hidden {
     scale: 1;
     pointer-events: auto;
 }
-/* step indicator */
-.demo-steps {
+/* inner progress border: strokes the canvas perimeter as --p goes 0 -> 1 */
+.demo-border {
     position: absolute;
-    left: 50%;
-    bottom: 2rem;
-    translate: -50% 0;
-    display: flex;
-    gap: 0.5rem;
+    inset: 2px;
+    pointer-events: none;
     z-index: 10;
+    overflow: visible;
 }
-.demo-step {
-    height: 0.4rem;
-    width: 2rem;
-    border-radius: 999px;
-    background: var(--color-neutral-200, #e5e5e5);
-    overflow: hidden;
-}
-.demo-step > span {
-    display: block;
-    height: 100%;
-    width: 100%;
-    transform-origin: left;
-    scale: 0 1;
-    background: var(--color-emerald-400, #34d399);
-}
-.demo-step.is-done > span {
-    scale: 1 1;
-}
-.demo-step.is-active > span {
-    scale: var(--stage-p, 0) 1;
+.demo-border rect {
+    fill: none;
+    stroke: var(--color-neutral-300, #34d399);
+    stroke-width: 3;
+    stroke-linecap: round;
+    opacity: 50%;
+    /* stroke-dasharray + stroke-dashoffset are set from JS (real path length) */
 }
 
 @media (prefers-reduced-motion: reduce) {
