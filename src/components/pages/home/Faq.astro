@@ -63,11 +63,12 @@ const questions = [
 </section>
 
 <script>
-    document.querySelectorAll<HTMLButtonElement>('.faq-toggle').forEach((toggle) => {
-        toggle.addEventListener('click', () => {
-            const item = toggle.closest<HTMLElement>('.faq-item');
-            if (!item) return;
-            item.dataset.open = item.dataset.open === 'true' ? 'false' : 'true';
-        });
+    // Delegated so it keeps working across Astro view transitions.
+    document.addEventListener('click', (e) => {
+        const toggle = (e.target as HTMLElement).closest<HTMLElement>('.faq-toggle');
+        if (!toggle) return;
+        const item = toggle.closest<HTMLElement>('.faq-item');
+        if (!item) return;
+        item.dataset.open = item.dataset.open === 'true' ? 'false' : 'true';
     });
 </script>
