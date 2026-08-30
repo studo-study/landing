@@ -1,0 +1,24 @@
+---
+import RootLayout from "../../layouts/RootLayout.astro";
+import Select from "../../components/pages/home/Select.astro";
+import {Check} from "@lucide/astro/icons/index";
+
+const freeIncludes = [
+    "Unlimited courses and Cores",
+    "Flow planning and tracking",
+    "Build your own Studosets and Visualsets",
+    "Every study mode: Learn, Speedy, Classic, Pin and Point",
+];
+const selectIncludes = [
+    "Everything in Free",
+    "Sven generates sets from your Core",
+    "Summaries and mock exams on demand",
+    "Share subjects with a group",
+];
+---
+
+<RootLayout title="Select">
+    <section id="plans" class=" flex h-screen w-screen justify-center items-center px-6 pb-40 scroll-mt-24">
+        <Select/>
+    </section>
+</RootLayout>

@@ -6,6 +6,7 @@ import Cta from "../components/pages/home/Cta.astro";
 import Faq from "../components/pages/home/Faq.astro";
 import Introduction from "../components/pages/home/Introduction.astro";
 import DemoFlow from "../components/pages/home/DemoFlow.astro";
+import SvenCapabilities from "../components/pages/home/SvenCapabilities.astro";
 
 const introWords = ["Built", "by", "and", "for", "students"];
 ---
@@ -21,6 +22,7 @@ const introWords = ["Built", "by", "and", "for", "students"];
     </section>
 
     <section class="intro-section h-[60vh] flex flex-col items-center justify-center gap-10">
+        <img src="/images/books.png" alt="stack of books img" class="w-30 reveal-on-scroll drop-shadow-sm"/>
         <p class="intro-words flex flex-row gap-2 text-5xl items-center font-medium">
             {introWords.map((word) => <span class="intro-word">{word}</span>)}
         </p>
@@ -30,9 +32,27 @@ const introWords = ["Built", "by", "and", "for", "students"];
         </button>
     </section>
 
+    <SvenCapabilities/>
+
     <section class="w-full flex justify-center px-6 py-32 reveal-on-scroll">
+        <div class="max-w-300 w-full flex flex-col items-center gap-6 text-center">
+            <h2 class="text-4xl md:text-5xl font-medium">Free to use, and it stays that way</h2>
+            <p class="text-lg text-neutral-500 max-w-150">Plan your courses, build sets and study for free. Upgrade to
+                Select only when you want Sven to generate for you.</p>
+            <a href="/select" class="default-button">
+                see what is included
+                <ArrowRight size={15}/>
+            </a>
+        </div>
+    </section>
+
+    <section
+            id="faq"
+            class="w-full flex justify-center px-6 py-32 reveal-on-scroll">
         <Faq/>
     </section>
+
+
 
     <section class="w-full flex justify-center px-6 pb-32 reveal-on-scroll">
         <Cta/>

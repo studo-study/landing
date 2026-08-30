@@ -1,147 +1,67 @@
 ---
-import { Check, X } from "@lucide/astro/icons/index";
 import RootLayout from "../../layouts/RootLayout.astro";
+import Select from "../../components/pages/home/Select.astro";
+import {ArrowRight, Check} from "@lucide/astro/icons/index";
 
-const PRICING_OPTIONS = [
-    {
-        title: "individual",
-        description: "For students studying solo",
-        monthPrice: 9.99,
-        yearPrice: 79.888,
-        monthDescription: "billed monthly",
-        yearDescription: "yearly €79.99, save 20%",
-        includedList: [
-            "Unlimited Studosets",
-            "AI-powered SVEN generation",
-            "Flow planning and tracking",
-        ],
-        notIncludedList: [
-            "Group sharing",
-            "Admin controls",
-        ],
-        cta: "Sign Up"
-    },
-    {
-        title: "group",
-        description: "For study groups and classes",
-        monthPrice: 34.99,
-        yearPrice: 359.88,
-        monthDescription: "billed monthly, up to 4 members",
-        yearDescription: "yearly €359.99, save 20%",
-        includedList: [
-            "Up to 4 seats",
-            "Everything in Individual",
-            "Shared Studosets across members",
-            "Group progress tracking",
-        ],
-        notIncludedList: [
-            "Institution-wide admin controls",
-        ],
-        cta: "Start a Group"
-    },
-    {
-        title: "institution",
-        description: "For schools and universities",
-        monthPrice: null,
-        yearPrice: null,
-        monthDescription: "custom pricing",
-        yearDescription: "contact us for a quote",
-        includedList: [
-            "Everything in Group",
-            "Dedicated tenant for extra privacy",
-            "Institution-wide admin dashboard",
-            "Dedicated support",
-        ],
-        notIncludedList: [],
-        cta: "Contact Sales"
-    }
-]
+// Free = everything you do yourself. Select = Sven does it for you + sharing.
+const freeIncludes = [
+    "Unlimited courses and Cores",
+    "Flow planning and tracking",
+    "Build your own Studosets and Visualsets",
+    "Every study mode: Learn, Speedy, Classic, Pin and Point",
+];
+const selectIncludes = [
+    "Everything in Free",
+    "Sven generates sets from your Core",
+    "Summaries and mock exams on demand",
+    "Share subjects with a group",
+];
 ---
+
 <RootLayout title="Pricing">
-    <div class="w-screen h-screen flex flex-col items-center justify-center">
-        <div class="max-w-300 w-full px-10 h-full py-40 flex flex-col items-center justify-center gap-10">
-            <h1 class="text-5xl font-medium font-georgia flex flex-row gap-1 items-end">Studo<span class="text-emerald-400 font-google-sans font-bold text-base">Select</span></h1>
-            <h3 class="text-neutral-500">Unlock AI-powered studying</h3>
-            <div class="pricing-tabs" role="tablist" aria-label="Billing period">
-                <span class="pricing-thumb" aria-hidden="true"></span>
-                <button type="button" class="pricing-tab" data-tab="monthly" role="tab" aria-selected="false">Monthly</button>
-                <button type="button" class="pricing-tab" data-tab="yearly" role="tab" aria-selected="true">Yearly</button>
-            </div>
-            <div class="pricing-container" data-plan="yearly">
-                {
-                    PRICING_OPTIONS.map(
-                        (option) =>
-                            (
-                               <div>
-                                <span class="font-semibold text-lg capitalize">
-                                    {option.title}
-                                </span>
-                                        <p class="text-sm text-neutral-400">{option.description}</p>
-
-                                   <div class="mb-5 gap-5 flex flex-col">
-                                       {option.yearPrice ? (<div class="flex flex-row items-end gap-1">
-                                                <div class="flex items-start h-fit">
-                                                    <span class="pt-1">€</span>
-                                                    <span class="text-4xl swap" data-price="monthly">{option.monthPrice}</span>
-                                                    <span class="text-4xl swap" data-price="yearly">{(option.yearPrice! / 12).toFixed(2)}</span>
-                                                </div>
-                                                <span class="text-neutral-400 lighter-text text-sm">/ month</span>
-                                            </div>)
-                                               :
-                                           (<span class="text-4xl">Custom</span>)
-                                       }
-                                            <p class="text-xs text-neutral-400 lighter-text swap" data-price="monthly">{option.monthDescription}</p>
-                                            <p class="text-xs text-neutral-400 lighter-text swap" data-price="yearly">{option.yearDescription}</p>
-                                        </div>
-
-
-                                        <div class="flex-1 text-neutral-500 lighter-text min-h-0 min-w-0">
-
-                                            <ul class="mb-10 gap-2 flex flex-col ">
-                                                {option.includedList.map(included =>
-                                                    (
-                                                            <li class="gap-1 flex flex-row items-center"><Check size={12} class="text-black icon"/>{included}</li>))}
-                                            </ul>
-
-                                            <ul class="gap-2 flex flex-col ">
-                                                {
-                                                    option.notIncludedList.map(notIncluded =>
-                                                        (
-                                                                <li class="gap-1 flex flex-row items-center"><X size={12} class="text-black icon"/>{notIncluded}</li>))
-                                                }
-                                            </ul>
-                                        </div>
-
-                                        <button class="default-button font-medium text-center items-center justify-center">
-                                            {option.cta}
-                                        </button>
-                                    </div>
-                            )
-                    )
-                }
-            </div>
-            <p class="text-neutral-400 text-xs ">Prices in Euro. Individual and Groups include a 7-day trial. Annual prices are monthly equivalents billed yearly.</p>
+    <section class="w-full flex justify-center px-6 pt-40 pb-16">
+        <div class="max-w-300 w-full flex flex-col items-center gap-6 text-center">
+            <h1 class="text-5xl font-medium">Free to use, and it stays that way</h1>
+            <p class="text-lg text-neutral-500 max-w-150">Everything you need to plan and study is free. You only pay
+                when you want Sven to generate for you and share with a group.</p>
         </div>
+    </section>
 
-    </div>
+    <section class="w-full flex justify-center px-6 pb-32">
+        <div class="max-w-300 w-full grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="rounded-4xl border border-neutral-200 p-8 flex flex-col gap-6">
+                <div class="flex flex-col gap-1">
+                    <span class="text-2xl font-medium">Free</span>
+                    <p class="text-neutral-500">Study on your own, no card needed.</p>
+                </div>
+                <ul class="flex flex-col gap-3 flex-1">
+                    {freeIncludes.map((item) => (
+                        <li class="flex flex-row items-center gap-2 text-neutral-600">
+                            <Check size={16} class="text-emerald-500 shrink-0"/>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <a href="www.studo.spaces/register" class="default-button justify-center">get started free</a>
+            </div>
+
+            <div class="rounded-4xl border border-neutral-200 bg-emerald-900 text-white p-8 flex flex-col gap-6">
+                <div class="flex flex-col gap-1">
+                    <span class="text-2xl font-medium font-georgia flex flex-row gap-1 items-end">Studo<span
+                            class="text-emerald-400 font-google-sans font-bold text-base pb-0.5">Select</span></span>
+                    <p class="text-white/75">Let Sven do the heavy lifting.</p>
+                </div>
+                <ul class="flex flex-col gap-3 flex-1">
+                    {selectIncludes.map((item) => (
+                        <li class="flex flex-row items-center text-white/65 gap-2">
+                            <Check size={16} class=" shrink-0"/>
+                            {item}
+                        </li>
+                    ))}
+                </ul>
+                <a href="/pricing" class="justify-center see_more_btn gap-2">see plans
+                <ArrowRight size="13"/></a>
+            </div>
+        </div>
+    </section>
 </RootLayout>
-
-
-<script>
-    function initPricing() {
-        const container = document.querySelector<HTMLElement>(".pricing-container");
-        const tabs = document.querySelectorAll<HTMLButtonElement>(".pricing-tab");
-        if (!container || (container as any).__bound) return; // guard (view transitions)
-        (container as any).__bound = true;
-        tabs.forEach((tab) => {
-            tab.addEventListener("click", () => {
-                const plan = tab.dataset.tab!;
-                container.dataset.plan = plan;
-                tabs.forEach((t) =>
-                    t.setAttribute("aria-selected", String(t.dataset.tab === plan)),
-                );
-            });
-        });
-    }
-    document.addEventListener("astro:page-load", initPricing);
-</script>
