@@ -2,6 +2,7 @@
 import RootLayout from "../../layouts/RootLayout.astro";
 import Select from "../../components/pages/home/Select.astro";
 import {ArrowRight, Check} from "@lucide/astro/icons/index";
+import { REGISTER_URL } from "../../consts";
 
 // Free = everything you do yourself. Select = Sven does it for you + sharing.
 const freeIncludes = [
@@ -18,12 +19,14 @@ const selectIncludes = [
 ];
 ---
 
-<RootLayout title="Pricing">
+<RootLayout
+    title="Pricing"
+    description="Study with your own material for free. Upgrade to Studo Select when you want Sven to create, organize and guide more for you.">
     <section class="w-full flex justify-center px-6 pt-40 pb-16">
         <div class="max-w-300 w-full flex flex-col items-center gap-6 text-center">
-            <h1 class="text-5xl font-medium">Free to use, and it stays that way</h1>
-            <p class="text-lg text-neutral-500 max-w-150">Everything you need to plan and study is free. You only pay
-                when you want Sven to generate for you and share with a group.</p>
+            <h1 class="text-5xl font-medium">Your study workspace, free by default</h1>
+            <p class="text-lg text-neutral-500 max-w-150">Study with your own material for free. Upgrade when you want
+                Studo to create, organize and guide more for you. Your Core, planning and self-made sets stay free.</p>
         </div>
     </section>
 
@@ -42,7 +45,7 @@ const selectIncludes = [
                         </li>
                     ))}
                 </ul>
-                <a href="www.studo.spaces/register" class="default-button justify-center">get started free</a>
+                <a href={REGISTER_URL} class="default-button justify-center">Start for free</a>
             </div>
 
             <div class="rounded-4xl border border-neutral-200 bg-emerald-900 text-white p-8 flex flex-col gap-6">

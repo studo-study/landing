@@ -1,6 +1,7 @@
 ---
 import LogoIcon from "../icons/Logo.astro";
 import NavigationMenu from "./NavigationMenu.astro";
+import { LOGIN_URL, REGISTER_URL } from "../../consts";
 interface Props {
     hidden?: boolean;
 }
@@ -17,11 +18,11 @@ const {hidden = false} = Astro.props;
             <span class="whitespace-nowrap overflow-hidden max-w-0 opacity-0 -translate-x-4 group-hover:max-w-40 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500">Studo</span>
         </a>
         <nav class:list={["flex flex-row gap-3 items-center", { "header-cta": hidden }]}>
-            <a href="https://www.spaces.studo.study/login" class="filled-button">
-                Login
+            <a href={LOGIN_URL} class="default-button bg-white">
+                Sign in
             </a>
-            <a href="https://www.spaces.studo.study/register" class="default-button bg-white">
-                Register
+            <a href={REGISTER_URL} class="filled-button">
+                Start for free
             </a>
         </nav>
 

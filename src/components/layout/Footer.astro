@@ -28,10 +28,6 @@ const PAGES = [
         title: "Company",
         options: [
             {
-                title: "Blog",
-                href: "/"
-            },
-            {
                 title: "Changelog",
                 href: "/changelog"
             },
@@ -62,20 +58,12 @@ const PAGES = [
         title: "Find us",
         options: [
             {
-                title: "Tiktok",
-                href: "https://www.tiktok.com"
-            },
-            {
                 title: "LinkedIn",
                 href: "https://linkedin.com/company/studo"
             },
             {
                 title: "GitHub",
                 href: "https://github.com/studo-study"
-            },
-            {
-                title: "X",
-                href: "https://x.com"
             },
         ]
     }
@@ -97,9 +85,16 @@ const PAGES = [
                 {PAGES.map(option => (
                         <div class="flex flex-col gap-2 text-sm text-neutral-400">
                             <h3 class="font-medium text-black">{option.title}</h3>
-                            {option.options.map((item) => (
-                                    <a href={item.href} class="hover:underline">{item.title}</a>
-                            ))}
+                            {option.options.map((item) => {
+                                const external = item.href.startsWith("http");
+                                return (
+                                    <a
+                                        href={item.href}
+                                        class="hover:underline"
+                                        {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                                    >{item.title}</a>
+                                );
+                            })}
                         </div>
                 ))}
             </div>
