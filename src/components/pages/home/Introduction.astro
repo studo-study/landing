@@ -14,14 +14,19 @@ const content = [
         "number": "03",
         "title": "You stay in control",
         "description": "Nothing gets generated without your approval. Studo suggests flashcards, tasks and summaries based on your Core. You decide what makes it into your set."
+    },
+    {
+        "number": "04",
+        "title": "Meet Sven, built on your Core",
+        "description": "Sven is the AI that knows your course. Ask it a question or let it turn your Core into study material. More on that below."
     }
 ]
 ---
 <div class="w-screen h-fit flex flex-col items-center justify-center">
     <div class="w-full max-w-300 h-fit flex flex-col gap-10 mb-10">
         <h2 class="text-5xl font-medium">Your course, <br>turned into a Core</h2>
-        <h3 class="text-neutral-500 text-lg max-w-150">Upload your course once. Studo reads it, structures it and builds
-            a Core that every study tool draws from.</h3>
+        <h3 class="text-neutral-500 text-lg max-w-150">A Core is your full course turned into something Studo
+            understands. Upload your material once and every study tool draws from it.</h3>
     </div>
     <div class="w-screen flex flex-col border-t border-neutral-200">
         {content.map(item => (

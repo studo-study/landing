@@ -1,4 +1,5 @@
 ---
+import { ArrowDown } from "@lucide/astro/icons/index";
 import AnimationCanvas from "./animations/AnimationCanvas.astro";
 import Chat from "./animations/pages/Chat.astro";
 import CourseHome from "./animations/pages/CourseHome.astro";
@@ -36,6 +37,10 @@ const stages = [
                 <svg class="demo-border w-full h-full" preserveAspectRatio="none" aria-hidden="true">
                     <rect x="0" y="0" width="100%" height="100%" rx="30"/>
                 </svg>
+                <div class="absolute bottom-5 left-1/2 -translate-x-1/2 w-fit flex text-neutral-700 text-xs gap-1 flex-row items-center px-2 py-1 rounded-full bg-neutral-50 border border-neutral-200 shadow-sm">
+                    <ArrowDown size="13"/>
+                    Scroll Down
+                </div>
             </div>
         </div>
     </div>

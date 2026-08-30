@@ -21,7 +21,7 @@ const {
 
 <a href={href}
    style={`--i:${index}; --total:${total}`}
-   class={`hero-card hover:scale-103 transition-all hover:animate-none duration-400 hover:z-200 cursor-pointer flex flex-col justify-between overflow-hidden w-40 h-56 md:w-60 md:h-80 rounded-2xl shadow-2xl bg-linear-0 ${color}`}
+   class={`hero-card z-45 hover:scale-103 transition-all hover:animate-none duration-400 hover:z-200 cursor-pointer flex flex-col justify-between overflow-hidden w-40 h-56 md:w-60 md:h-80 rounded-2xl shadow-2xl bg-linear-0 ${color}`}
 >
     <span class="p-3 text-center font-bold text-lg">{title}</span>
     <img src={image} class="w-full object-cover object-bottom" alt={`${title} card`} loading="lazy" decoding="async">

@@ -1,0 +1,207 @@
+---
+// Sven capabilities. The frame grows to full width on entrance, locks, then
+// steps through the capabilities as you keep scrolling. Fill the visual card
+// per section later; text + progress are wired.
+
+const sections = [
+    {
+        title: "Reads and understands your courses",
+        description: "Sven pulls apart your uploads and turns them into a Core it truly understands.",
+    },
+    {
+        title: "Answers questions about them",
+        description: "Ask anything about your course and Sven answers straight from your own material.",
+    },
+    {
+        title: "Finds anything in seconds",
+        description: "Look up any definition, slide or passage in your course without scrolling.",
+    },
+    {
+        title: "Generates Studosets and Visualsets",
+        description: "Turn your Core into ready made flashcards and image sets in one click.",
+    },
+    {
+        title: "Creates tasks in Flow",
+        description: "Sven breaks your course into tasks and drops them straight into Flow.",
+    },
+    {
+        title: "Suggests what to do next",
+        description: "It spots the gaps in your planning and suggests what to tackle next.",
+    },
+    {
+        title: "Tracks and steers your progress",
+        description: "Sven follows how you study and nudges you toward what still needs work.",
+    },
+    {
+        title: "Builds custom learning paths",
+        description: "Get a path through your course shaped around your exam and your pace.",
+    },
+];
+
+// Scroll length. ~50vh of scroll per capability after the frame locks.
+const SCROLL_VH = 100 + sections.length * 50;
+---
+
+<section class="sven-scroll w-full z-999 mb-30" style={`height: ${SCROLL_VH}vh`}>
+    <div class="sven-viewport flex items-center justify-center w-screen h-screen overflow-hidden">
+        <div class="sven-frame bg-emerald-950 overflow-hidden text-white flex items-center justify-center">
+            <div class="max-w-300 flex flex-col gap-8 w-full px-6">
+                <span class="text-base opacity-50 font-semibold">Explore Sven's capabilities:</span>
+                <div class="flex flex-row gap-5 h-200">
+                    <div class="sven-copy-col min-w-1/3 h-full relative">
+                        {sections.map((s, i) => (
+                                <div class:list={["sven-copy", {"is-active": i === 0}]} data-i={i}>
+                                    <span class="font-semibold text-3xl">{s.title}</span>
+                                    <p class="text-lg text-white/70 mt-3">{s.description}</p>
+                                </div>
+                        ))}
+                    </div>
+                    <div class="w-full h-full flex flex-col gap-10 justify-center items-center">
+                        <div class="relative w-180 h-120">
+                            {sections.map((s, i) => (
+                                    <div class:list={["sven-visual", {"is-active": i === 0}]} data-i={i}>
+                                        {/* visual per capability komt hier */}
+                                        <span class="text-neutral-300 text-sm">{s.title}</span>
+                                    </div>
+                            ))}
+                        </div>
+                        <div class="max-w-180 w-full gap-2 flex flex-row">
+                            {sections.map((_, i) => (
+                                    <div class="sven-dot" data-i={i}>
+                                        <div class="sven-dot-fill"></div>
+                                    </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .sven-scroll {
+        position: relative;
+    }
+    .sven-viewport {
+        position: sticky;
+        top: 0;
+    }
+    /* --p (0 -> 1) scrubbed from JS. Frame grows from small to full width. */
+    .sven-frame {
+        --p: 0;
+        width: calc(30% + 70% * var(--p));
+        height: calc(40% + 60% * var(--p));
+        border-radius: calc(5rem * (1 - var(--p)));
+        will-change: width, height, border-radius;
+    }
+
+    /* Only the active capability copy/visual is shown; the rest fade out. */
+    .sven-copy {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        opacity: 0;
+        translate: 0 0.75rem;
+        transition: opacity 0.4s ease, translate 0.4s ease;
+        pointer-events: none;
+    }
+    .sven-copy.is-active {
+        opacity: 1;
+        translate: 0 0;
+    }
+    .sven-visual {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 1.5rem;
+        border: 1px solid var(--color-neutral-200, #e5e5e5);
+        background: white;
+        filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+        opacity: 0;
+        scale: 0.98;
+        transition: opacity 0.4s ease, scale 0.4s ease;
+    }
+    .sven-visual.is-active {
+        opacity: 1;
+        scale: 1;
+    }
+    .sven-dot {
+        --f: 0;
+        height: 0.25rem;
+        flex: 1;
+        border-radius: 9999px;
+        background: rgb(255 255 255 / 0.2);
+        overflow: hidden;
+    }
+    /* Inner fill grows with scroll progress through its step. */
+    .sven-dot-fill {
+        height: 100%;
+        width: 100%;
+        border-radius: inherit;
+        background: white;
+        transform: scaleX(var(--f));
+        transform-origin: left;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .sven-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+        .sven-copy,
+        .sven-visual {
+            transition: none;
+        }
+    }
+</style>
+
+<script>
+    const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+
+    // Re-queried every tick so it survives Astro view transitions.
+    const update = () => {
+        const section = document.querySelector<HTMLElement>('.sven-scroll');
+        const frame = document.querySelector<HTMLElement>('.sven-frame');
+        if (!section || !frame) return;
+
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight;
+
+        // Grow during the entrance: full by the time the top hits the viewport
+        // top, where the viewport locks. Higher GROW_SPAN = starts earlier.
+        const GROW_SPAN = 1;
+        const fp = clamp01((vh - rect.top) / (vh * GROW_SPAN));
+        frame.style.setProperty('--p', String(fp));
+
+        // Step through capabilities over the locked (sticky) range.
+        const scrollable = section.offsetHeight - vh;
+        const p = scrollable > 0 ? clamp01(-rect.top / scrollable) : 0;
+
+        const copies = Array.from(document.querySelectorAll<HTMLElement>('.sven-copy'));
+        const visuals = Array.from(document.querySelectorAll<HTMLElement>('.sven-visual'));
+        const dots = Array.from(document.querySelectorAll<HTMLElement>('.sven-dot'));
+        const count = copies.length;
+        if (!count) return;
+
+        const index = Math.min(count - 1, Math.floor(p * count));
+        const stageP = clamp01(p * count - index);
+        copies.forEach((el, i) => el.classList.toggle('is-active', i === index));
+        visuals.forEach((el, i) => el.classList.toggle('is-active', i === index));
+        // Bars fill with scroll: past = full, current = partial, future = empty.
+        dots.forEach((el, i) => {
+            const f = i < index ? 1 : i === index ? stageP : 0;
+            el.style.setProperty('--f', String(f));
+        });
+    };
+
+    document.addEventListener('scroll', update, {passive: true});
+    window.addEventListener('resize', update);
+    document.addEventListener('astro:page-load', update);
+</script>
