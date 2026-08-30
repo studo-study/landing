@@ -1,0 +1,75 @@
+---
+import {ChevronLeft, ChevronRight, CreditCard, Heart, Pencil, Zap} from "@lucide/astro/icons/index";
+---
+
+<div class="flex flex-1 min-w-0 min-h-0 flex-col justify-center items-center p-2 overflow-hidden">
+    <div class="max-w-2/5 w-full h-full flex flex-col pt-2 gap-2">
+        <div class="flex flex-row items-center gap-1 text-neutral-300 text-[8px]">
+            <span>Created by</span>
+            <div class="w-3 h-3 text-white bg-blue-500 rounded-full flex items-center justify-center">C</div>
+        </div>
+        <span class="font-semibold text-start text-neutral-400 text-xs">Microbiology</span>
+        <div class="flex flex-row gap-1 items-center text-neutral-400 text-[9px]">
+            <Heart size={8} class="fill-rose-500"/>
+            15 likes
+        </div>
+        <hr class="border-neutral-200">
+        <div class="grid grid-cols-3 h-8 gap-2">
+            <div data-anim-target="learn" class="w-full h-full border border-neutral-200 p-1 rounded-full text-[11px] font-semibold flex flex-row gap-2 items-center text-neutral-500">
+                <div class="h-6 w-6 flex items-center justify-center bg-emerald-500 text-white rounded-full border border-neutral-200">
+                    <Pencil size={12}/>
+                </div>
+                Learn
+            </div>
+
+            <div class="w-full h-full border border-neutral-200 p-1 rounded-full text-[11px] font-semibold flex flex-row gap-2 items-center text-neutral-500">
+                <div class="h-6 w-6 flex items-center justify-center bg-amber-500 text-white rounded-full border border-neutral-200">
+                    <Zap size={12}/>
+                </div>
+                Drill
+            </div>
+
+            <div class="w-full h-full border border-neutral-200 p-1 rounded-full text-[11px] font-semibold flex flex-row gap-2 items-center text-neutral-500">
+                <div class="h-6 w-6 flex items-center justify-center bg-blue-500 text-white rounded-full border border-neutral-200">
+                    <CreditCard size={12}/>
+                </div>
+                Cards
+            </div>
+
+        </div>
+        <hr class="border-neutral-200">
+
+        <div class="w-full h-45 rounded-xl border border-neutral-200 flex items-center justify-center bg-white shadow-lg font-georgia text-sm font-semibold text-neutral-400">
+            Abiogenesis
+        </div>
+        <div class="flex items-center justify-center">
+            <div class="w-fit text-neutral-500 h-6 text-[11px] gap-2 my-2 flex items-center bg-white rounded-full border border-neutral-200">
+                <ChevronLeft size={12}/>
+                10 / 30
+                <ChevronRight size={12}/>
+            </div>
+        </div>
+        <hr class="border-neutral-200">
+        <div class="grid grid-cols-3 h-15 gap-2">
+            <div class="h-full w-full rounded-xl bg-white text-neutral-400 border border-neutral-200 flex flex-col gap-1 items-center justify-center shadow-sm text-[10px]">
+                Not Learned
+                <div class="rounded-full text-[8px] border-3 border-blue-300 flex items-center justify-center w-7 h-7">
+                    100%
+                </div>
+            </div>
+            <div class="h-full w-full rounded-xl bg-white text-neutral-400 border border-neutral-200 flex flex-col gap-1 items-center justify-center shadow-sm text-[10px]">
+                Viewed
+                <div class="rounded-full text-[8px] border-3 border-neutral-300 flex items-center justify-center w-7 h-7">
+                    0%
+                </div>
+            </div>
+            <div class="h-full w-full rounded-xl bg-white text-neutral-400 border border-neutral-200 flex flex-col gap-1 items-center justify-center shadow-sm text-[10px]">
+                Studied
+                <div class="rounded-full text-[8px] border-3 border-neutral-300 flex items-center justify-center w-7 h-7">
+                    0%
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

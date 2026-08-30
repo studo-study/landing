@@ -1,0 +1,26 @@
+---
+import StudoUi from "./StudoUi.astro";
+
+interface Props {
+    submenuOpen?: boolean;
+    activeTab?: "overview" | "documents" | "flow" | "sets";
+    courseName?: string;
+    courseCreated?: boolean;
+}
+const {submenuOpen, activeTab, courseName, courseCreated} = Astro.props;
+---
+
+<div class="anim-canvas min-w-0 min-h-0 h-full w-full flex-1 relative flex justify-center items-center overflow-hidden">
+    <StudoUi submenuOpen={submenuOpen} activeTab={activeTab} courseName={courseName} courseCreated={courseCreated}>
+        <slot/>
+    </StudoUi>
+
+    {/* cursor — position + scale driven by each animation's script */}
+    <img
+        data-cursor
+        src="/animation_assets/mouse.png"
+        alt="cursor"
+        class="anim-cursor h-5 absolute z-[1000] pointer-events-none"
+        style="left: 80%; top: 78%;"
+    />
+</div>

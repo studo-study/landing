@@ -1,0 +1,141 @@
+---
+import {GalleryVerticalEnd, Plus, Send, X} from "@lucide/astro/icons/index";
+import Flow from "./Flow.astro";
+---
+
+<div class="chat-anim w-full h-full flex flex-row">
+    <div class="flex-1 min-w-0 min-h-0">
+        <Flow done/>
+    </div>
+
+    {/* chat drawer — grows from the right, shrinking the Flow area beside it */}
+    <div
+        data-anim="chatpanel"
+        style="width: 0; opacity: 0;"
+        class="h-full shrink-0 overflow-hidden bg-white border-l border-neutral-200 p-2 flex flex-col gap-3 shadow-lg"
+    >
+        <div class="h-8 flex flex-row justify-between items-center text-[10px] text-neutral-400 font-medium">
+            <Plus size={12}/>
+            chat
+            <X size={12}/>
+        </div>
+
+        <div class="flex-1 min-w-0 min-h-0 flex flex-col justify-end gap-2 pb-3">
+            {/* user message */}
+            <div data-anim="userbubble" style="opacity: 0;" class="flex flex-row items-center justify-end">
+                <div class="px-2 py-1.5 max-w-25 shadow-sm rounded-full rounded-br-none border border-neutral-200 text-[11px] text-neutral-500">
+                    <span data-anim="usertext">generate set</span>
+                </div>
+            </div>
+
+            {/* Sven reply: generated set button */}
+            <div data-anim="setreply" style="opacity: 0;" class="flex flex-col">
+                <div data-anim-target="setreply" class="w-25 h-8 border border-neutral-200 rounded-lg flex px-2 items-center gap-1 bg-white shadow-sm text-[11px] font-medium text-neutral-400">
+                    <GalleryVerticalEnd size="11"/>
+                    Set
+                    <div class="flex-1 h-1 bg-neutral-200 rounded-full">
+                        <div class="h-1 w-1 rounded-full bg-emerald-500"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row justify-between items-center h-8 border border-neutral-200 rounded-xl px-2 bg-neutral-50 text-neutral-400 text-[11px]">
+            <div class="flex flex-row gap-2 items-center"><Plus size={10}/> <span data-anim="inputtext">send message...</span></div>
+            <Send size={10}/>
+        </div>
+    </div>
+</div>
+
+<script>
+    import {driveStage, clamp01, lerp, phase, ease} from "../stage";
+
+    const MSG = "generate set";
+
+    // Timeline windows (stage progress 0 -> 1)
+    const T = {
+        toChat:   [0.06, 0.26],  // cursor -> chat icon in the rail
+        click:    [0.26, 0.30],  // click
+        open:     [0.30, 0.42],  // drawer slides in
+        toInput:  [0.44, 0.50],  // cursor -> input
+        typing:   [0.52, 0.70],  // type "generate set"
+        send:     [0.72, 0.78],  // user bubble appears, input clears
+        reply:    [0.80, 0.88],  // Sven's set button appears
+        toSet:    [0.90, 0.97],  // cursor -> set button
+        clickSet: [0.97, 1.00],  // click -> next stage
+    } as const;
+
+    type Pt = {x: number; y: number};
+
+    driveStage(".chat-anim", (p, root) => {
+        const canvas = root.closest<HTMLElement>(".anim-canvas");
+        if (!canvas) return;
+
+        const cursor = canvas.querySelector<HTMLElement>("[data-cursor]");
+        const chatIcon = canvas.querySelector<HTMLElement>('[data-anim-target="chat"]');
+        const panel = root.querySelector<HTMLElement>('[data-anim="chatpanel"]');
+        const userBubble = root.querySelector<HTMLElement>('[data-anim="userbubble"]');
+        const inputText = root.querySelector<HTMLElement>('[data-anim="inputtext"]');
+        const setReply = root.querySelector<HTMLElement>('[data-anim="setreply"]');
+        const setBtn = root.querySelector<HTMLElement>('[data-anim-target="setreply"]');
+
+        const crect = canvas.getBoundingClientRect();
+        const rest: Pt = {x: crect.width * 0.8, y: crect.height * 0.78};
+        const centerOf = (el: Element | null): Pt => {
+            if (!el) return rest;
+            const r = el.getBoundingClientRect();
+            return {x: r.left + r.width / 2 - crect.left, y: r.top + r.height / 2 - crect.top};
+        };
+
+        const toChat = phase(p, ...T.toChat);
+        const click = phase(p, ...T.click);
+        const open = phase(p, ...T.open);
+        const toInput = phase(p, ...T.toInput);
+        const typing = phase(p, ...T.typing);
+        const send = phase(p, ...T.send);
+        const reply = phase(p, ...T.reply);
+        const toSet = phase(p, ...T.toSet);
+        const clickSet = phase(p, ...T.clickSet);
+
+        // ---- drawer open: grows in width, shrinking the Flow area ----
+        if (panel) {
+            const e = ease(open);
+            panel.style.width = `${lerp(0, 34, e)}%`;
+            panel.style.opacity = String(e);
+        }
+
+        // ---- cursor path ----
+        const chatPt = centerOf(chatIcon);
+        const inputPt = centerOf(inputText);
+        const setPt = centerOf(setBtn);
+        let pos: Pt;
+        if (p < T.toChat[1]) pos = {x: lerp(rest.x, chatPt.x, ease(toChat)), y: lerp(rest.y, chatPt.y, ease(toChat))};
+        else if (p < T.toInput[0]) pos = chatPt;
+        else if (p < T.toInput[1]) pos = {x: lerp(chatPt.x, inputPt.x, ease(toInput)), y: lerp(chatPt.y, inputPt.y, ease(toInput))};
+        else if (p < T.toSet[0]) pos = inputPt;
+        else if (p < T.toSet[1]) pos = {x: lerp(inputPt.x, setPt.x, ease(toSet)), y: lerp(inputPt.y, setPt.y, ease(toSet))};
+        else pos = setPt;
+
+        if (cursor) {
+            cursor.style.left = `${pos.x}px`;
+            cursor.style.top = `${pos.y}px`;
+            const clicking = (click > 0 && click < 1) || (clickSet > 0 && clickSet < 1);
+            cursor.style.scale = clicking ? "0.82" : "1";
+        }
+
+        // ---- input text: types the message, clears after send ----
+        if (inputText) {
+            if (send > 0) {
+                inputText.textContent = "send message...";
+            } else if (typing > 0) {
+                inputText.textContent = MSG.slice(0, Math.round(typing * MSG.length)) + (typing < 1 ? "|" : "");
+            } else {
+                inputText.textContent = "send message...";
+            }
+        }
+
+        // ---- user bubble + Sven reply ----
+        if (userBubble) userBubble.style.opacity = String(ease(send));
+        if (setReply) setReply.style.opacity = String(ease(reply));
+    });
+</script>

@@ -1,0 +1,163 @@
+---
+import {ArrowDownUp, Funnel, Paperclip, Plus, SlidersHorizontal} from "@lucide/astro/icons/index";
+
+// `done` renders the added row already in place (used as static background,
+// e.g. inside the Chat stage where the Flow animation has already played).
+interface Props { done?: boolean }
+const {done = false} = Astro.props;
+
+const TASK_TEXT = "Revise Abiogenesis";
+
+const columns = [
+    {key: "title", label: "Title", w: "w-36"},
+    {key: "status", label: "Status", w: "w-20"},
+    {key: "description", label: "Description", w: "w-36"},
+    {key: "priority", label: "Priority", w: "w-20"},
+    {key: "deadline", label: "Deadline", w: "w-20"},
+    {key: "type", label: "Type", w: "w-20"},
+    {key: "attachment", label: "Attachment", w: "w-20"},
+];
+
+// existing rows (static)
+const rows = [
+    {title: "Read chapter 1", status: "Done", statusColor: "bg-emerald-100 text-emerald-600", created: "8/20", description: "Intro + basics", priority: "Low", prioColor: "text-neutral-400", deadline: "8/22", type: "Task"},
+    {title: "Lecture 2 notes", status: "In progress", statusColor: "bg-amber-100 text-amber-600", created: "8/21", description: "Cell structures", priority: "Medium", prioColor: "text-amber-500", deadline: "8/24", type: "Note"},
+];
+---
+
+<div class="flow-anim w-full h-full flex justify-center overflow-hidden">
+  <div class="w-1/2 h-full flex flex-col p-3 gap-2 text-start">
+    <div class="flex flex-col">
+        <span class="font-semibold text-sm text-neutral-600">Microbiology</span>
+        <span class="text-[9px] text-neutral-400">Plan and track everything for this course.</span>
+    </div>
+
+    <div class="flex flex-row gap-1 w-full justify-end">
+        {[Funnel, ArrowDownUp, SlidersHorizontal].map((Icon) => (
+            <div class="h-6 px-2 rounded-full bg-neutral-50 flex items-center justify-center text-neutral-400">
+                <Icon size={10}/>
+            </div>
+        ))}
+    </div>
+
+    {/* spreadsheet — starts left, overflows to the right beyond the column */}
+    <div class="flex-1 min-h-0 rounded-lg">
+        <div class="w-max min-w-full text-[9px]">
+            {/* header */}
+            <div class="flex flex-row bg-neutral-50 border-b border-neutral-200 text-neutral-400 font-medium">
+                {columns.map((c) => (
+                    <div class:list={[c.w, "shrink-0 px-2 py-1.5 border-r border-neutral-200 truncate"]}>{c.label}</div>
+                ))}
+            </div>
+
+            {/* static rows */}
+            {rows.map((r) => (
+                <div class="flex flex-row border-b border-neutral-100 text-neutral-500">
+                    <div class="w-36 shrink-0 px-2 py-1.5 border-r border-neutral-100 truncate">{r.title}</div>
+                    <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100"><span class:list={[r.statusColor, "px-1.5 py-0.5 rounded-full"]}>{r.status}</span></div>
+                    <div class="w-36 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-400 truncate">{r.description}</div>
+                    <div class:list={[r.prioColor, "w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100"]}>{r.priority}</div>
+                    <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-400">{r.deadline}</div>
+                    <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-400">{r.type}</div>
+                    <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-300"><Paperclip size={9}/></div>
+                </div>
+            ))}
+
+            {/* animated new row */}
+            <div data-anim="newrow" style={`opacity: ${done ? 1 : 0};`} class="flex flex-row border-b border-neutral-100 text-neutral-500 bg-blue-50/40">
+                <div data-anim="titlecell" class="relative w-36 shrink-0 px-2 py-1.5 border border-neutral-100 rounded-lg rounded-br-none truncate text-neutral-600">
+                    <span data-anim="rowtitle">{done ? TASK_TEXT : "|"}</span>
+                    <div data-anim="resize" style="opacity: 0;" class="absolute -bottom-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-indigo-500 border border-white"></div>
+                </div>
+                <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100"><span class="px-1.5 py-0.5 rounded-full bg-neutral-100 text-neutral-500">To do</span></div>
+                <div class="w-36 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-300 truncate">add description...</div>
+                <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-300">None</div>
+                <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-300">-</div>
+                <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-400">Task</div>
+                <div class="w-20 shrink-0 px-2 py-1.5 border-r border-neutral-100 text-neutral-300"><Paperclip size={9}/></div>
+            </div>
+
+            <div data-anim-target="newrow" class="flex flex-row items-center gap-1 px-2 py-1.5 text-neutral-400">
+                <Plus size={10}/> New
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    import {driveStage, lerp, phase, ease} from "../stage";
+
+    const TASK = "Revise Abiogenesis";
+
+    const T = {
+        toNew:   [0.08, 0.28],  // cursor -> New button
+        click:   [0.28, 0.32],  // click
+        addRow:  [0.32, 0.44],  // row appears
+        toTitle: [0.46, 0.52],  // cursor -> title cell
+        typing:  [0.54, 0.92],  // type the task title
+    } as const;
+
+    type Pt = {x: number; y: number};
+
+    driveStage(".flow-anim", (p, root) => {
+        const canvas = root.closest<HTMLElement>(".anim-canvas");
+        if (!canvas) return;
+
+        const cursor = canvas.querySelector<HTMLElement>("[data-cursor]");
+        const newBtn = root.querySelector<HTMLElement>('[data-anim-target="newrow"]');
+        const newRow = root.querySelector<HTMLElement>('[data-anim="newrow"]');
+        const rowTitle = root.querySelector<HTMLElement>('[data-anim="rowtitle"]');
+        const titleCell = root.querySelector<HTMLElement>('[data-anim="titlecell"]');
+        const resize = root.querySelector<HTMLElement>('[data-anim="resize"]');
+
+        const crect = canvas.getBoundingClientRect();
+        const rest: Pt = {x: crect.width * 0.8, y: crect.height * 0.78};
+        const centerOf = (el: Element | null): Pt => {
+            if (!el) return rest;
+            const r = el.getBoundingClientRect();
+            return {x: r.left + r.width / 2 - crect.left, y: r.top + r.height / 2 - crect.top};
+        };
+
+        const toNew = phase(p, ...T.toNew);
+        const click = phase(p, ...T.click);
+        const addRow = phase(p, ...T.addRow);
+        const toTitle = phase(p, ...T.toTitle);
+        const typing = phase(p, ...T.typing);
+
+        // ---- new row appears ----
+        if (newRow) {
+            newRow.style.opacity = String(ease(addRow));
+            newRow.style.transform = `translateY(${lerp(6, 0, ease(addRow))}px)`;
+        }
+
+        // ---- cursor path ----
+        const newPt = centerOf(newBtn);
+        const titlePt = centerOf(rowTitle);
+        let pos: Pt;
+        if (p < T.toNew[1]) pos = {x: lerp(rest.x, newPt.x, ease(toNew)), y: lerp(rest.y, newPt.y, ease(toNew))};
+        else if (p < T.toTitle[0]) pos = newPt;
+        else if (p < T.toTitle[1]) pos = {x: lerp(newPt.x, titlePt.x, ease(toTitle)), y: lerp(newPt.y, titlePt.y, ease(toTitle))};
+        else pos = titlePt;
+
+        if (cursor) {
+            cursor.style.left = `${pos.x}px`;
+            cursor.style.top = `${pos.y}px`;
+            cursor.style.scale = (click > 0 && click < 1) ? "0.82" : "1";
+        }
+
+        // ---- type the task title ----
+        if (rowTitle) {
+            const n = Math.round(typing * TASK.length);
+            rowTitle.textContent = typing > 0 ? TASK.slice(0, n) + (typing < 1 ? "|" : "") : "|";
+        }
+
+        // ---- active cell: indigo border + resize handle once focused ----
+        const active = p >= T.toTitle[1];
+        if (titleCell) {
+            titleCell.classList.toggle("border-indigo-500", active);
+            titleCell.classList.toggle("border-neutral-100", !active);
+        }
+        if (resize) resize.style.opacity = active ? "1" : "0";
+    });
+</script>

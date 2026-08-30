@@ -1,24 +1,38 @@
 ---
+import AnimationCanvas from "./animations/AnimationCanvas.astro";
+import Chat from "./animations/pages/Chat.astro";
+import CourseHome from "./animations/pages/CourseHome.astro";
+import Flow from "./animations/pages/Flow.astro";
+import Home from "./animations/pages/Home.astro";
+import StudyFlow from "./animations/pages/StudyFlow.astro";
+
+const COURSE = "Microbiology";
 const stages = [
-    {key: "upload", label: "Upload", title: "Drop in your course"},
-    {key: "process", label: "Process", title: "Studo reads and structures it"},
-    {key: "flow", label: "Track", title: "It lands in your Flow"},
-    {key: "generate", label: "Generate", title: "Turn a chapter into a set"},
-    {key: "study", label: "Study", title: "Learn it, the way that fits"},
-];
+    {key: "upload", label: "Upload", caption: "Create a course in seconds and give it a name.", component: Home, sidebar: {open: false, tab: "overview"}, course: {name: "Course", created: false}},
+    {key: "process", label: "Process", caption: "Add your documents and they become a Core that Sven can draw from.", component: CourseHome, sidebar: {open: true, tab: "overview"}, course: {name: COURSE, created: true}},
+    {key: "flow", label: "Track", caption: "Plan and track your lessons while Sven suggests tasks and fills the gaps.", component: Flow, sidebar: {open: true, tab: "flow"}, course: {name: COURSE, created: true}},
+    {key: "generate", label: "Generate", caption: "Chat directly with Sven and turn anything into a set.", component: Chat, sidebar: {open: true, tab: "sets"}, course: {name: COURSE, created: true}},
+    {key: "study", label: "Study", caption: "Study your set and get instant feedback as you go.", component: StudyFlow, sidebar: {open: false, tab: "sets"}, course: {name: COURSE, created: true}},
+] as const;
 ---
 
 <section class="demo-scroll w-full" style={`height: ${stages.length * 100}vh`}>
     <div class="demo-viewport flex flex-1 items-center justify-center w-screen h-screen">
         <div class="w-full max-w-300 min-h-270 px-6 flex flex-col items-center gap-6 text-center">
+            <p class="demo-caption h-6 text-lg font-medium text-neutral-700 transition-opacity duration-300">{stages[0].caption}</p>
             <div class="relative min-h-0 min-w-0 h-full w-full flex-1 rounded-4xl border border-neutral-200 flex items-center justify-center text-neutral-300 bg-neutral-100">
-                {stages.map((stage, i) => (
-                        <div class:list={["demo-stage", {"is-active": i === 0}]} data-stage-index={i}>
+                {stages.map((stage, i) => {
+                    const Anim = stage.component;
+                    return (
+                        <div class:list={["demo-stage", {"is-active": i === 0}]} data-stage-index={i} data-caption={stage.caption}>
                             <div class="w-full h-full flex items-center justify-center">
-                                {stage.key} animation
+                                <AnimationCanvas submenuOpen={stage.sidebar?.open} activeTab={stage.sidebar?.tab} courseName={stage.course?.name} courseCreated={stage.course?.created}>
+                                    {Anim ? <Anim/> : <span>{stage.key} animation</span>}
+                                </AnimationCanvas>
                             </div>
                         </div>
-                ))}
+                    );
+                })}
                 <svg class="demo-border w-full h-full" preserveAspectRatio="none" aria-hidden="true">
                     <rect x="0" y="0" width="100%" height="100%" rx="30"/>
                 </svg>
@@ -60,6 +74,10 @@ const stages = [
             stage.classList.toggle('is-active', i === index);
             stage.style.setProperty('--stage-p', i < index ? '1' : i === index ? String(stageP) : '0');
         });
+
+        const caption = document.querySelector<HTMLElement>('.demo-caption');
+        const text = stages[index]?.dataset.caption ?? '';
+        if (caption && caption.textContent !== text) caption.textContent = text;
     };
 
     document.addEventListener('scroll', update, {passive: true});

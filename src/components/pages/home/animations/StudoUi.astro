@@ -1,0 +1,169 @@
+---
+import {
+    Bell,
+    Book,
+    BookOpen,
+    BookText,
+    ChevronDown,
+    ChevronsUpDown,
+    Cog,
+    Equal,
+    GraduationCap,
+    House,
+    Layers,
+    LayoutGrid,
+    LayoutPanelTop,
+    LibraryBig,
+    MessageCircleMore,
+    Plus,
+    Search,
+    User
+} from "@lucide/astro/icons/index";
+
+interface Props {
+    submenuOpen?: boolean;
+    activeTab?: "overview" | "documents" | "flow" | "sets";
+    courseName?: string;
+    courseCreated?: boolean;
+}
+const {submenuOpen = false, activeTab = "overview", courseName = "Course", courseCreated = false} = Astro.props;
+
+const tabClass = (name: string) => [
+    "faux-tab h-4 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] transition-colors",
+    activeTab === name ? "bg-neutral-100 text-neutral-600" : "text-neutral-400",
+];
+---
+
+<div class="relative overflow-hidden w-200 h-130 rounded-xl border border-neutral-200 bg-white shadow-lg flex flex-col items-center">
+    <div class="min-w-0 flex-1 w-full max-h-10 flex items-center flex-row px-2 justify-between">
+        <div class="flex flex-row gap-2 items-center">
+            <div class="rounded-full border border-neutral-200 h-5 w-5 bg-neutral-50 flex items-center justify-center">
+                <Equal size="13"/>
+            </div>
+            <span class="font-georgia font-medium text-sm text-emerald-500">Studo</span>
+        </div>
+        <div class="flex flex-row gap-2 items-center">
+            <div class="h-4 bg-neutral-50 flex items-center justify-between px-1 pl-1.5 w-25 border border-neutral-200 rounded-4xl text-neutral-400">
+                <span class="text-[8px]">search...</span>
+                <Search size="10"/>
+            </div>
+            <div data-anim-target="plus" class="rounded-full border border-neutral-200 bg-blue-500 text-white h-5 w-5 flex items-center justify-center">
+                <Plus size="12"/>
+            </div>
+
+            <div class="rounded-full border border-neutral-200 h-5 w-5 flex bg-neutral-100 text-neutral-400 items-center justify-center">
+                <Bell size="12"/>
+            </div>
+
+            <div class="rounded-full border border-neutral-200 bg-emerald-500 text-white h-5 w-5 flex items-center justify-center">
+                <User size="12"/>
+            </div>
+        </div>
+    </div>
+    <div class="min-w-0 w-full flex-1 flex flex-row gap-2 px-2 pb-2">
+        <div class="max-w-20 h-full w-full pt-3 flex flex-col gap-5">
+            <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
+                <House size="11"/>
+                Home
+            </div>
+
+            <div class="flex flex-col gap-1 w-full">
+                <div class="mb-1 text-[8px] text-neutral-300 text-start flex flex-row justify-between">
+                    <span>courses</span>
+                    <ChevronDown size="10"/>
+                </div>
+
+                <div class="flex flex-col w-full gap-1">
+                    <div class="h-5 bg-neutral-100 p-0.5 rounded-full w-full px-px pr-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400 justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <div data-ui="course-icon" class:list={["rounded-full flex items-center justify-center h-4 w-4 text-white transition-colors", courseCreated ? "bg-blue-500" : "bg-emerald-500"]}>
+                                <Book size="10"/>
+                            </div>
+                            <span data-ui="course-name" class="truncate max-w-13">{courseName}</span>
+                        </div>
+
+                        <ChevronsUpDown size="10"/>
+
+                    </div>
+
+                    <div
+                        data-ui="submenu"
+                        class:list={["flex flex-col pr-2 w-full ml-2 border-l border-neutral-200 pl-1 gap-1", {hidden: !submenuOpen}]}
+                    >
+                        <div data-tab="overview" class:list={tabClass("overview")}>
+                            <LayoutGrid size="9"/>
+                            Overview
+                        </div>
+                        <div data-tab="documents" class:list={tabClass("documents")}>
+                            <BookText size="9"/>
+                            Documents
+                        </div>
+                        <div data-tab="flow" class:list={tabClass("flow")}>
+                            <LayoutPanelTop size="9"/>
+                            Flow
+                        </div>
+                        <div data-tab="sets" class:list={tabClass("sets")}>
+                            <Layers size="9"/>
+                            Sets
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
+                    <Plus size="11"/>
+                    Create
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1 w-full min-h-0 flex-1">
+                <div class="mb-1 text-[8px] text-neutral-300 text-start flex flex-row justify-between">
+                    <span>library</span>
+                    <ChevronDown size="10"/>
+                </div>
+                <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
+                    <LibraryBig size="11"/>
+                    Library
+                </div>
+                <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
+                    <GraduationCap size="11"/>
+                    Groups
+                </div>
+                <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
+                    <Search size="11"/>
+                    Search
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1 w-full">
+                <div class="mb-1 text-[8px] text-neutral-300 text-start flex flex-row justify-between">
+                    <span>account</span>
+                    <ChevronDown size="10"/>
+                </div>
+                <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
+                    <User size="11"/>
+                    Account
+                </div>
+                <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
+                    <Cog size="11"/>
+                    Settings
+                </div>
+            </div>
+
+        </div>
+        <div class="rounded-lg w-full border border-neutral-200 shadow-sm bg-neutral-50/20 min-w-0 flex-1 flex flex-row">
+            <div class="flex-1 min-w-0 min-h-0">
+                <slot/>
+            </div>
+            <div class="flex flex-col gap-4 w-8 h-full py-2 border-l items-center border-neutral-200">
+                <div data-anim-target="chat" class="flex items-center justify-center">
+                    <MessageCircleMore size={13} class="text-neutral-400"/>
+                </div>
+                <BookOpen size={13} class="text-neutral-400"/>
+                <Cog size={13} class="text-neutral-400"/>
+
+            </div>
+        </div>
+    </div>
+</div>

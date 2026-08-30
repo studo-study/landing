@@ -1,0 +1,238 @@
+---
+import { ArrowRight, BookOpen, Check, Eye, GalleryVerticalEnd, Layers, Plus, RotateCcw, Timer, Undo, X } from "@lucide/astro/icons/index";
+
+
+---
+
+<div class="home-anim min-w-0 flex-1 flex w-full h-full items-center justify-center">
+    <div data-anim="popup" style="opacity: 0; pointer-events: none;" class="absolute w-full h-full bg-black/20 z-999 left-0 top-0 flex justify-center pt-[20%] ">
+        <div data-anim="popup-box" style="transform: scale(0.9); transform-origin: top center;" class="w-65 h-30 rounded-xl bg-white shadow-2xl flex flex-col">
+            <div class="min-w-0 min-h-0 flex-1">
+                <div class="w-full flex justify-between pt-2 px-2">
+                    <div class="border text-[8px] border-neutral-200 bg-neutral-50 rounded-xl px-1 text-neutral-400 py-px">
+                        Create course
+                    </div>
+                    <X size="10" class="text-neutral-400 "/>
+                </div>
+                <div data-anim-target="titlefield" class="flex flex-col gap-1 px-3 py-2 text-start">
+                    <div class="w-5 h-5 rounded bg-blue-500/30 text-blue-500 flex items-center justify-center">
+                        <BookOpen size="10"/>
+                    </div>
+                    <div class="flex flex-col">
+                        <span data-anim="title" class="text-[11px] w-full text-neutral-400">Add title</span>
+                        <span class="text-[8px] w-full">Description</span>
+                    </div>
+
+                </div>
+            </div>
+            <div class="h-6.5 flex flex-row justify-end gap-1 items-center px-1 border-t border-neutral-200">
+                <div class="flex flex-row gap-1 text-[7px] text-neutral-400 w-fit rounded-full px-2 py-1 items-center">
+                    <Plus size="7"/> add metadata
+                </div>
+                <div data-anim-target="continue" class="flex flex-row gap-1 text-[7px] text-white bg-blue-500 w-fit rounded-full px-2 py-1 items-center">
+                    continue
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="max-w-1/2 h-full w-full py-5 flex flex-col">
+        <span class="font-georgia font-medium text-neutral-400 text-xs w-full text-start">Welcome back!</span>
+        <span class="text-[8px] w-full text-start mb-2">Ready to study?</span>
+        <div class="grid grid-cols-4 gap-1 mb-4">
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Layers size="10" class="text-amber-500"/>
+                2 sets studied
+            </div>
+
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Eye size="10" class="text-purple-500"/>
+                247 cards viewed
+            </div>
+
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Check size="10" class="text-blue-500"/>
+                128 cards learned
+            </div>
+
+            <div class="h-5 gap-1 w-full border border-neutral-200 text-center bg-neutral-50 rounded-full flex items-center justify-center text-[7px] text-neutral-400 font-medium">
+                <Timer size="10" class="text-emerald-500"/>
+                421 min studied
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col gap-1 h-fit mb-4">
+            <div class="flex flex-row w-full text-[8px] font-medium gap-1 items-center text-neutral-400">
+                <RotateCcw size="10"/>
+                Jump back in
+            </div>
+            <div class="flex flex-row gap-2">
+                <div class="min-h-20 max-h-20 border border-neutral-200 w-full h-full rounded-xl bg-neutral-50 shadow-sm p-4 py-3 flex flex-row">
+                    <div class="flex flex-col gap-1 min-w-0 flex-1">
+                        <span class="flex flex-row gap-1 font-medium text-[8px] text-neutral-400 items-center">
+                             <GalleryVerticalEnd size="10"/>
+                            Data Science
+                        </span>
+                        <span class="text-[6px] min-h-0 flex-1 w-fit">last studied - 8/22/2026</span>
+                        <div class="flex flex-row gap-1 text-[7px] text-white bg-blue-500 w-fit rounded-full px-2 py-1 items-center">
+                            continue <ArrowRight size="8"/>
+                        </div>
+                    </div>
+                    <div class="h-full flex items-center justify-center">
+                        <div class="rounded-full h-8 w-8 text-[7px] text-neutral-500 font-medium flex items-center justify-center border-4 border-emerald-500">
+                            100%
+                        </div>
+                    </div>
+                </div>
+                <div class="min-h-20 max-h-20 flex border border-neutral-200 w-full max-w-1/4 h-full py-3 p-4 rounded-xl bg-neutral-50 shadow-sm">
+                    <div class="flex flex-col gap-1 min-w-0 flex-1">
+                        <span class="flex flex-row gap-1 font-medium max-w-fit text-start text-[8px] text-neutral-400 items-center truncate">
+                             <GalleryVerticalEnd size="10"/>
+                            English Literature
+                        </span>
+                        <span class="text-[6px] min-h-0 flex-1 w-fit truncate">last studied - 8/22/2026</span>
+                        <div class="flex flex-row gap-1 text-[7px] text-white bg-blue-500 w-fit rounded-full px-2 py-1 items-center">
+                            continue <ArrowRight size="8"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col gap-1 h-fit mb-4">
+            <div class="flex flex-row w-full text-[8px] font-medium gap-1 items-center text-neutral-400">
+                <BookOpen size="10"/>
+                Your courses
+            </div>
+            <div class="flex flex-row gap-2">
+                <div class="min-h-20 bg-neutral-50 shadow-sm max-h-20 border border-neutral-200 w-full h-full rounded-xl p-3">
+                    <div class="h-full w-14 rounded-lg border border-neutral-200 text-[8px] text-neutral-400 flex-col bg-white shadow-md flex items-center justify-center">
+                        <div class="h-6 w-6 rounded bg-blue-400/50 text-blue-700 flex items-center justify-center">
+                            <BookOpen size="10"/>
+                        </div>
+                        <span>Course</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="w-full flex flex-col gap-1 h-fit mb-4">
+            <div class="flex flex-row w-full text-[8px] font-medium gap-1 items-center text-neutral-400">
+                <GalleryVerticalEnd size="10"/>
+                Your sets
+            </div>
+            <div class="flex flex-row gap-2">
+                <div class="min-h-20 max-h-20 bg-neutral-50 shadow-sm  border border-neutral-200 w-full h-full rounded-xl grid grid-cols-2 grid-rows-2 p-3 gap-1">
+                    <div class="w-full h-full border border-neutral-200 bg-neutral-50 shadow-sm rounded-lg max-h-5 px-2 flex items-center justify-between">
+                        <div class="flex flex-row items-center gap-1 text-neutral-400 text-[8px] text-medium">
+                            <GalleryVerticalEnd size="10"/>
+                            Data Science
+                        </div>
+                        <div class="w-10 h-0.5 rounded bg-emerald-400"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    import {driveStage, clamp01, lerp, phase, ease} from "../stage";
+
+    const WORD = "Microbiology";
+
+    // Timeline windows (global stage progress 0 -> 1)
+    const T = {
+        toPlus:     [0.06, 0.26],
+        popupOpen:  [0.26, 0.34],
+        toField:    [0.34, 0.42],
+        typing:     [0.44, 0.72],
+        toContinue: [0.74, 0.86],
+        clickCont:  [0.86, 0.93],
+        popupClose: [0.94, 1.00],
+    } as const;
+
+    type Pt = {x: number; y: number};
+
+    driveStage(".home-anim", (p, root) => {
+        const canvas = root.closest<HTMLElement>(".anim-canvas");
+        if (!canvas) return;
+
+        const cursor = canvas.querySelector<HTMLElement>("[data-cursor]");
+        const plus = canvas.querySelector<HTMLElement>('[data-anim-target="plus"]');
+        const popup = root.querySelector<HTMLElement>('[data-anim="popup"]');
+        const popupBox = root.querySelector<HTMLElement>('[data-anim="popup-box"]');
+        const field = root.querySelector<HTMLElement>('[data-anim-target="titlefield"]');
+        const title = root.querySelector<HTMLElement>('[data-anim="title"]');
+        const cont = root.querySelector<HTMLElement>('[data-anim-target="continue"]');
+
+        const crect = canvas.getBoundingClientRect();
+        const rest: Pt = {x: crect.width * 0.8, y: crect.height * 0.78};
+        const centerOf = (el: Element | null): Pt => {
+            if (!el) return rest;
+            const r = el.getBoundingClientRect();
+            return {x: r.left + r.width / 2 - crect.left, y: r.top + r.height / 2 - crect.top};
+        };
+
+        const toPlus = phase(p, ...T.toPlus);
+        const popupOpen = phase(p, ...T.popupOpen);
+        const toField = phase(p, ...T.toField);
+        const typing = phase(p, ...T.typing);
+        const toCont = phase(p, ...T.toContinue);
+        const clickCont = phase(p, ...T.clickCont);
+        const popupClose = phase(p, ...T.popupClose);
+
+        const plusPt = centerOf(plus);
+        const fieldPt = centerOf(field);
+        const contPt = centerOf(cont);
+
+        const ePlus = ease(toPlus), eField = ease(toField), eCont = ease(toCont);
+        let pos: Pt;
+        if (p < T.toPlus[1]) pos = {x: lerp(rest.x, plusPt.x, ePlus), y: lerp(rest.y, plusPt.y, ePlus)};
+        else if (p < T.toField[1]) pos = {x: lerp(plusPt.x, fieldPt.x, eField), y: lerp(plusPt.y, fieldPt.y, eField)};
+        else if (p < T.toContinue[1]) pos = {x: lerp(fieldPt.x, contPt.x, eCont), y: lerp(fieldPt.y, contPt.y, eCont)};
+        else pos = contPt;
+
+        if (cursor) {
+            cursor.style.left = `${pos.x}px`;
+            cursor.style.top = `${pos.y}px`;
+            const clicking = (p > 0.24 && p < 0.27) || (clickCont > 0 && clickCont < 1);
+            cursor.style.scale = clicking ? "0.82" : "1";
+        }
+
+        // ---- popup open / close ----
+        if (popup) {
+            popup.style.opacity = String(clamp01(popupOpen - popupClose));
+            popup.style.pointerEvents = popupOpen > 0.5 && popupClose < 1 ? "auto" : "none";
+        }
+        if (popupBox) {
+            popupBox.style.transform = `scale(${lerp(0.9, 1, ease(popupOpen)) - popupClose * 0.05})`;
+        }
+
+        // ---- typing the title ----
+        const typed = WORD.slice(0, Math.round(typing * WORD.length));
+        if (title) {
+            if (typing <= 0) {
+                title.textContent = "Add title";
+                title.classList.add("text-neutral-400");
+                title.classList.remove("text-neutral-900");
+            } else {
+                title.textContent = typed + (typing < 1 ? "|" : "");
+                title.classList.remove("text-neutral-400");
+                title.classList.add("text-neutral-900");
+            }
+        }
+
+        // ---- sidebar course pill mirrors the title, turns blue on create ----
+        const courseName = canvas.querySelector<HTMLElement>('[data-ui="course-name"]');
+        const courseIcon = canvas.querySelector<HTMLElement>('[data-ui="course-icon"]');
+        if (courseName) courseName.textContent = typing > 0 ? typed : "Course";
+        if (courseIcon) {
+            const created = clickCont > 0;
+            courseIcon.classList.toggle("bg-blue-500", created);
+            courseIcon.classList.toggle("bg-emerald-500", !created);
+        }
+    });
+</script>
