@@ -2,16 +2,16 @@
 import AnimationCanvas from "./animations/AnimationCanvas.astro";
 import CourseHome from "./animations/pages/CourseHome.astro";
 import Home from "./animations/pages/Home.astro";
+import StudyFlow from "./animations/pages/StudyFlow.astro";
 
 // `sidebar` sets the initial StudoUi state per stage. Animation scripts may
 // override the active tab dynamically (e.g. CourseHome: overview -> documents).
-const COURSE = "Microbiology";
 const stages = [
-    {key: "upload", label: "Upload", title: "Drop in your course", component: Home, sidebar: {open: false}, course: {name: "Course", created: false}},
-    {key: "process", label: "Process", title: "Studo reads and structures it", component: CourseHome, sidebar: {open: true, tab: "overview"}, course: {name: COURSE, created: true}},
-    {key: "flow", label: "Track", title: "It lands in your Flow", sidebar: {open: true, tab: "flow"}, course: {name: COURSE, created: true}},
-    {key: "generate", label: "Generate", title: "Turn a chapter into a set", sidebar: {open: true, tab: "sets"}, course: {name: COURSE, created: true}},
-    {key: "study", label: "Study", title: "Learn it, the way that fits", sidebar: {open: false}, course: {name: COURSE, created: true}},
+    {key: "upload", label: "Upload", title: "Drop in your course", component: Home, sidebar: {open: false}},
+    {key: "process", label: "Process", title: "Studo reads and structures it", component: CourseHome, sidebar: {open: true, tab: "overview"}},
+    {key: "flow", label: "Track", title: "It lands in your Flow", sidebar: {open: true, tab: "flow"}},
+    {key: "generate", label: "Generate", title: "Turn a chapter into a set", sidebar: {open: true, tab: "sets"}},
+    {key: "study", label: "Study", title: "Learn it, the way that fits", component: StudyFlow, sidebar: {open: false}},
 ] as const;
 ---
 
@@ -24,7 +24,7 @@ const stages = [
                     return (
                         <div class:list={["demo-stage", {"is-active": i === 0}]} data-stage-index={i}>
                             <div class="w-full h-full flex items-center justify-center">
-                                <AnimationCanvas submenuOpen={stage.sidebar?.open} activeTab={stage.sidebar?.tab} courseName={stage.course?.name} courseCreated={stage.course?.created}>
+                                <AnimationCanvas submenuOpen={stage.sidebar?.open} activeTab={stage.sidebar?.tab}>
                                     {Anim ? <Anim/> : <span>{stage.key} animation</span>}
                                 </AnimationCanvas>
                             </div>
