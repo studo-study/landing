@@ -139,7 +139,7 @@ import { ArrowRight, BookOpen, Check, Eye, GalleryVerticalEnd, Layers, Plus, Rot
 </div>
 
 <script>
-    import {driveStage, clamp01, lerp, phase} from "../stage";
+    import {driveStage, clamp01, lerp, phase, ease} from "../stage";
 
     const WORD = "Microbiology";
 
@@ -188,10 +188,11 @@ import { ArrowRight, BookOpen, Check, Eye, GalleryVerticalEnd, Layers, Plus, Rot
         const fieldPt = centerOf(field);
         const contPt = centerOf(cont);
 
+        const ePlus = ease(toPlus), eField = ease(toField), eCont = ease(toCont);
         let pos: Pt;
-        if (p < T.toPlus[1]) pos = {x: lerp(rest.x, plusPt.x, toPlus), y: lerp(rest.y, plusPt.y, toPlus)};
-        else if (p < T.toField[1]) pos = {x: lerp(plusPt.x, fieldPt.x, toField), y: lerp(plusPt.y, fieldPt.y, toField)};
-        else if (p < T.toContinue[1]) pos = {x: lerp(fieldPt.x, contPt.x, toCont), y: lerp(fieldPt.y, contPt.y, toCont)};
+        if (p < T.toPlus[1]) pos = {x: lerp(rest.x, plusPt.x, ePlus), y: lerp(rest.y, plusPt.y, ePlus)};
+        else if (p < T.toField[1]) pos = {x: lerp(plusPt.x, fieldPt.x, eField), y: lerp(plusPt.y, fieldPt.y, eField)};
+        else if (p < T.toContinue[1]) pos = {x: lerp(fieldPt.x, contPt.x, eCont), y: lerp(fieldPt.y, contPt.y, eCont)};
         else pos = contPt;
 
         if (cursor) {
@@ -207,7 +208,7 @@ import { ArrowRight, BookOpen, Check, Eye, GalleryVerticalEnd, Layers, Plus, Rot
             popup.style.pointerEvents = popupOpen > 0.5 && popupClose < 1 ? "auto" : "none";
         }
         if (popupBox) {
-            popupBox.style.transform = `scale(${lerp(0.9, 1, popupOpen) - popupClose * 0.05})`;
+            popupBox.style.transform = `scale(${lerp(0.9, 1, ease(popupOpen)) - popupClose * 0.05})`;
         }
 
         // ---- typing the title ----

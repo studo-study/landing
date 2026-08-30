@@ -13,7 +13,7 @@ import LearnPage from "./LearnPage.astro";
 </div>
 
 <script>
-    import {driveStage, clamp01, lerp, phase} from "../stage";
+    import {driveStage, clamp01, lerp, phase, ease} from "../stage";
 
     const ANSWER = "Origin of life";
 
@@ -56,19 +56,22 @@ import LearnPage from "./LearnPage.astro";
         const correct = phase(p, ...T.correct);
 
         // ---- page crossfade ----
-        if (setOverview) setOverview.style.opacity = String(1 - swap);
+        const swapE = ease(swap);
+        if (setOverview) setOverview.style.opacity = String(1 - swapE);
         if (learnPage) {
-            learnPage.style.opacity = String(swap);
+            learnPage.style.opacity = String(swapE);
             learnPage.style.pointerEvents = swap > 0.5 ? "auto" : "none";
         }
 
-        // ---- cursor path ----
+        // ---- cursor path (eased motion) ----
         const learnPt = centerOf(learn);
         const boxPt = centerOf(box);
+        const eLearn = ease(toLearn);
+        const eBox = ease(toBox);
         let pos: Pt;
-        if (p < T.toLearn[1]) pos = {x: lerp(rest.x, learnPt.x, toLearn), y: lerp(rest.y, learnPt.y, toLearn)};
+        if (p < T.toLearn[1]) pos = {x: lerp(rest.x, learnPt.x, eLearn), y: lerp(rest.y, learnPt.y, eLearn)};
         else if (p < T.toBox[0]) pos = learnPt;
-        else if (p < T.toBox[1]) pos = {x: lerp(learnPt.x, boxPt.x, toBox), y: lerp(learnPt.y, boxPt.y, toBox)};
+        else if (p < T.toBox[1]) pos = {x: lerp(learnPt.x, boxPt.x, eBox), y: lerp(learnPt.y, boxPt.y, eBox)};
         else pos = boxPt;
 
         if (cursor) {
@@ -89,12 +92,14 @@ import LearnPage from "./LearnPage.astro";
             }
         }
 
-        // ---- correct answer highlight ----
+        // ---- input states: focused (blue) while typing, emerald once correct ----
         if (box) {
             const ok = correct > 0;
+            const focused = !ok && p >= T.toBox[1]; // field clicked / active
             box.classList.toggle("border-emerald-400", ok);
             box.classList.toggle("bg-emerald-100", ok);
-            box.classList.toggle("border-neutral-200", !ok);
+            box.classList.toggle("border-blue-500", focused);
+            box.classList.toggle("border-neutral-200", !ok && !focused);
             box.classList.toggle("bg-white", !ok);
         }
     });

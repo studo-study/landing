@@ -10,6 +10,12 @@ export type StageDriver = (p: number, root: HTMLElement) => void;
 export const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
+// smoothstep easing (ease-in-out) for natural-feeling motion
+export const ease = (t: number) => {
+    const c = clamp01(t);
+    return c * c * (3 - 2 * c);
+};
+
 // Map global progress `p` to a local 0..1 ramp inside the [start, end] window.
 export const phase = (p: number, start: number, end: number) =>
     clamp01((p - start) / (end - start));

@@ -51,7 +51,7 @@ import PdfFile from "./PdfFile.astro";
 </div>
 
 <script>
-    import {driveStage, clamp01, lerp, phase} from "../stage";
+    import {driveStage, clamp01, lerp, phase, ease} from "../stage";
 
     // Timeline windows (stage progress 0 -> 1)
     const T = {
@@ -91,8 +91,9 @@ import PdfFile from "./PdfFile.astro";
         const drop = phase(p, ...T.drop);
         const process = phase(p, ...T.process);
 
-        // ---- cursor + file move together during the drag ----
-        const pos: Pt = {x: lerp(start.x, target.x, drag), y: lerp(start.y, target.y, drag)};
+        // ---- cursor + file move together during the drag (eased) ----
+        const dragE = ease(drag);
+        const pos: Pt = {x: lerp(start.x, target.x, dragE), y: lerp(start.y, target.y, dragE)};
 
         if (cursor) {
             cursor.style.left = `${pos.x}px`;
@@ -135,7 +136,7 @@ import PdfFile from "./PdfFile.astro";
         // ---- processing bar slides up ----
         if (processing) {
             processing.style.opacity = String(process);
-            processing.style.transform = `translate(-50%, ${lerp(8, 0, process)}px)`;
+            processing.style.transform = `translate(-50%, ${lerp(8, 0, ease(process))}px)`;
         }
     });
 </script>
