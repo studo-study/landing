@@ -6,14 +6,13 @@ import Flow from "./animations/pages/Flow.astro";
 import Home from "./animations/pages/Home.astro";
 import StudyFlow from "./animations/pages/StudyFlow.astro";
 
-// `sidebar` sets the initial StudoUi state per stage. Animation scripts may
-// override the active tab dynamically (e.g. CourseHome: overview -> documents).
+const COURSE = "Microbiology";
 const stages = [
-    {key: "upload", label: "Upload", caption: "Create a course in seconds and give it a name.", component: Home, sidebar: {open: false}},
-    {key: "process", label: "Process", caption: "Add your documents and they become a Core that Sven can draw from.", component: CourseHome, sidebar: {open: true, tab: "overview"}},
-    {key: "flow", label: "Track", caption: "Plan and track your lessons while Sven suggests tasks and fills the gaps.", component: Flow,sidebar: {open: true, tab: "flow"}},
-    {key: "generate", label: "Generate", caption: "Turn any chapter into a study set in one click.", component: Chat, sidebar: {open: true, tab: "sets"}},
-    {key: "study", label: "Study", caption: "Study your set and get instant feedback as you go.", component: StudyFlow, sidebar: {open: false}},
+    {key: "upload", label: "Upload", caption: "Create a course in seconds and give it a name.", component: Home, sidebar: {open: false, tab: "overview"}, course: {name: "Course", created: false}},
+    {key: "process", label: "Process", caption: "Add your documents and they become a Core that Sven can draw from.", component: CourseHome, sidebar: {open: true, tab: "overview"}, course: {name: COURSE, created: true}},
+    {key: "flow", label: "Track", caption: "Plan and track your lessons while Sven suggests tasks and fills the gaps.", component: Flow, sidebar: {open: true, tab: "flow"}, course: {name: COURSE, created: true}},
+    {key: "generate", label: "Generate", caption: "Chat directly with Sven and turn anything into a set.", component: Chat, sidebar: {open: true, tab: "sets"}, course: {name: COURSE, created: true}},
+    {key: "study", label: "Study", caption: "Study your set and get instant feedback as you go.", component: StudyFlow, sidebar: {open: false, tab: "sets"}, course: {name: COURSE, created: true}},
 ] as const;
 ---
 
@@ -27,7 +26,7 @@ const stages = [
                     return (
                         <div class:list={["demo-stage", {"is-active": i === 0}]} data-stage-index={i} data-caption={stage.caption}>
                             <div class="w-full h-full flex items-center justify-center">
-                                <AnimationCanvas submenuOpen={stage.sidebar?.open} activeTab={stage.sidebar?.tab}>
+                                <AnimationCanvas submenuOpen={stage.sidebar?.open} activeTab={stage.sidebar?.tab} courseName={stage.course?.name} courseCreated={stage.course?.created}>
                                     {Anim ? <Anim/> : <span>{stage.key} animation</span>}
                                 </AnimationCanvas>
                             </div>
