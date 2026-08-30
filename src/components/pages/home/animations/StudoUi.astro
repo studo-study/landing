@@ -2,17 +2,34 @@
 import {
     Bell,
     Book,
+    BookText,
     ChevronDown,
     ChevronsUpDown,
     Cog,
     Equal,
     GraduationCap,
     House,
+    Layers,
+    LayoutGrid,
+    LayoutPanelTop,
     LibraryBig,
     Plus,
     Search,
     User
 } from "@lucide/astro/icons/index";
+
+interface Props {
+    submenuOpen?: boolean;
+    activeTab?: "overview" | "documents" | "flow" | "sets";
+    courseName?: string;
+    courseCreated?: boolean;
+}
+const {submenuOpen = false, activeTab = "overview", courseName = "Course", courseCreated = false} = Astro.props;
+
+const tabClass = (name: string) => [
+    "faux-tab h-4 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] transition-colors",
+    activeTab === name ? "bg-neutral-100 text-neutral-600" : "text-neutral-400",
+];
 ---
 
 <div class="relative overflow-hidden w-200 h-130 rounded-xl border border-neutral-200 bg-white shadow-lg flex flex-col items-center">
@@ -53,17 +70,45 @@ import {
                     <span>courses</span>
                     <ChevronDown size="10"/>
                 </div>
-                <div class="h-5 bg-neutral-100 p-0.5 rounded-full w-full px-px pr-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400 justify-between">
-                    <div class="flex flex-row items-center gap-1">
-                        <div class="rounded-full bg-emerald-500 flex items-center justify-center h-4 w-4 text-white">
-                            <Book size="10"/>
+
+                <div class="flex flex-col w-full gap-1">
+                    <div class="h-5 bg-neutral-100 p-0.5 rounded-full w-full px-px pr-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400 justify-between">
+                        <div class="flex flex-row items-center gap-1">
+                            <div data-ui="course-icon" class:list={["rounded-full flex items-center justify-center h-4 w-4 text-white transition-colors", courseCreated ? "bg-blue-500" : "bg-emerald-500"]}>
+                                <Book size="10"/>
+                            </div>
+                            <span data-ui="course-name" class="truncate max-w-13">{courseName}</span>
                         </div>
-                        Course
+
+                        <ChevronsUpDown size="10"/>
+
                     </div>
 
-                    <ChevronsUpDown size="10"/>
+                    <div
+                        data-ui="submenu"
+                        class:list={["flex flex-col pr-2 w-full ml-2 border-l border-neutral-200 pl-1 gap-1", {hidden: !submenuOpen}]}
+                    >
+                        <div data-tab="overview" class:list={tabClass("overview")}>
+                            <LayoutGrid size="9"/>
+                            Overview
+                        </div>
+                        <div data-tab="documents" class:list={tabClass("documents")}>
+                            <BookText size="9"/>
+                            Documents
+                        </div>
+                        <div data-tab="flow" class:list={tabClass("flow")}>
+                            <LayoutPanelTop size="9"/>
+                            Flow
+                        </div>
+                        <div data-tab="sets" class:list={tabClass("sets")}>
+                            <Layers size="9"/>
+                            Sets
+                        </div>
+
+                    </div>
 
                 </div>
+
                 <div class="h-5 rounded-full w-full px-1 flex flex-row items-center gap-1 text-[10px] text-neutral-400">
                     <Plus size="11"/>
                     Create

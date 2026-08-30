@@ -1,9 +1,17 @@
 ---
 import StudoUi from "./StudoUi.astro";
+
+interface Props {
+    submenuOpen?: boolean;
+    activeTab?: "overview" | "documents" | "flow" | "sets";
+    courseName?: string;
+    courseCreated?: boolean;
+}
+const {submenuOpen, activeTab, courseName, courseCreated} = Astro.props;
 ---
 
 <div class="anim-canvas min-w-0 min-h-0 h-full w-full flex-1 relative flex justify-center items-center overflow-hidden">
-    <StudoUi>
+    <StudoUi submenuOpen={submenuOpen} activeTab={activeTab} courseName={courseName} courseCreated={courseCreated}>
         <slot/>
     </StudoUi>
 

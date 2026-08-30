@@ -81,8 +81,9 @@ import PdfFile from "./PdfFile.astro";
             return {x: r.left + r.width / 2 - crect.left, y: r.top + r.height / 2 - crect.top};
         };
 
-        // file start (canvas coords) — matches the inline 68%/66% start in PdfFile
-        const start: Pt = {x: crect.width * 0.68, y: crect.height * 0.66};
+        // file start (canvas coords) — matches the cursor's resting spot (80%/78%)
+        // so the cursor doesn't jump backwards on the first frames
+        const start: Pt = {x: crect.width * 0.8, y: crect.height * 0.78};
         const target = centerOf(dropzone);
 
         const grab = phase(p, ...T.grab);
@@ -121,6 +122,15 @@ import PdfFile from "./PdfFile.astro";
         // empty state fades out and the doc grid fades in as the file drops
         if (empty) empty.style.opacity = String(clamp01(1 - drop));
         if (docOverview) docOverview.style.opacity = String(drop);
+
+        // sidebar tab flips overview -> documents once the file is dropped
+        const activeTab = drop > 0.5 ? "documents" : "overview";
+        canvas.querySelectorAll<HTMLElement>("[data-tab]").forEach((tab) => {
+            const on = tab.dataset.tab === activeTab;
+            tab.classList.toggle("bg-neutral-100", on);
+            tab.classList.toggle("text-neutral-600", on);
+            tab.classList.toggle("text-neutral-400", !on);
+        });
 
         // ---- processing bar slides up ----
         if (processing) {

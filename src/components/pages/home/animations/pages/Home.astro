@@ -211,17 +211,27 @@ import { ArrowRight, BookOpen, Check, Eye, GalleryVerticalEnd, Layers, Plus, Rot
         }
 
         // ---- typing the title ----
+        const typed = WORD.slice(0, Math.round(typing * WORD.length));
         if (title) {
             if (typing <= 0) {
                 title.textContent = "Add title";
                 title.classList.add("text-neutral-400");
                 title.classList.remove("text-neutral-900");
             } else {
-                const n = Math.round(typing * WORD.length);
-                title.textContent = WORD.slice(0, n) + (typing < 1 ? "|" : "");
+                title.textContent = typed + (typing < 1 ? "|" : "");
                 title.classList.remove("text-neutral-400");
                 title.classList.add("text-neutral-900");
             }
+        }
+
+        // ---- sidebar course pill mirrors the title, turns blue on create ----
+        const courseName = canvas.querySelector<HTMLElement>('[data-ui="course-name"]');
+        const courseIcon = canvas.querySelector<HTMLElement>('[data-ui="course-icon"]');
+        if (courseName) courseName.textContent = typing > 0 ? typed : "Course";
+        if (courseIcon) {
+            const created = clickCont > 0;
+            courseIcon.classList.toggle("bg-blue-500", created);
+            courseIcon.classList.toggle("bg-emerald-500", !created);
         }
     });
 </script>
