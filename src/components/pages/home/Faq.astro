@@ -42,22 +42,68 @@ const questions = [
         answer:
             "Yes, with Viewer, Editor and Owner roles like Google Drive. Your Flow board and learning progress always stay personal.",
     },
+    {
+        question: "What is a Core?",
+        answer:
+            "A Core is your uploaded course material turned into a structured, searchable knowledge base. Every study tool and Sven draws from it.",
+    },
+    {
+        question: "What happens to my uploaded course material?",
+        answer:
+            "It is processed into your Core and stays yours. Nothing is published or shared unless you explicitly share a subject with a group.",
+    },
+    {
+        question: "How long does processing take?",
+        answer:
+            "Most documents are ready within a few minutes. You can keep working while processing runs and you always see its status.",
+    },
+    {
+        question: "Can I verify where an AI answer came from?",
+        answer:
+            "Yes. Sven answers from your own material and links back to the source passage so you can check it.",
+    },
+    {
+        question: "Does Studo support scanned PDFs?",
+        answer:
+            "Yes. Scanned and image-based PDFs are read with text recognition before they become part of your Core.",
+    },
+    {
+        question: "Is generated material editable before saving?",
+        answer:
+            "Always. Anything Sven generates is a suggestion you review and edit before it is saved to your sets.",
+    },
+    {
+        question: "Is my personal Flow progress private?",
+        answer:
+            "Yes. Shared subjects share course content and sets, but your Flow board and learning progress stay personal to you.",
+    },
+    {
+        question: "Can I export my material?",
+        answer:
+            "Yes. Your sets and summaries can be exported so your work is never locked in.",
+    },
+    {
+        question: "How does the trial work?",
+        answer:
+            "Paid plans include a 7-day trial. Billing details are shown before confirmation and annual plans are charged upfront.",
+    },
 ];
 ---
 
 <section class="max-w-300 w-full flex flex-col md:flex-row gap-10">
-    <div class="min-h-0 max-w-1/2 flex-1 flex flex-col gap-2">
+    <div class="min-h-0 md:max-w-1/2 flex-1 flex flex-col gap-2 md:sticky md:top-24 self-start">
         <h3 class="font-medium text-4xl">Common Questions</h3>
         <p class="text-neutral-500">Everything you need to know about how Studo works.</p>
+        <a href="/contact" class="default-button w-fit mt-4">Still have questions?</a>
     </div>
     <div class="min-h-0 flex-1 flex flex-col border-t border-neutral-200">
-        {questions.map((item) => (
+        {questions.map((item, i) => (
             <div data-open="false" class="faq-item h-fit w-full border-b border-neutral-200 flex flex-col py-5">
-                <button type="button" class="faq-toggle w-full py-6 flex items-center justify-between gap-4 text-left cursor-pointer">
+                <button type="button" aria-expanded="false" aria-controls={`faq-answer-${i}`} class="faq-toggle w-full py-6 flex items-center justify-between gap-4 text-left cursor-pointer">
                     <span class="font-medium">{item.question}</span>
                     <Plus size={16} class="shrink-0"/>
                 </button>
-                <div class="faq-answer">
+                <div id={`faq-answer-${i}`} class="faq-answer">
                     <div>
                         <p class="pb-6 text-neutral-500">{item.answer}</p>
                     </div>
@@ -74,6 +120,8 @@ const questions = [
         if (!toggle) return;
         const item = toggle.closest<HTMLElement>('.faq-item');
         if (!item) return;
-        item.dataset.open = item.dataset.open === 'true' ? 'false' : 'true';
+        const open = item.dataset.open === 'true' ? 'false' : 'true';
+        item.dataset.open = open;
+        toggle.setAttribute('aria-expanded', open);
     });
 </script>

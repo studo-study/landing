@@ -11,7 +11,10 @@ import SvenCapabilities from "../components/pages/home/SvenCapabilities.astro";
 const introWords = ["Built", "by", "and", "for", "students"];
 ---
 
-<RootLayout title="Your study workspace" fadeHeaderCta>
+<RootLayout
+    title="Your course, turned into a study system"
+    description="Upload your course material and Studo turns it into a structured study system for planning, practising and finding what you still need to learn."
+    fadeHeaderCta>
     <Hero hidden={true}/>
 
     <DemoFlow/>
@@ -26,17 +29,17 @@ const introWords = ["Built", "by", "and", "for", "students"];
         <p class="intro-words flex flex-row gap-2 text-5xl items-center font-medium">
             {introWords.map((word) => <span class="intro-word">{word}</span>)}
         </p>
-        <button type="button" class="default-button intro-cta">
+        <a href="/about" class="default-button intro-cta">
             learn more about us
             <ArrowRight size={15}/>
-        </button>
+        </a>
     </section>
 
     <SvenCapabilities/>
 
     <section class="w-full flex justify-center px-6 py-32 reveal-on-scroll">
         <div class="max-w-300 w-full flex flex-col items-center gap-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-medium">Free to use, and it stays that way</h2>
+            <h2 class="text-4xl md:text-5xl font-medium">Study for free. Upgrade when you want Sven to do more.</h2>
             <p class="text-lg text-neutral-500 max-w-150">Plan your courses, build sets and study for free. Upgrade to
                 Select only when you want Sven to generate for you.</p>
             <a href="/select" class="default-button">
@@ -48,7 +51,7 @@ const introWords = ["Built", "by", "and", "for", "students"];
 
     <section
             id="faq"
-            class="w-full flex justify-center px-6 py-32 reveal-on-scroll">
+            class="w-full flex justify-center px-6 py-32 scroll-mt-28 reveal-on-scroll">
         <Faq/>
     </section>
 

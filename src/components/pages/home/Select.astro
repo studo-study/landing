@@ -1,39 +1,46 @@
 ---
 import {Check, X} from "@lucide/astro/icons/index";
+import { REGISTER_URL } from "../../../consts";
+
+// Source prices. Every displayed equivalent and discount is derived from these,
+// never hardcoded, so the copy can never contradict the real numbers.
+const savingPct = (month: number, year: number) =>
+    Math.round((1 - year / (month * 12)) * 100);
 
 const PRICING_OPTIONS = [
     {
         title: "individual",
         description: "For students studying solo",
         monthPrice: 9.99,
-        yearPrice: 79.888,
+        yearPrice: 79.99,
         monthDescription: "billed monthly",
-        yearDescription: "yearly €79.99, save 33%",
         includedList: [
-            "Unlimited Studosets",
-            "AI-powered SVEN generation",
-            "Flow planning and tracking",
+            "Unlimited Sven generation from your Core",
+            "Summaries and mock exams on demand",
+            "Everything in the free plan",
         ],
         notIncludedList: [
             "Group sharing",
-            "Admin controls",
         ],
-        cta: "Sign Up"
+        cta: "Start for free",
+        href: REGISTER_URL,
     },
     {
         title: "group",
-        description: "For study groups and classes",
+        description: "€34.99/month total for up to 4 members",
         monthPrice: 34.99,
-        yearPrice: 359.88,
-        monthDescription: "billed monthly, up to 4 members",
-        yearDescription: "yearly €359.99, save 15%",
+        yearPrice: 359.99,
+        monthDescription: "one price, up to 4 members",
         includedList: [
-            "Up to 4 seats",
-            "Everything in Individual",
-            "Shared Studosets across members",
-            "Group progress tracking",
+            "Everything in Individual, for up to 4 members",
+            "Share courses and Studosets across the group",
+            "Shared group activity feed",
         ],
-        cta: "Start a Group"
+        notIncludedList: [
+            "Personal Flow and progress stay private to each member",
+        ],
+        cta: "Start for free",
+        href: REGISTER_URL,
     },
     {
         title: "institution",
@@ -41,7 +48,6 @@ const PRICING_OPTIONS = [
         monthPrice: null,
         yearPrice: null,
         monthDescription: "custom pricing",
-        yearDescription: "contact us for a quote",
         includedList: [
             "Everything in Group",
             "Dedicated tenant for extra privacy",
@@ -49,9 +55,15 @@ const PRICING_OPTIONS = [
             "Dedicated support",
         ],
         notIncludedList: [],
-        cta: "Contact Sales"
+        cta: "Contact sales",
+        href: "/contact",
     }
-]
+].map((o) => ({
+    ...o,
+    yearDescription: o.yearPrice
+        ? `€${o.yearPrice.toFixed(2)} billed yearly, save ${savingPct(o.monthPrice!, o.yearPrice)}%`
+        : "contact us for a quote",
+}));
 ---
 <div class="w-screen h-screen flex flex-col items-center justify-center">
     <div class="max-w-300 w-full px-10 h-full flex flex-col items-center justify-center gap-10">
@@ -118,16 +130,17 @@ const PRICING_OPTIONS = [
                                         </ul>
                                     </div>
 
-                                    <button class="default-button font-medium text-center items-center justify-center">
+                                    <a href={option.href} class="default-button font-medium text-center items-center justify-center">
                                         {option.cta}
-                                    </button>
+                                    </a>
                                 </div>
                         )
                 )
             }
         </div>
-        <p class="text-neutral-400 text-xs ">Prices in Euro. Individual and Groups include a 7-day trial. Annual prices
-            are monthly equivalents billed yearly.</p>
+        <p class="text-neutral-400 text-xs text-center max-w-150">Prices in Euro. Individual and Group include a 7-day
+            trial, billing details shown before confirmation. Monthly figures on annual plans are the equivalent of the
+            yearly total, which is charged upfront. The Group price is one total for up to 4 members, not per seat.</p>
     </div>
 
 </div>

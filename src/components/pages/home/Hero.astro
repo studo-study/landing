@@ -2,73 +2,74 @@
 import ArrowRight from "@lucide/astro/icons/arrow-right";
 import HeroCard from "./HeroCard.astro";
 import {Triangle} from "@lucide/astro/icons/index";
+import { LOGIN_URL, REGISTER_URL } from "../../../consts";
 
 const cards = [
     {
-        href: "/tools/point",
+        href: "/studymodes",
         title: "Point",
         image: "/images/hero-pin.svg",
         color: "from-violet-500 to-purple-400",
         position: "rotate-27 -top-20 right-4",
     },
     {
-        href: "/tools/learn",
+        href: "/studymodes",
         title: "Learn",
         image: "/images/learn.svg",
         color: "from-emerald-500 to-emerald-400",
         position: "-rotate-10 top-20 right-36",
     },
     {
-        href: "/tools/speedy",
+        href: "/studymodes",
         title: "Speedy",
         image: "/images/speedy.svg",
         color: "from-amber-500 to-orange-400",
         position: "-rotate-24 top-1/2 -translate-y-1/2 right-48",
     },
     {
-        href: "/tools/flashcards",
+        href: "/studymodes",
         title: "Flashcards",
         image: "/images/flashcards.svg",
         color: "from-blue-500 to-blue-400",
         position: "-rotate-8 bottom-20 right-36",
     },
     {
-        href: "/tools/identify",
+        href: "/studymodes",
         title: "Identify",
         image: "/images/point.svg",
         color: "from-rose-500 to-red-400",
         position: "rotate-14 -bottom-20 right-4",
     },
     {
-        href: "/tools/point",
+        href: "/studymodes",
         title: "Point",
         image: "/images/hero-pin.svg",
         color: "from-violet-500 to-purple-400",
         position: "rotate-27 -top-20 right-4",
     },
     {
-        href: "/tools/learn",
+        href: "/studymodes",
         title: "Learn",
         image: "/images/learn.svg",
         color: "from-emerald-500 to-emerald-400",
         position: "-rotate-10 top-20 right-36",
     },
     {
-        href: "/tools/speedy",
+        href: "/studymodes",
         title: "Speedy",
         image: "/images/speedy.svg",
         color: "from-amber-500 to-orange-400",
         position: "-rotate-24 top-1/2 -translate-y-1/2 right-48",
     },
     {
-        href: "/tools/flashcards",
+        href: "/studymodes",
         title: "Flashcards",
         image: "/images/flashcards.svg",
         color: "from-blue-500 to-blue-400",
         position: "-rotate-8 bottom-20 right-36",
     },
     {
-        href: "/tools/identify",
+        href: "/studymodes",
         title: "Identify",
         image: "/images/point.svg",
         color: "from-rose-500 to-red-400",
@@ -81,15 +82,16 @@ const cards = [
 
 <div id="top"
      class="hero-scene w-screen h-screen relative z-0 flex items-center justify-center">
-    <div class="max-w-250 w-full flex flex-col gap-3 justify-center">
-        <h1 class="font-medium text-7xl">One space</h1>
-        <h2 class="text-5xl text-emerald-400">for everything you study</h2>
-        <p class="my-5">Turn your course into one place to plan, learn and revise. Free to start.</p>
+    <div class="hero-copy max-w-250 w-full flex flex-col gap-3 justify-center relative z-130">
+        <h1 class="font-medium text-6xl md:text-7xl max-w-2xl">One space</h1>
+        <h2 class="text-4xl md:text-5xl text-emerald-400 max-w-2xl">for everything you study</h2>
+        <p class="my-5 max-w-lg text-neutral-600">Upload your course material and Studo turns it into a structured
+            study system for planning, practising and finding what you still need to learn.</p>
         <div class="flex flex-row gap-3 items-center mt-5 min-h-fit">
-            <button class="filled-button h-13">start for free</button>
-            <button class="default-button h-13">sign in
+            <a href={REGISTER_URL} class="filled-button h-13">Start for free</a>
+            <a href={LOGIN_URL} class="default-button h-13">Sign in
                 <ArrowRight size={15}/>
-            </button>
+            </a>
         </div>
     </div>
     <div class="hero-carousel z-110">

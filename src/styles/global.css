@@ -75,6 +75,37 @@ html.lenis body {
     z-index: 10;
 }
 
+/* Keep the orbiting cards clear of the headline at intermediate desktop widths:
+   push the orbit centre further right and shrink the radius so the left arc
+   never reaches the text column. Text sits on z-130, above the cards regardless. */
+@media (max-width: 1536px) {
+    .hero-carousel {
+        --hero-radius: 460px;
+        right: -60px;
+    }
+}
+@media (max-width: 1366px) {
+    .hero-carousel {
+        --hero-radius: 400px;
+        right: -120px;
+    }
+}
+@media (max-width: 1024px) {
+    .hero-carousel {
+        --hero-radius: 340px;
+        right: -160px;
+    }
+}
+@media (max-width: 768px) {
+    /* Below tablet the cards become a faint background flourish behind the copy. */
+    .hero-carousel {
+        --hero-radius: 300px;
+        right: 50%;
+        top: 50%;
+        opacity: 0.25;
+    }
+}
+
 .hero-card {
     position: absolute;
     top: 0;
