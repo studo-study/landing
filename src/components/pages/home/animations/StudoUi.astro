@@ -2,6 +2,7 @@
 import {
     Bell,
     Book,
+    BookOpen,
     BookText,
     ChevronDown,
     ChevronsUpDown,
@@ -13,6 +14,7 @@ import {
     LayoutGrid,
     LayoutPanelTop,
     LibraryBig,
+    MessageCircleMore,
     Plus,
     Search,
     User
@@ -150,8 +152,18 @@ const tabClass = (name: string) => [
             </div>
 
         </div>
-        <div class="rounded-lg w-full border border-neutral-200 shadow-sm bg-neutral-50/20 min-w-0 flex-1">
-            <slot/>
+        <div class="rounded-lg w-full border border-neutral-200 shadow-sm bg-neutral-50/20 min-w-0 flex-1 flex flex-row">
+            <div class="flex-1 min-w-0 min-h-0">
+                <slot/>
+            </div>
+            <div class="flex flex-col gap-4 w-8 h-full py-2 border-l items-center border-neutral-200">
+                <div data-anim-target="chat" class="flex items-center justify-center">
+                    <MessageCircleMore size={13} class="text-neutral-400"/>
+                </div>
+                <BookOpen size={13} class="text-neutral-400"/>
+                <Cog size={13} class="text-neutral-400"/>
+
+            </div>
         </div>
     </div>
 </div>
