@@ -1,0 +1,130 @@
+---
+// Compact product-UI mocks that sit in the lower half of each hero card. Same
+// visual language as the SvenCapabilities frames, shrunk to card size and
+// dialled back on AI branding (only "ask" stays Sven-facing). The "study" mock
+// reuses the learn card from animations/pages/LearnPage.astro.
+import {
+    Copy, ExternalLink, FileText, GalleryVerticalEnd,
+    GraduationCap, Heart, LoaderCircle, Paperclip, Send,
+} from "@lucide/astro/icons/index";
+
+interface Props { kind: string }
+const { kind } = Astro.props;
+---
+
+<div class="hero-mock text-neutral-700">
+    {kind === "upload" && (
+        <div class="flex h-full w-full flex-col items-center justify-center gap-3">
+            <div class="w-24 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-md">
+                <div class="relative aspect-[3/4] overflow-hidden rounded-md border border-neutral-100 bg-neutral-50">
+                    <img src="/animation_assets/pdf_thumbnail.png" alt="" class="h-full w-full object-cover object-top opacity-90"/>
+                    <span class="absolute bottom-1 left-1 flex items-center gap-1 rounded-full bg-white px-1.5 py-0.5 text-[7px] font-medium text-neutral-500 shadow">
+                        <LoaderCircle size={7} class="animate-spin"/> processing
+                    </span>
+                </div>
+                <div class="mt-1 px-0.5">
+                    <div class="truncate text-[9px] font-semibold text-neutral-800">Microbiology.pdf</div>
+                    <div class="text-[7px] text-neutral-400">16-8-2026</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-1.5 rounded-full border border-neutral-200 bg-white px-2 py-1 text-[8px] shadow-md">
+                <LoaderCircle size={9} class="animate-spin text-neutral-500"/>
+                <span class="text-neutral-700">Microbiology.pdf</span>
+                <span class="text-neutral-400">1 / 1</span>
+            </div>
+        </div>
+    )}
+
+    {kind === "sets" && (
+        <div class="flex h-full w-full flex-col justify-center gap-1.5">
+            {[
+                {t: "Data Structures", d: "15/8/2024", i: GraduationCap, ic: "text-neutral-500", a: "PA", c: "bg-blue-500"},
+                {t: "English - Dutch", d: "1/10/2024", i: Copy, ic: "text-amber-500", a: "SA", c: "bg-emerald-500"},
+                {t: "Cell Biology Basics", d: "15/8/2026", i: Heart, ic: "text-rose-500", a: "SA", c: "bg-emerald-500"},
+            ].map((s) => {
+                const Icon = s.i;
+                return (
+                    <div class="flex items-center gap-2 rounded-xl border border-neutral-200 bg-white p-1.5 shadow-sm">
+                        <span class:list={["flex h-7 w-7 items-center justify-center rounded-md bg-neutral-100", s.ic]}><Icon size={14}/></span>
+                        <div class="min-w-0 flex-1">
+                            <div class="truncate text-[10px] font-semibold text-neutral-800">{s.t}</div>
+                            <div class="flex items-center gap-1 text-[8px] text-neutral-400"><GalleryVerticalEnd size={8}/> {s.d}</div>
+                        </div>
+                        <span class:list={["flex h-5 w-5 items-center justify-center rounded-full text-[8px] font-semibold text-white", s.c]}>{s.a}</span>
+                    </div>
+                );
+            })}
+        </div>
+    )}
+
+    {kind === "study" && (
+        /* Learn card, adapted from animations/pages/LearnPage.astro. */
+        <div class="flex h-full w-full flex-col items-center justify-center">
+            <div class="flex w-full flex-1 items-center justify-center">
+                <div class="flex h-40 w-full flex-col gap-2 rounded-2xl border border-neutral-200 bg-neutral-50 p-1.5 shadow-md">
+                    <div class="flex h-6 w-full items-center gap-2 rounded-xl border border-neutral-200 bg-white px-2">
+                        <div class="flex h-1 w-full flex-row rounded-full bg-neutral-300/50">
+                            <div class="h-full w-3 rounded-full bg-emerald-500"></div>
+                        </div>
+                        <span class="min-w-fit text-[7px] text-neutral-400">3 / 30</span>
+                    </div>
+                    <div class="flex flex-1 items-center justify-center">
+                        <span class="font-georgia text-sm font-medium text-neutral-500">Abiogenesis</span>
+                    </div>
+                    <div class="flex h-6 w-full items-center rounded-xl border border-emerald-400 bg-emerald-100 px-3 text-[9px] text-emerald-700">
+                        Origin of life
+                    </div>
+                </div>
+            </div>
+        </div>
+    )}
+
+    {kind === "plan" && (
+        <div class="flex h-full w-full flex-col justify-center">
+            <div class="overflow-hidden rounded-lg border border-neutral-200 bg-white shadow-sm">
+                <div class="grid grid-cols-[1.5fr_1fr_0.9fr] divide-x divide-neutral-200 border-b border-neutral-200 bg-neutral-50 px-2 text-[8px] font-semibold text-neutral-400">
+                    <span class="flex h-6 items-center">Title</span>
+                    <span class="flex h-6 items-center pl-1.5">Status</span>
+                    <span class="flex h-6 items-center pl-1.5">Due</span>
+                </div>
+                {[
+                    {t: "1. Introduction", s: "Done", c: "bg-emerald-50 text-emerald-600"},
+                    {t: "2. Design pattern", s: "Doing", c: "bg-amber-50 text-amber-600"},
+                    {t: "3. Adapter", s: "To do", c: "bg-rose-50 text-rose-500"},
+                ].map((r) => (
+                    <div class="grid grid-cols-[1.5fr_1fr_0.9fr] items-center divide-x divide-neutral-200 border-b border-neutral-100 px-2 text-[9px] last:border-0">
+                        <span class="flex h-7 items-center font-medium text-neutral-700">{r.t}</span>
+                        <span class="flex h-7 items-center pl-1.5"><span class:list={["rounded-full px-1.5 py-0.5 text-[8px] font-medium", r.c]}>{r.s}</span></span>
+                        <span class="flex h-7 items-center pl-1.5 text-[8px] text-neutral-400">22/8</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )}
+
+    {kind === "ask" && (
+        <div class="flex h-full w-full flex-col justify-center gap-1.5">
+            <div class="self-end max-w-[80%] rounded-xl rounded-br-sm bg-neutral-100 px-2 py-1 text-[9px] text-neutral-700">
+                Why does glycolysis need ATP?
+            </div>
+            <div class="flex flex-col gap-1 self-start rounded-xl rounded-bl-sm bg-emerald-50 px-2 py-1.5 text-[9px] text-emerald-900">
+                <span>It traps glucose inside the cell so it commits to the pathway.</span>
+                <span class="flex w-fit items-center gap-1 rounded-full bg-emerald-100 px-1.5 py-0.5 text-[7px] font-medium text-emerald-600">
+                    <FileText size={8}/> Slide 12 <ExternalLink size={8}/>
+                </span>
+            </div>
+            <div class="mt-1 flex items-center justify-between rounded-full border border-neutral-200 bg-white px-2 py-1.5 shadow-sm">
+                <span class="flex items-center gap-1 text-[8px] text-neutral-400"><Paperclip size={9}/> Ask anything...</span>
+                <span class="flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-white"><Send size={8}/></span>
+            </div>
+        </div>
+    )}
+</div>
+
+<style>
+    .hero-mock {
+        width: 100%;
+        height: 100%;
+    }
+    .font-georgia { font-family: var(--font-georgia, georgia), serif; }
+</style>
