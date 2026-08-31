@@ -10,21 +10,22 @@ interface Props {
     image?: string;
     schema?: object;
     noindex?: boolean;
-    /** header CTA (Login/Register) fades in op scroll i.p.v. altijd zichtbaar */
     fadeHeaderCta?: boolean;
+    landing?: boolean
 }
 
 const {
     title,
     description = "Studo - study smarter, not harder!",
-    image = "/logo.svg",
+    image = "/og-image.png",
     schema,
     noindex = false,
     fadeHeaderCta = false,
+    landing= false,
 } = Astro.props;
 
 const siteName = "Studo";
-const fullTitle = title === siteName ? title : `${title} · ${siteName}`;
+const fullTitle = title === siteName ? title : landing ? title : `${title} · ${siteName}`;
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
 const ogImage = new URL(image, Astro.site ?? Astro.url).href;
 const siteUrl = (Astro.site ?? Astro.url).origin;
@@ -72,6 +73,10 @@ const jsonLd = schema ?? defaultSchema;
         <meta property="og:description" content={description}/>
         <meta property="og:url" content={canonical}/>
         <meta property="og:image" content={ogImage}/>
+        <meta property="og:image:secure_url" content={ogImage}/>
+        <meta property="og:image:type" content="image/png"/>
+        <meta property="og:image:width" content="1200"/>
+        <meta property="og:image:height" content="630"/>
         <meta property="og:image:alt" content={`${siteName} — ${title}`}/>
 
         {/* Twitter */}
@@ -79,6 +84,7 @@ const jsonLd = schema ?? defaultSchema;
         <meta name="twitter:title" content={fullTitle}/>
         <meta name="twitter:description" content={description}/>
         <meta name="twitter:image" content={ogImage}/>
+        <meta name="twitter:image:alt" content={`${siteName} — ${title}`}/>
 
         <link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/>
 

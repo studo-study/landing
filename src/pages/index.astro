@@ -9,19 +9,55 @@ import DemoFlow from "../components/pages/home/DemoFlow.astro";
 import SvenCapabilities from "../components/pages/home/SvenCapabilities.astro";
 
 const introWords = ["Built", "by", "and", "for", "students"];
+
+const site = "https://studo.study";
+
+const homeSchema = [
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "Studo",
+        url: site,
+        logo: `${site}/favicons/favicon-96x96.png`,
+        sameAs: ["https://linkedin.com/company/studo", "https://github.com/studo-study"],
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Studo",
+        url: site,
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "Studo",
+        applicationCategory: "EducationalApplication",
+        operatingSystem: "Web, iOS, Android",
+        description: "Studo turns your course material into a structured study system for planning, practising and finding what you still need to learn.",
+        url: site,
+        offers: {
+            "@type": "Offer",
+            price: "0",
+            priceCurrency: "EUR",
+            description: "Free plan with unlimited courses, planning and self-built study sets.",
+        },
+    },
+];
 ---
 
 <RootLayout
-    title="Your course, turned into a study system"
-    description="Upload your course material and Studo turns it into a structured study system for planning, practising and finding what you still need to learn."
-    fadeHeaderCta>
+        landing
+        title="Studo | Your all-in-one studyworkspace."
+        description="Upload your course material and Studo turns it into a structured study system for planning, practising and finding what you still need to learn."
+        schema={homeSchema}
+        fadeHeaderCta>
     <Hero hidden={true}/>
 
     <DemoFlow/>
 
 
     <section id="about"
-            class="w-full flex justify-center py-32 reveal-on-scroll">
+             class="w-full flex justify-center py-32 reveal-on-scroll">
         <Introduction/>
     </section>
 
@@ -30,7 +66,7 @@ const introWords = ["Built", "by", "and", "for", "students"];
         <p class="intro-words flex flex-row gap-2 text-5xl items-center font-medium">
             {introWords.map((word) => <span class="intro-word">{word}</span>)}
         </p>
-        <a href="/about" class="default-button intro-cta">
+        <a href="#about" class="default-button intro-cta">
             learn more about us
             <ArrowRight size={15}/>
         </a>
@@ -40,7 +76,8 @@ const introWords = ["Built", "by", "and", "for", "students"];
 
     <section class="w-full flex justify-center px-6 py-32 reveal-on-scroll">
         <div class="max-w-300 w-full flex flex-col items-center gap-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-medium gap-1">Study for free. <br>Upgrade when you want Sven to do more.</h2>
+            <h2 class="text-4xl md:text-5xl font-medium gap-1">Study for free. <br>Upgrade when you want Sven to do
+                more.</h2>
             <p class="text-lg text-neutral-500 max-w-150">Plan your courses, build sets and study for free. Upgrade to
                 Select only when you want Sven to generate for you.</p>
             <a href="/select" class="default-button">
@@ -55,7 +92,6 @@ const introWords = ["Built", "by", "and", "for", "students"];
             class="w-full flex justify-center px-6 py-32 scroll-mt-28 reveal-on-scroll">
         <Faq/>
     </section>
-
 
 
     <section class="w-full flex justify-center px-6 pb-32 reveal-on-scroll">
