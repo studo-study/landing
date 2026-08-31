@@ -1,8 +1,61 @@
 ---
 import RootLayout from "../../layouts/RootLayout.astro";
+import ScreenMock from "../../components/pages/home/sven-capabilities/ScreenMock.astro";
+import RevealScript from "../../components/layout/RevealScript.astro";
+import {ArrowRight, BookOpen, Layers, Users} from "@lucide/astro/icons/index";
+import {REGISTER_URL} from "../../consts";
+
+const benefits = [
+    {
+        icon: BookOpen,
+        title: "Shared course content",
+        desc: "Share a subject's material once and everyone in the group studies from the same Core."
+    },
+    {
+        icon: Layers,
+        title: "Shared Studosets",
+        desc: "Build sets together and reuse each other's work instead of starting from scratch."
+    },
+    {
+        icon: Users,
+        title: "Up to 4 members",
+        desc: "One Group plan covers up to four students. Your personal Flow progress always stays private."
+    },
+];
 ---
+
 <RootLayout
-    title="Groups"
-    description="Share courses and study sets with your group on Studo."
-    noindex
-></RootLayout>
+        title="Groups"
+        description="Share course material and study sets with your group on Studo. One plan for up to four members. Personal progress stays private.">
+    <div class="flex flex-col gap-5 items-center justify-center">
+        <section class="max-w-200 w-full flex flex-col justify-center pt-36 reveal-on-scroll gap-5 mb-20">
+            <span class="text-xs uppercase tracking-wider text-neutral-500 font-medium">Groups</span>
+            <h1 class="text-5xl md:text-6xl font-medium ">Study together, stay in sync</h1>
+            <p class="text-lg text-neutral-500 ">Share courses and sets with your group so nobody
+                repeats the same prep. Shared content is visible to the group; your personal progress stays
+                yours.</p>
+            <ScreenMock kind="library" class="reveal-on-scroll mt-4"/>
+        </section>
+
+        <section class="max-w-200 w-full flex flex-col justify-center reveal-on-scroll gap-5 mb-10">
+            <h2 class="text-3xl md:text-4xl font-medium reveal-on-scroll flex flex-col"><span class="text-2xl md:text-3xl mb-2">Shared where it helps,</span>private
+                where it counts</h2>
+            <div class="flex flex-col gap-6 w-full">
+                {benefits.map((b) => {
+                    const Icon = b.icon;
+                    return (
+                            <div class="reveal-on-scroll rounded-4xl border border-neutral-200 p-8 flex items-start gap-5">
+                                    <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-emerald-50 text-emerald-500"><Icon
+                                            size={22}/></span>
+                                <div class="flex flex-col gap-2">
+                                    <span class="text-xl font-medium">{b.title}</span>
+                                    <p class="text-neutral-500">{b.desc}</p>
+                                </div>
+                            </div>
+                    );
+                })}
+            </div>
+        </section>
+        <RevealScript/>
+    </div>
+</RootLayout>

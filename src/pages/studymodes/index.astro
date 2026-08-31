@@ -1,8 +1,59 @@
 ---
 import RootLayout from "../../layouts/RootLayout.astro";
+import ScreenMock from "../../components/pages/home/sven-capabilities/ScreenMock.astro";
+import RevealScript from "../../components/layout/RevealScript.astro";
+import { ArrowRight } from "@lucide/astro/icons/index";
+import { REGISTER_URL } from "../../consts";
+
+const modes = [
+    { name: "Learn", img: "/images/learn.svg", desc: "Spaced repetition with FSRS. Studo schedules each card so you review right before you'd forget." },
+    { name: "Speedy", img: "/images/speedy.svg", desc: "Fast, timed drills to rehearse a set under pressure and spot what's still shaky." },
+    { name: "Classic", img: "/images/flashcards.svg", desc: "Plain flip cards: term on one side, answer on the other. Simple and distraction-free." },
+    { name: "Pin", img: "/images/pin.svg", desc: "Drop pins on an image and label them. Perfect for anatomy, maps and diagrams." },
+    { name: "Point", img: "/images/point.svg", desc: "Studo names a concept, you point it out on the image. Recognition, the other way around." },
+];
 ---
+
 <RootLayout
     title="Study Modes"
-    description="Learn, Speedy, Classic, Pin and Point — every way to study your sets on Studo."
-    noindex
-></RootLayout>
+    description="Learn, Speedy, Classic, Pin and Point: five ways to study your sets on Studo, from spaced repetition to image-based recall.">
+    <section class="w-full flex justify-center px-6 pt-36 pb-28">
+        <div class="max-w-4xl w-full flex flex-col items-center gap-10 text-center">
+            <div class="flex flex-col items-center gap-6 reveal-on-scroll">
+                <span class="text-xs uppercase tracking-wider text-neutral-500 font-medium">Study modes</span>
+                <h1 class="text-5xl md:text-6xl font-medium max-w-2xl">Every way to study, in one place</h1>
+                <p class="text-lg text-neutral-500 max-w-xl">Pick the mode that fits the material. Studo tracks your progress across all of them so you always know what to review next.</p>
+                <div class="flex flex-row gap-3 items-center mt-2">
+                    <a href={REGISTER_URL} class="filled-button h-12">Start for free</a>
+                    <a href="/pricing" class="default-button h-12">See pricing <ArrowRight size={15}/></a>
+                </div>
+            </div>
+            <ScreenMock kind="setmodes" class="reveal-on-scroll max-w-2xl mt-4"/>
+        </div>
+    </section>
+
+    <section class="w-full flex justify-center px-6 py-24">
+        <div class="max-w-4xl w-full flex flex-col items-center gap-14">
+            <h2 class="text-3xl md:text-4xl font-medium text-center reveal-on-scroll">Five modes, one progress bar</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                {modes.map((m) => (
+                    <div class="reveal-on-scroll rounded-4xl border border-neutral-200 p-8 flex flex-col gap-4 hover:shadow-lg transition-shadow duration-300">
+                        <img src={m.img} alt={`${m.name} study mode`} class="h-20 self-start" loading="lazy"/>
+                        <span class="text-2xl font-medium">{m.name}</span>
+                        <p class="text-neutral-500">{m.desc}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+    </section>
+
+    <section class="w-full flex justify-center px-6 pt-8 pb-32">
+        <div class="max-w-300 w-full rounded-4xl border border-neutral-200 bg-emerald-900 text-white flex flex-col items-center text-center py-14 px-6 reveal-on-scroll">
+            <img src="/images/speedy.svg" alt="" class="h-32 mb-6"/>
+            <h2 class="text-4xl font-medium mb-3">Find your study mode</h2>
+            <p class="text-white/60 mb-6 max-w-md">Start free and try all five on your own sets. No card needed.</p>
+            <a href={REGISTER_URL} class="filled-button">Start for free <ArrowRight size={15}/></a>
+        </div>
+    </section>
+    <RevealScript/>
+</RootLayout>

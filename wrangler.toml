@@ -1,0 +1,8 @@
+# Static-assets deployment for the Astro build (no Worker script).
+# `wrangler deploy` serves the ./dist output directly.
+name = "studo-website"
+compatibility_date = "2025-08-31"
+
+[assets]
+directory = "./dist"
+not_found_handling = "404-page"

@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // Routes that are noindex (empty/unfinished or error pages) must not appear in
 // the sitemap. Keep this list in sync with pages that pass `noindex`.
-const NOINDEX_PATHS = ['/contact', '/courses', '/groups', '/help-centre', '/info', '/studymodes', '/404'];
+const NOINDEX_PATHS = ['/contact', '/help-centre', '/info', '/404'];
 
 // https://astro.build/config
 export default defineConfig({

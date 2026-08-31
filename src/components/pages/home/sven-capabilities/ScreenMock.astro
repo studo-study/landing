@@ -1,0 +1,148 @@
+---
+// Faithful light-mode rebuilds of one prominent element from each product
+// screenshot in /public/screenshots. Same idiom as SvenVisual: the element
+// floats on white, no window chrome. Kinds: documents, setmodes, library, flow.
+import {
+    Copy, CornerDownRight, GalleryVerticalEnd, GraduationCap,
+    Heart, LoaderCircle, PenLine, RotateCw, Shuffle, TrendingUp,
+    WandSparkles, X, Zap,
+} from "@lucide/astro/icons/index";
+
+interface Props { kind: string; class?: string }
+const { kind, class: className } = Astro.props;
+---
+
+<div class:list={["mock text-neutral-700 text-[13px] w-full flex justify-center", className]}>
+    {kind === "documents" && (
+        <div class="flex flex-col items-center gap-8">
+            <div class="w-52 rounded-2xl border border-neutral-200 bg-white p-3 shadow-lg">
+                <div class="relative aspect-3/4 overflow-hidden rounded-lg border border-neutral-100 bg-neutral-50">
+                    <img src="/animation_assets/pdf_thumbnail.png" alt="" class="h-full w-full object-cover object-top opacity-90"/>
+                    <span class="absolute bottom-2 left-2 flex items-center gap-1 rounded-full bg-white px-2 py-1 text-[10px] font-medium text-neutral-500 shadow">
+                        <LoaderCircle size={10} class="animate-spin"/> processing
+                    </span>
+                </div>
+                <div class="mt-2 px-1">
+                    <div class="text-sm font-semibold text-neutral-800">Jonas Slenders CV.pdf</div>
+                    <div class="text-xs text-neutral-400">16-8-2026</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 rounded-full border border-neutral-200 bg-white p-1.5 pl-3 text-xs shadow-lg">
+                <div class="flex items-center gap-2 border-r border-neutral-200 pr-3">
+                    <LoaderCircle size={14} class="animate-spin text-neutral-500"/>
+                    <span class="text-neutral-700">Jonas Slenders CV.pdf</span>
+                    <span class="text-neutral-400">1 / 1</span>
+                </div>
+                <span class="rounded-full border border-neutral-200 px-3 py-1.5 font-medium text-neutral-600">Stop processing</span>
+            </div>
+        </div>
+    )}
+
+    {kind === "setmodes" && (
+        /* chat-example.png - the set's study-mode picker + progress row. */
+        <div class="w-full max-w-sm flex flex-col gap-4">
+            <div>
+                <span class="text-[11px] text-neutral-400">Made by <span class="rounded bg-blue-100 px-1.5 py-0.5 text-blue-600 font-medium">@Paul A.Lian</span></span>
+                <div class="mt-1.5 text-xl font-bold text-neutral-900">Data Structures</div>
+                <div class="mt-1 flex items-center gap-1 text-[11px] text-rose-500"><Heart size={11} class="fill-rose-500"/> 1 like</div>
+            </div>
+            <div class="flex flex-col gap-2">
+                {[
+                    {t: "Learn", s: "Study in depth", i: PenLine, c: "bg-emerald-500"},
+                    {t: "Speedy", s: "Race the clock", i: Zap, c: "bg-amber-500"},
+                    {t: "Flashcards", s: "Quickly review", i: Copy, c: "bg-blue-500"},
+                ].map((m) => {
+                    const Icon = m.i;
+                    return (
+                        <div class="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3 py-2.5 shadow-sm">
+                            <span class:list={["flex h-9 w-9 items-center justify-center rounded-full text-white shrink-0", m.c]}><Icon size={16}/></span>
+                            <div class="min-w-0">
+                                <div class="text-sm font-semibold text-neutral-800">{m.t}</div>
+                                <div class="truncate text-[11px] text-neutral-400">{m.s}</div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </div>
+            <div class="flex items-center gap-3 pt-1">
+                <div class="h-1.5 flex-1 rounded-full bg-neutral-200 overflow-hidden"><div class="h-full w-1/2 rounded-full bg-emerald-500"></div></div>
+                <span class="flex items-center gap-2 text-neutral-400"><Shuffle size={14}/><RotateCw size={14}/><TrendingUp size={14}/></span>
+            </div>
+        </div>
+    )}
+
+    {kind === "library" && (
+        /* sets-overview.png - the "Your library" sets list. */
+        <div class="w-full max-w-sm flex flex-col gap-3">
+            <div class="font-georgia text-xl font-bold text-neutral-900">Your library</div>
+            <div class="flex gap-5 border-b border-neutral-200 pb-2 text-[13px]">
+                <span class="font-medium text-neutral-400">Subjects</span>
+                <span class="-mb-[9px] border-b-2 border-blue-500 pb-2 font-semibold text-neutral-900">Sets</span>
+            </div>
+            {[
+                {t: "Data Structures", d: "15/8/2024", i: GraduationCap, ic: "text-neutral-500", a: "PA", c: "bg-blue-500"},
+                {t: "English - Dutch Vocabulary", d: "1/10/2024", i: Copy, ic: "text-amber-500", a: "SA", c: "bg-emerald-500"},
+                {t: "Cell Biology Basics", d: "15/8/2026", i: Heart, ic: "text-rose-500", a: "SA", c: "bg-emerald-500"},
+            ].map((s) => {
+                const Icon = s.i;
+                return (
+                    <div class="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white p-2 shadow-sm">
+                        <span class:list={["flex h-11 w-11 items-center justify-center rounded-lg bg-neutral-100", s.ic]}><Icon size={20}/></span>
+                        <div class="min-w-0 flex-1">
+                            <div class="truncate text-sm font-semibold text-neutral-800">{s.t}</div>
+                            <div class="flex items-center gap-1 text-[11px] text-neutral-400"><GalleryVerticalEnd size={10}/> {s.d}</div>
+                        </div>
+                        <span class:list={["flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-semibold text-white", s.c]}>{s.a}</span>
+                        <span class="px-1 text-neutral-400">···</span>
+                    </div>
+                );
+            })}
+        </div>
+    )}
+
+    {kind === "flow" && (
+        /* flow-example.png - the Flow task table (with a Sven suggestion row). */
+        <div class="w-full max-w-lg">
+            <div class="mb-4">
+                <div class="text-lg font-bold text-neutral-900">ASD II</div>
+                <div class="text-[13px] text-neutral-400">Add a description...</div>
+            </div>
+            <div class="rounded-xl border border-neutral-200 bg-white shadow-sm overflow-hidden">
+                <div class="grid grid-cols-[1.6fr_1fr_1fr] divide-x divide-neutral-200 border-b border-neutral-200 bg-neutral-50 px-4 h-10 text-[11px] font-semibold text-neutral-400">
+                    <span class="h-full flex items-center">Title</span>
+                    <span class="h-full flex items-center pl-2">Status</span>
+                    <span class="h-full flex items-center pl-2">Due date</span>
+                </div>
+                {[
+                    {t: "Factory", s: "Done", c: "bg-emerald-50 text-emerald-600"},
+                    {t: "Singleton", s: "In progress", c: "bg-amber-50 text-amber-600"},
+                    {t: "Adapter", s: "To do", c: "bg-rose-50 text-rose-500", sv: true},
+                ].map((r) => (
+                    r.sv ? (
+                        <div class="grid grid-cols-[1.6fr_1fr_1fr] divide-x divide-neutral-200 items-center border-b border-neutral-100 px-4 h-11 text-[12px] last:border-0">
+                            <div class="h-full flex items-center pr-2">
+                                <span class="relative flex w-full items-center justify-between gap-2 rounded-lg rounded-br-none border-2 border-indigo-500 bg-indigo-50 pl-3 pr-2 py-1 text-indigo-500">
+                                    <span class="flex items-center gap-1.5"><WandSparkles size={12}/> <span class="animate-pulse font-medium">{r.t}</span></span>
+                                    <span class="flex items-center gap-1 rounded-md bg-indigo-100 px-1.5 py-0.5 text-[8px] font-semibold"><CornerDownRight size={9}/> tab to accept <X size={9}/></span>
+                                    <span class="absolute -bottom-1 -right-1 h-2 w-2 rounded-full bg-indigo-500"></span>
+                                </span>
+                            </div>
+                            <div class="h-full flex items-center pl-2"><span class:list={["rounded-full px-2 py-0.5 text-[11px] font-medium", r.c]}>{r.s}</span></div>
+                            <div class="h-full flex items-center pl-2 text-neutral-400">22/8/2026</div>
+                        </div>
+                    ) : (
+                        <div class="grid grid-cols-[1.6fr_1fr_1fr] divide-x divide-neutral-200 items-center border-b border-neutral-100 px-4 h-11 text-[12px] last:border-0">
+                            <span class="h-full flex items-center font-medium text-neutral-700">{r.t}</span>
+                            <div class="h-full flex items-center pl-2"><span class:list={["rounded-full px-2 py-0.5 text-[11px] font-medium", r.c]}>{r.s}</span></div>
+                            <div class="h-full flex items-center pl-2 text-neutral-400">22/8/2026</div>
+                        </div>
+                    )
+                ))}
+            </div>
+        </div>
+    )}
+</div>
+
+<style>
+    .font-georgia { font-family: var(--font-georgia, georgia), serif; }
+</style>
