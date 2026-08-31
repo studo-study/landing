@@ -15,11 +15,32 @@ const selectIncludes = [
     "Summaries and mock exams on demand",
     "Share subjects with a group",
 ];
+
+const site = "https://studo.study";
+// Real Studo Select price range (Individual €9.99/mo–€79.99/yr, Group
+// €34.99/mo–€359.99/yr) exposed as an AggregateOffer for pricing rich results.
+const pricingSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: "Studo Select",
+    description: "AI-powered study tools for your courses: Sven generation, summaries, mock exams and group sharing.",
+    brand: { "@type": "Organization", name: "Studo" },
+    url: `${site}/pricing`,
+    offers: {
+        "@type": "AggregateOffer",
+        priceCurrency: "EUR",
+        lowPrice: "9.99",
+        highPrice: "359.99",
+        offerCount: 4,
+        availability: "https://schema.org/InStock",
+    },
+};
 ---
 
 <RootLayout
     title="Studo Select"
-    description="AI-powered study tools for your courses. Individual, Group and Institution plans for Sven generation and sharing.">
+    description="AI-powered study tools for your courses. Individual, Group and Institution plans for Sven generation and sharing."
+    schema={pricingSchema}>
     <section id="plans" class=" flex h-screen w-screen justify-center items-center px-6 pb-40 scroll-mt-24">
         <Select/>
     </section>

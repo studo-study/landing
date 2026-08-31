@@ -1,4 +1,9 @@
 ---
-
-import RootLayout from "../../layouts/RootLayout.astro";---
-<RootLayout title="privacy"></RootLayout>
+import MarkdownPage from "../../layouts/MarkdownPage.astro";
+import body from "../../content/privacy.md?raw";
+---
+<MarkdownPage
+    title="Privacy Notice"
+    description="How Studo collects, uses, and protects your personal data."
+    body={body}
+/>

@@ -1,5 +1,22 @@
 ---
 import Logo from "../icons/Logo.astro";
+const string = "lzhksn:bgzqkdr.cdfqzdtvd@hbkntc.bnl";
+
+function shiftString(str: string) {
+    let result = '';
+    for (let i = 0; i < str.length; i++) {
+        let c = str[i];
+        let code = str.charCodeAt(i);
+        if (c >= 'a' && c <= 'z') {
+            result += String.fromCharCode(((code - 97 + 1) % 26) + 97);
+        } else if (c >= 'A' && c <= 'Z') {
+            result += String.fromCharCode(((code - 65 + 1) % 26) + 65);
+        } else {
+            result += c;
+        }
+    }
+    return result;
+}
 
 const year = new Date().getFullYear();
 const PAGES = [
@@ -8,20 +25,20 @@ const PAGES = [
         options: [
             {
                 title: "Overview",
-                href: "/"
+                href: "/#top"
             },
             {
                 title: "About",
-                href: "/about"
+                href: "/#about"
+            },
+            {
+                title: "FAQ",
+                href: "/#faq"
             },
             {
                 title: "Pricing",
                 href: "/select"
             },
-            {
-                title: "FAQ",
-                href: "/#faq"
-            }
         ]
     },
     {
@@ -33,7 +50,7 @@ const PAGES = [
             },
             {
                 title: "Contact",
-                href: "/contact"
+                href: shiftString(string),
             }
         ]
     },
@@ -48,10 +65,6 @@ const PAGES = [
                 title: "Privacy notice",
                 href: "/privacy"
             },
-            {
-                title: "GDPR",
-                href: "/gdpr"
-            }
         ]
     },
     {
@@ -100,7 +113,7 @@ const PAGES = [
             </div>
         </div>
         <div class="w-full h-fit flex flex-row justify-between items-center text-xs opacity-50">
-            <span>© {year} Charles Degraeuwe</span>
+            <span>© {year} Charles Degraeuwe - VAT BE.1031.978.347</span>
             <span>source: <a href="https://charlesdegraeuwe.com" class="underline">charles degraeuwe</a></span>
         </div>
     </div>

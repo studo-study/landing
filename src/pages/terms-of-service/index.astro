@@ -1,4 +1,9 @@
 ---
-import RootLayout from "../../layouts/RootLayout.astro";
+import MarkdownPage from "../../layouts/MarkdownPage.astro";
+import body from "../../content/tos.md?raw";
 ---
-<RootLayout title="terms of service"></RootLayout>
+<MarkdownPage
+    title="Terms of Service"
+    description="The terms that govern your use of Studo."
+    body={body}
+/>

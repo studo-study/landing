@@ -247,16 +247,31 @@ html, .scroll-hidden {
     line-height: 1.7;
     max-width: 65ch;
 }
+.prose h1 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin: 0 0 1rem;
+    letter-spacing: -0.02em;
+    color: var(--color-neutral-900, #171717);
+}
+.prose h1 + p em,
+.prose > p:first-of-type em {
+    color: var(--color-neutral-400, #a3a3a3);
+    font-style: normal;
+    font-size: 0.9rem;
+}
 .prose h2 {
     font-size: 1.75rem;
     font-weight: 500;
     margin: 2.5rem 0 0.75rem;
     letter-spacing: -0.01em;
+    color: var(--color-neutral-600, #525252);
 }
 .prose h3 {
     font-size: 1.25rem;
     font-weight: 500;
     margin: 1.75rem 0 0.5rem;
+    color: var(--color-neutral-600, #525252);
 }
 .prose p {
     margin: 0.85rem 0;
