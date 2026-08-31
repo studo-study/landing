@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# pnpm (single-package repo, no workspace file)
+pnpm-workspace.yaml
