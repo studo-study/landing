@@ -1,0 +1,20 @@
+---
+// Shared scroll-reveal: fades `.reveal-on-scroll` elements in when they enter
+// the viewport. Rebinds on every Astro view-transition swap. Include once on any
+// page that uses `.reveal-on-scroll` (the home page has its own copy inline).
+---
+<script>
+    let io: IntersectionObserver | null = null;
+    const init = () => {
+        io?.disconnect();
+        const reveals = document.querySelectorAll(".reveal-on-scroll");
+        if (!reveals.length) return;
+        io = new IntersectionObserver(
+            (entries) => entries.forEach((e) => e.target.classList.toggle("is-in", e.isIntersecting)),
+            { threshold: 0.15 },
+        );
+        reveals.forEach((el) => io!.observe(el));
+    };
+    init();
+    document.addEventListener("astro:page-load", init);
+</script>

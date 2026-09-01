@@ -22,7 +22,7 @@ Minors may only create an account with the consent of a parent or legal guardian
 
 ### 4.1 Creating an account
 
-To create an account we ask for your name, email address, and a hashed password. If you sign up via Google or Microsoft, we only collect your name, email address, and optionally your profile picture. A phone number is optional and is used to identify you and to send you updates.
+To create an account we ask for your name, email address and a hashed password. If you sign up via Google or Microsoft, we only collect your name, email address and optionally your profile picture. A phone number is optional and is used to identify you and to send you updates.
 
 ### 4.2 Security
 
@@ -62,7 +62,7 @@ If you suspect that copyright-protected material has been uploaded without permi
 
 ### 6.1 Ownership
 
-AI-generated Studosets, summaries, and tasks are the property of Studo.
+AI-generated Studosets, summaries and tasks are the property of Studo.
 
 ### 6.2 No guarantee of accuracy
 
@@ -79,7 +79,7 @@ A disclaimer regarding this is displayed beneath the chat feature. If incorrect 
 - Unlimited courses and Cores
 - Flow planning and tracking
 - Build your own Studosets and Visualsets
-- Every study mode: Learn, Speedy, Classic, Pin, and Point
+- Every study mode: Learn, Speedy, Classic, Pin and Point
 
 ### 7.2 Studo Select
 
@@ -138,7 +138,7 @@ We may change or discontinue features of the Service without prior notice.
 
 ## 11. Studo's intellectual property
 
-The platform, brand name, design, and source code of Studo are the property of Charles Degraeuwe. Contact details can be found in the footer of the website.
+The platform, brand name, design and source code of Studo are the property of Charles Degraeuwe. Contact details can be found in the footer of the website.
 
 Use of the name "Studo" or its logo is not permitted without prior written consent.
 

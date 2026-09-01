@@ -2,7 +2,7 @@
 
 *Last updated on 31/08/2026*
 
-This Privacy Notice explains what personal data Studo collects, why we collect it, and what rights you have. This notice applies to both the web application and any mobile applications of Studo (together, the "Service").
+This Privacy Notice explains what personal data Studo collects, why we collect it and what rights you have. This notice applies to both the web application and any mobile applications of Studo (together, the "Service").
 
 ## 1. Who is responsible for your data
 
@@ -17,20 +17,20 @@ For questions about this notice or to exercise your rights, you can contact us a
 - Name
 - Email address
 - Hashed password (for email registration)
-- If you sign up via Google or Microsoft: your name, email address, and optionally your profile picture
+- If you sign up via Google or Microsoft: your name, email address and optionally your profile picture
 - Phone number (optional, only if you provide it yourself)
 
 ### 2.2 Course material and content
 
-Files and documents you upload (such as PDFs and notes), and content you create within the Service (such as Studosets, tasks, and study plans).
+Files and documents you upload (such as PDFs and notes), and content you create within the Service (such as Studosets, tasks and study plans).
 
 ### 2.3 Usage data
 
-Data about how you use the Service, such as your study progress, viewed content, and interactions with AI features.
+Data about how you use the Service, such as your study progress, viewed content and interactions with AI features.
 
 ### 2.4 Technical data
 
-IP address, device information, and cookie data (see Section 7).
+IP address, device information and cookie data (see Section 7).
 
 ## 3. Why we collect this data
 
@@ -75,7 +75,7 @@ Studo is accessible from age 16, or from the minimum age applicable under the da
 
 ## 9. Security
 
-We take appropriate technical and organizational measures to protect your data against unauthorized access, loss, or misuse. Passwords are stored in hashed form. If we become aware that your data has been leaked, we will notify you.
+We take appropriate technical and organizational measures to protect your data against unauthorized access, loss or misuse. Passwords are stored in hashed form. If we become aware that your data has been leaked, we will notify you.
 
 ## 10. Your rights
 

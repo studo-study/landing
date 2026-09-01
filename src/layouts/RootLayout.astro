@@ -77,14 +77,14 @@ const jsonLd = schema ?? defaultSchema;
         <meta property="og:image:type" content="image/png"/>
         <meta property="og:image:width" content="1200"/>
         <meta property="og:image:height" content="630"/>
-        <meta property="og:image:alt" content={`${siteName} — ${title}`}/>
+        <meta property="og:image:alt" content={`${siteName}: ${title}`}/>
 
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image"/>
         <meta name="twitter:title" content={fullTitle}/>
         <meta name="twitter:description" content={description}/>
         <meta name="twitter:image" content={ogImage}/>
-        <meta name="twitter:image:alt" content={`${siteName} — ${title}`}/>
+        <meta name="twitter:image:alt" content={`${siteName}: ${title}`}/>
 
         <link rel="sitemap" type="application/xml" href="/sitemap-index.xml"/>
 

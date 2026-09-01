@@ -81,7 +81,7 @@ import PdfFile from "./PdfFile.astro";
             return {x: r.left + r.width / 2 - crect.left, y: r.top + r.height / 2 - crect.top};
         };
 
-        // file start (canvas coords) — matches the cursor's resting spot (80%/78%)
+        // file start (canvas coords) - matches the cursor's resting spot (80%/78%)
         // so the cursor doesn't jump backwards on the first frames
         const start: Pt = {x: crect.width * 0.8, y: crect.height * 0.78};
         const target = centerOf(dropzone);
