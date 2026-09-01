@@ -3,8 +3,8 @@
 // screenshot in /public/screenshots. Same idiom as SvenVisual: the element
 // floats on white, no window chrome. Kinds: documents, setmodes, library, flow.
 import {
-    Copy, CornerDownRight, GalleryVerticalEnd, GraduationCap,
-    Heart, LoaderCircle, PenLine, RotateCw, Shuffle, TrendingUp,
+    Copy, CornerDownRight, CreditCard, GalleryVerticalEnd, GraduationCap,
+    Heart, LoaderCircle, Pencil, PenLine, RotateCw, Shuffle, TrendingUp,
     WandSparkles, X, Zap,
 } from "@lucide/astro/icons/index";
 
@@ -40,24 +40,24 @@ const { kind, class: className } = Astro.props;
 
     {kind === "setmodes" && (
         /* chat-example.png - the set's study-mode picker + progress row. */
-        <div class="w-full max-w-sm flex flex-col gap-4">
+        <div class="w-full max-w-300 flex flex-col gap-4">
             <div>
-                <span class="text-[11px] text-neutral-400">Made by <span class="rounded bg-blue-100 px-1.5 py-0.5 text-blue-600 font-medium">@Paul A.Lian</span></span>
-                <div class="mt-1.5 text-xl font-bold text-neutral-900">Data Structures</div>
+                <span class="text-[11px] flex items-center gap-1  w-full text-neutral-400">Made by <span class="rounded-4xl bg-blue-100 px-1.5 py-0.5 text-blue-600 font-medium">@Paul A.Lian</span></span>
+                <div class="mt-1.5 mb-3 text-xl font-bold text-start text-neutral-900">Data Structures</div>
                 <div class="mt-1 flex items-center gap-1 text-[11px] text-rose-500"><Heart size={11} class="fill-rose-500"/> 1 like</div>
             </div>
-            <div class="flex flex-col gap-2">
+            <div class="grid grid-cols-3 gap-2">
                 {[
-                    {t: "Learn", s: "Study in depth", i: PenLine, c: "bg-emerald-500"},
+                    {t: "Learn", s: "Study in depth", i: Pencil, c: "bg-emerald-500"},
                     {t: "Speedy", s: "Race the clock", i: Zap, c: "bg-amber-500"},
-                    {t: "Flashcards", s: "Quickly review", i: Copy, c: "bg-blue-500"},
+                    {t: "Flashcards", s: "Quickly review", i: CreditCard, c: "bg-blue-500"},
                 ].map((m) => {
                     const Icon = m.i;
                     return (
-                        <div class="flex items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-3 py-2.5 shadow-sm">
+                        <div class="flex items-center gap-3 rounded-full border border-neutral-200 bg-white px-3 py-2.5 shadow-sm">
                             <span class:list={["flex h-9 w-9 items-center justify-center rounded-full text-white shrink-0", m.c]}><Icon size={16}/></span>
-                            <div class="min-w-0">
-                                <div class="text-sm font-semibold text-neutral-800">{m.t}</div>
+                            <div class="min-w-0 flex flex-col">
+                                <div class="text-sm font-semibold text-start text-neutral-800">{m.t}</div>
                                 <div class="truncate text-[11px] text-neutral-400">{m.s}</div>
                             </div>
                         </div>

@@ -2,8 +2,7 @@
 import RootLayout from "../../layouts/RootLayout.astro";
 import ScreenMock from "../../components/pages/home/sven-capabilities/ScreenMock.astro";
 import RevealScript from "../../components/layout/RevealScript.astro";
-import { ArrowRight } from "@lucide/astro/icons/index";
-import { REGISTER_URL } from "../../consts";
+
 
 const modes = [
     { name: "Learn", img: "/images/learn.svg", desc: "Spaced repetition with FSRS. Studo schedules each card so you review right before you'd forget." },
@@ -23,10 +22,6 @@ const modes = [
                 <span class="text-xs uppercase tracking-wider text-neutral-500 font-medium">Study modes</span>
                 <h1 class="text-5xl md:text-6xl font-medium max-w-2xl">Every way to study, in one place</h1>
                 <p class="text-lg text-neutral-500 max-w-xl">Pick the mode that fits the material. Studo tracks your progress across all of them so you always know what to review next.</p>
-                <div class="flex flex-row gap-3 items-center mt-2">
-                    <a href={REGISTER_URL} class="filled-button h-12">Start for free</a>
-                    <a href="/pricing" class="default-button h-12">See pricing <ArrowRight size={15}/></a>
-                </div>
             </div>
             <ScreenMock kind="setmodes" class="reveal-on-scroll max-w-2xl mt-4"/>
         </div>
@@ -34,7 +29,7 @@ const modes = [
 
     <section class="w-full flex justify-center px-6 py-24">
         <div class="max-w-4xl w-full flex flex-col items-center gap-14">
-            <h2 class="text-3xl md:text-4xl font-medium text-center reveal-on-scroll">Five modes, one progress bar</h2>
+            <h2 class="text-3xl md:text-4xl font-medium w-full reveal-on-scroll">Five modes, one progress bar</h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                 {modes.map((m) => (
                     <div class="reveal-on-scroll rounded-4xl border border-neutral-200 p-8 flex flex-col gap-4 hover:shadow-lg transition-shadow duration-300">
@@ -47,13 +42,5 @@ const modes = [
         </div>
     </section>
 
-    <section class="w-full flex justify-center px-6 pt-8 pb-32">
-        <div class="max-w-300 w-full rounded-4xl border border-neutral-200 bg-emerald-900 text-white flex flex-col items-center text-center py-14 px-6 reveal-on-scroll">
-            <img src="/images/speedy.svg" alt="" class="h-32 mb-6"/>
-            <h2 class="text-4xl font-medium mb-3">Find your study mode</h2>
-            <p class="text-white/60 mb-6 max-w-md">Start free and try all five on your own sets. No card needed.</p>
-            <a href={REGISTER_URL} class="filled-button">Start for free <ArrowRight size={15}/></a>
-        </div>
-    </section>
     <RevealScript/>
 </RootLayout>
